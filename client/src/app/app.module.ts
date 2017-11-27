@@ -7,12 +7,14 @@ import { HeaderComponent } from './header/header.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCardModule, MatMenuModule, MatToolbarModule, MatIconModule, MatSidenavModule } from '@angular/material';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
