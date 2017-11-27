@@ -1,7 +1,7 @@
 <main mat-sidenav-container>
-  <app-header></app-header>
+  <app-header [sidenav]="sidenav"></app-header>
   <mat-sidenav #sidenav opened="true">
-    Jolly good!
-    </mat-sidenav>
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
   <section class="content"></section>
 </main>
