@@ -1,0 +1,22 @@
+main {
+  display: grid;
+  grid-template-columns: 300px 1fr 100px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header header header"
+    "aside content .";
+   min-height: 100vh;
+   width: 100vw;
+}
+
+app-header {
+  grid-area: header;
+}
+
+app-sidebar {
+  grid-area: aside;
+}
+
+main > .content {
+
+}
