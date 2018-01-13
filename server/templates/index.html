@@ -1,0 +1,16 @@
+{% load account %}
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>My Budget</title>
+<meta charset="utf-8">
+</head>
+<body>
+{% if user.is_authenticated %}
+<h1>Logged in</h1>
+<a href="/accounts/logout">Let me out!!!</a>
+{% else %}
+<a href="/accounts/login">Log in with Goo</a>
+{% endif %}
+</body>
+</html>
