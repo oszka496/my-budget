@@ -1,0 +1,39 @@
+{% load account %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>My Budget</title>
+    <meta charset="utf-8">
+    <script>
+        function getParams() {
+            let params = {};
+            const regex = /([^&=]+)=([^&]*)/g;
+            const queryString = location.hash.substring(1);
+            let match;
+            while (match = regex.exec(queryString)) {
+                params[decodeURIComponent(match[1])] = decodeURIComponent(match[2]);
+            }
+            return params;
+        }
+
+        let params = getParams();
+        console.log(params);
+
+        fetch('/api/auth/google/', {
+            body: JSON.stringify(params),
+            headers: {
+                'content-type': 'application/json',
+            },
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(response => {
+            window.opener.postMessage(response, 'http://localhost:4200');
+        })
+        .then(() => setTimeout(() => window.close(), 1000));
+    </script>
+</head>
+<body>
+Successfully signed in
+</body>
+</html>
