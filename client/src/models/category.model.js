@@ -1,8 +1,8 @@
 class CategoryModel {
-    constructor(name, id) {
-        this.name = name;
-        this.id = id;
-    }
+  constructor(name, id) {
+    this.name = name;
+    this.id = id;
+  }
 }
 
 export default CategoryModel;
