@@ -8,7 +8,7 @@ class CategoryList extends Component {
         const { categoriesIds, categories } = this.props;
         return (
             <ul className="category-list">
-                {categoriesIds.map(id => categories[id]).map(category => (<li>{category.name}</li>))}
+                {categoriesIds.map(id => categories[id]).map(category => (<li key={category.id}>{category.name}</li>))}
             </ul>
         )
     }
