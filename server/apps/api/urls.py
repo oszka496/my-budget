@@ -2,9 +2,10 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from rest_framework import routers
 
-from apps.api.views import GoogleLoginView, TagViewSet, UserViewSet
+from apps.api.views import GoogleLoginView, CategoryViewSet, TagViewSet, UserViewSet
 
 router = routers.DefaultRouter()
+router.register(r'categories', CategoryViewSet)
 router.register(r'tags', TagViewSet)
 router.register(r'users', UserViewSet)
 
