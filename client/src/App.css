@@ -1,0 +1,44 @@
+.App {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 300px 1fr 100px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "header header header"
+    "aside content .";
+}
+
+.App-logo {
+  height: 50px;
+}
+
+.App-header {
+  grid-area: header;
+  background-color: #222;
+  padding: 20px;
+  color: white;
+}
+
+.App-header h1 {
+  display: inline-block;
+  padding-left: 10px;
+}
+
+.App a {
+  color: #222;
+  display: table;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.App-sidebar {
+    grid-area: aside;
+    background-color: #F5F5F5;
+    padding: 20px;
+}
