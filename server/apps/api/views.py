@@ -1,5 +1,5 @@
-from django.contrib.auth.models import User
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from django.contrib.auth.models import User
 from rest_auth.registration.views import SocialLoginView
 from rest_framework import viewsets
 

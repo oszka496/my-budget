@@ -1,8 +1,8 @@
-from django.urls import path, include
+from django.urls import include, path
 from django.views.generic import TemplateView
 from rest_framework import routers
 
-from apps.api.views import GoogleLoginView, CategoryViewSet, TagViewSet, UserViewSet
+from apps.api.views import CategoryViewSet, GoogleLoginView, TagViewSet, UserViewSet
 
 router = routers.DefaultRouter()
 router.register(r'categories', CategoryViewSet)
