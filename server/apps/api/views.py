@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from rest_auth.registration.views import SocialLoginView
 from rest_framework import viewsets
 
-from apps.api.serializers import CategorySerializer, TagSerializer, UserSerializer
-from apps.core.models import Category, Tag
+from apps.api.serializers import DefaultCategorySerializer, TransactionSerializer, UserSerializer
+from apps.core.models import DefaultCategory, Transaction
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -12,14 +12,14 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
-    serializer_class = CategorySerializer
-    queryset = Category.objects.all()
+class TransactionViewSet(viewsets.ModelViewSet):
+    serializer_class = TransactionSerializer
+    queryset = Transaction.objects.all()
 
 
-class TagViewSet(viewsets.ModelViewSet):
-    serializer_class = TagSerializer
-    queryset = Tag.objects.all()
+class DefaultCategoryViewSet(viewsets.ModelViewSet):
+    serializer_class = DefaultCategorySerializer
+    queryset = DefaultCategory.objects.all()
 
 
 class GoogleLoginView(SocialLoginView):
