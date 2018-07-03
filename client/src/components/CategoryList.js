@@ -24,10 +24,13 @@ class CategoryList extends Component {
 
     fetch(API)
       .then(response => response.json())
-      .then((data) => {
+      .then(data => {
         const categories = data.reduce(
-          (obj, entry) => ({ ...obj, [entry.id]: new CategoryModel(entry.name, entry.id) }),
-          {},
+          (obj, entry) => ({
+            ...obj,
+            [entry.id]: new CategoryModel(entry.name, entry.id),
+          }),
+          {}
         );
         fetchCategories(categories);
       });
@@ -37,11 +40,9 @@ class CategoryList extends Component {
     const { categoriesIds, categories } = this.props;
     return (
       <ul className="category-list">
-        {categoriesIds.map(id => categories[id]).map(category => (
-          <li key={category.id}>
-            {category.name}
-          </li>
-        ))}
+        {categoriesIds
+          .map(id => categories[id])
+          .map(category => <li key={category.id}>{category.name}</li>)}
       </ul>
     );
   }
@@ -55,4 +56,7 @@ CategoryList.propTypes = {
   fetchCategories: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CategoryList);
