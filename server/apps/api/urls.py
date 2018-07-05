@@ -2,10 +2,10 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 from rest_framework import routers
 
-from apps.api.views import DefaultCategoryViewSet, GoogleLoginView, TransactionViewSet, UserViewSet
+from apps.api.views import CategoryViewSet, GoogleLoginView, TransactionViewSet, UserViewSet
 
 router = routers.DefaultRouter()
-router.register(r'categories', DefaultCategoryViewSet)
+router.register(r'categories', CategoryViewSet)
 router.register(r'transactions', TransactionViewSet)
 router.register(r'users', UserViewSet)
 

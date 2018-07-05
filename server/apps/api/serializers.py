@@ -1,7 +1,6 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from apps.core.models import DefaultCategory, Transaction
+from apps.core.models import Category, Transaction, User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -16,7 +15,7 @@ class TransactionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class DefaultCategorySerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = DefaultCategory
+        model = Category
         fields = '__all__'

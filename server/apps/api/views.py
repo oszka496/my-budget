@@ -1,10 +1,9 @@
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from django.contrib.auth.models import User
 from rest_auth.registration.views import SocialLoginView
 from rest_framework import viewsets
 
-from apps.api.serializers import DefaultCategorySerializer, TransactionSerializer, UserSerializer
-from apps.core.models import DefaultCategory, Transaction
+from apps.api.serializers import CategorySerializer, TransactionSerializer, UserSerializer
+from apps.core.models import Category, Transaction, User
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -17,9 +16,9 @@ class TransactionViewSet(viewsets.ModelViewSet):
     queryset = Transaction.objects.all()
 
 
-class DefaultCategoryViewSet(viewsets.ModelViewSet):
-    serializer_class = DefaultCategorySerializer
-    queryset = DefaultCategory.objects.all()
+class CategoryViewSet(viewsets.ModelViewSet):
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
 
 
 class GoogleLoginView(SocialLoginView):
