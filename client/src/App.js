@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { Grid } from 'react-bootstrap';
 import Header from './components/Header';
-import Sidebar from './components/Sidebar';
 import CategoryLayout from './components/CategoryLayout';
 import Home from './components/Home';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <Fragment>
         <Header />
-        <Sidebar />
-        <Route exact path="/" component={Home} />
-        <Route path="/categories" component={CategoryLayout} />
-      </div>
+        <Grid className="App">
+          <Route exact path="/" component={Home} />
+          <Route path="/categories" component={CategoryLayout} />
+        </Grid>
+      </Fragment>
     </BrowserRouter>
   );
 }
