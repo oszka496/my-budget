@@ -21,7 +21,7 @@ function mapDispatchToProps(dispatch) {
 class CategoryList extends Component {
   componentDidMount() {
     const { fetchCategories } = this.props;
-    const API = 'https://jsonplaceholder.typicode.com/comments/';
+    const API = 'http://localhost:8000/api/categories/';
 
     fetch(API)
       .then(response => response.json())

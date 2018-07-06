@@ -1,0 +1,17 @@
+[
+  {"name": "Incomes", "is_income": true},
+  {"name": "Bank charges", "is_income": false},
+  {"name": "Car", "is_income": false},
+  {"name": "Childcare", "is_income": false},
+  {"name": "Clothing", "is_income": false},
+  {"name": "Education", "is_income": false},
+  {"name": "Events", "is_income": false},
+  {"name": "Food", "is_income": false},
+  {"name": "Gifts", "is_income": false},
+  {"name": "Healthcare", "is_income": false},
+  {"name": "Hobbies", "is_income": false},
+  {"name": "Household", "is_income": false},
+  {"name": "Pet care", "is_income": false},
+  {"name": "Utilities", "is_income": false},
+  {"name": "Vacation", "is_income": false}
+]
