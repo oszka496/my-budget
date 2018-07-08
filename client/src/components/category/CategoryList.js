@@ -6,6 +6,7 @@ import { selectCategoriesAll } from '../../store/selectors';
 import CategoryItem from './CategoryItem';
 import { listOf, withDataFrom } from '../../hocs/index';
 import CategoryModel from '../../models/category.model';
+import api from '../../api';
 
 function mapStateToProps(state) {
   return {
@@ -19,7 +20,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const API = 'http://localhost:8000/api/categories/';
+const API = api.category.list();
 const CategoryList = withDataFrom(API)(listOf(ListGroup, CategoryItem));
 
 CategoryList.propTypes = {
