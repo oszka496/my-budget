@@ -1,62 +1,30 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import { fetchCategoriesAction } from '../store/actions';
+import { arrayOf, func, shape } from 'prop-types';
+import { ListGroup } from 'react-bootstrap';
+import { categoriesFetched } from '../store/actions';
+import { selectCategoriesAll } from '../store/selectors';
+import CategoryItem from './CategoryItem';
+import { listOf, withDataFrom } from '../hocs';
 import CategoryModel from '../models/category.model';
 
 function mapStateToProps(state) {
   return {
-    categoriesIds: state.categories.ids,
-    categories: state.categories.entities,
+    items: selectCategoriesAll(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchCategories: categories => dispatch(fetchCategoriesAction(categories)),
+    onDataFetched: categories => dispatch(categoriesFetched(categories)),
   };
 }
 
-class CategoryList extends Component {
-  componentDidMount() {
-    const { fetchCategories } = this.props;
-    const API = 'http://localhost:8000/api/categories/';
-
-    fetch(API)
-      .then(response => response.json())
-      .then(data => {
-        const categories = data.reduce(
-          (obj, entry) => ({
-            ...obj,
-            [entry.id]: new CategoryModel(entry.name, entry.id),
-          }),
-          {}
-        );
-        fetchCategories(categories);
-      });
-  }
-
-  render() {
-    const { categoriesIds, categories } = this.props;
-    return (
-      <ListGroup>
-        {categoriesIds
-          .map(id => categories[id])
-          .map(category => (
-            <ListGroupItem key={category.id}>{category.name}</ListGroupItem>
-          ))}
-      </ListGroup>
-    );
-  }
-}
+const API = 'http://localhost:8000/api/categories/';
+const CategoryList = withDataFrom(API)(listOf(ListGroup, CategoryItem));
 
 CategoryList.propTypes = {
-  categories: PropTypes.shape({
-    id: PropTypes.shape(CategoryModel),
-  }).isRequired,
-  categoriesIds: PropTypes.arrayOf(PropTypes.string).isRequired,
-  fetchCategories: PropTypes.func.isRequired,
+  onDataFetched: func.isRequired,
+  items: arrayOf(shape(CategoryModel)).isRequired,
 };
 
 export default connect(
