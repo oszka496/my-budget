@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
-import Header from './components/Header';
-import CategoryLayout from './components/CategoryLayout';
+import Header from './components/core/Header';
+import CategoryLayout from './components/category/CategoryLayout';
 import Home from './components/Home';
 
 function App() {
