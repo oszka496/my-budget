@@ -3,9 +3,11 @@ from datetime import date
 from decimal import Decimal
 
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import post_save
+from django.utils.functional import cached_property
 
 from server.settings import APPS_CORE_DIR
 
@@ -34,7 +36,21 @@ class Category(models.Model):
     def get_default_categories():
         with open(APPS_CORE_DIR + '/initial_data/initial_categories.json') as f:
             categories = json.loads(f.read())
-        return categories or []
+        return categories
+
+
+class PositiveDecimalField(models.DecimalField):
+    MIN_VALUE = Decimal('0.01')
+
+    def to_python(self, value):
+        number = super().to_python(value)
+        if number < Decimal(self.MIN_VALUE):
+            raise ValidationError('Value should be a positive number')
+        return number
+
+    @cached_property
+    def validators(self):
+        return super().validators + [MinValueValidator(self.MIN_VALUE)]
 
 
 class Transaction(models.Model):
@@ -42,12 +58,12 @@ class Transaction(models.Model):
     title = models.CharField(max_length=30)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     date = models.DateField(default=date.today)
-    amount = models.DecimalField(max_digits=7, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
+    amount = PositiveDecimalField(max_digits=7, decimal_places=2)
     is_income = models.BooleanField()
 
     def save(self, *args, **kwargs):
         if self.is_income is None:
-            self.is_income = self.category.is_income
+            self.is_income = self.category.is_income if isinstance(self.category, Category) else False
         super().save(*args, **kwargs)
 
 
