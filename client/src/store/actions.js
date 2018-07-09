@@ -1,6 +1,6 @@
-export const FETCH_CATEGORIES = 'CATEGORIES:FETCH';
+export const CATEGORIES_FETCHED = 'CATEGORIES:FETCHED';
 
-export const fetchCategoriesAction = categories => ({
-  type: FETCH_CATEGORIES,
+export const categoriesFetched = categories => ({
+  type: CATEGORIES_FETCHED,
   categories,
 });
