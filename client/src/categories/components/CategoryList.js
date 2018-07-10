@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { arrayOf, func, shape } from 'prop-types';
 import { ListGroup } from 'react-bootstrap';
-import { categoriesFetched } from '../../store/actions';
-import { selectCategoriesAll } from '../../store/selectors';
+import { categoriesFetched } from '../category.actions';
+import { selectCategoriesAll } from '../category.selectors';
 import CategoryItem from './CategoryItem';
 import { listOf, withDataFrom, withLoadingSpinner } from '../../hocs/index';
-import CategoryModel from '../../models/category.model';
+import CategoryModel from '../category.model';
 import api from '../../api';
 
 function mapStateToProps(state) {

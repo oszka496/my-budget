@@ -1,12 +1,12 @@
-import * as actions from '../actions';
-import CategoryModel from '../../models/category.model';
+import * as actions from './category.actions';
+import CategoryModel from './category.model';
 
 const initialCategoriesState = {
   ids: [],
   entities: {},
 };
 
-export const categoriesReducer = (state = initialCategoriesState, action) => {
+export const categoryReducer = (state = initialCategoriesState, action) => {
   switch (action.type) {
     case actions.CATEGORIES_FETCHED: {
       const entities = action.categories.reduce(
