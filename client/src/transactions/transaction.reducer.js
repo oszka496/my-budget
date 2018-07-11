@@ -1,16 +1,18 @@
-const initialTransactionsState = {
-  ids: [1, 2],
-  entities: {
-    1: {
-      id: 1,
-      title: 'Transaction 1',
-    },
-    2: {
-      id: 2,
-      title: 'Transaction 2',
-    },
-  },
-};
+import * as actions from './transaction.actions';
+import Adapter from '../utils/adapter';
 
-export const transactionReducer = (state = initialTransactionsState, action) =>
-  state;
+const adapter = new Adapter();
+const initialTransactionsState = adapter.getInitialState();
+
+export const transactionReducer = (
+  state = initialTransactionsState,
+  action
+) => {
+  switch (action.type) {
+    case actions.TRANSACTIONS_FETCHED: {
+      return adapter.addMany(state, action.transactions);
+    }
+    default:
+      return state;
+  }
+};

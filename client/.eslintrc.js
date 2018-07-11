@@ -17,11 +17,13 @@ module.exports = {
     'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }],
     'react/jsx-one-expression-per-line': [0],
     'import/prefer-default-export': [0],
+    'class-methods-use-this': [0],
 
     // prettier
     'prettier/prettier': ['error', {
       'singleQuote': true,
-      'trailingComma': 'es5'
+      'trailingComma': 'es5',
+      'printWidth': 100,
     }],
 
     // react-app
