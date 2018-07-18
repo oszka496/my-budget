@@ -1,15 +1,7 @@
-import { createSelector } from 'reselect';
+import Adapter from '../utils/adapter';
 
-export const selectCategories = state => state.categories;
-export const selectCategoriesIds = createSelector(
-  selectCategories,
-  categories => categories.ids
-);
-export const selectCategoriesEntities = createSelector(
-  selectCategories,
-  categories => categories.entities
-);
-export const selectCategoriesAll = createSelector(
-  [selectCategoriesIds, selectCategoriesEntities],
-  (ids, entities) => ids.map(id => entities[id])
-);
+const adapter = new Adapter();
+
+const selectors = adapter.getSelectors('categories');
+
+export const selectCategoriesAll = selectors.selectItemsList;

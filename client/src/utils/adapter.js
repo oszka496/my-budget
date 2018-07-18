@@ -1,3 +1,5 @@
+import { createSelector } from 'reselect';
+
 class Adapter {
   getInitialState() {
     return {
@@ -19,6 +21,19 @@ class Adapter {
       ...state,
       ids: Object.keys(entities),
       entities,
+    };
+  }
+
+  getSelectors(key) {
+    const selectItems = state => state[key];
+    const selectIds = createSelector(selectItems, items => items.ids);
+    const selectEntities = createSelector(selectItems, items => items.entities);
+    const selectItemsList = createSelector(
+      [selectIds, selectEntities],
+      (ids, entities) => ids.map(id => entities[id])
+    );
+    return {
+      selectItemsList,
     };
   }
 }
