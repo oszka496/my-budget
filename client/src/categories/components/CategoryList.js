@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { arrayOf, func, shape } from 'prop-types';
+import { arrayOf, func } from 'prop-types';
 import { ListGroup } from 'react-bootstrap';
 import { categoriesFetched } from '../category.actions';
 import { selectCategoriesAll } from '../category.selectors';
@@ -27,7 +27,7 @@ const CategoryList = withDataFrom(API)(
 
 CategoryList.propTypes = {
   onDataFetched: func.isRequired,
-  items: arrayOf(shape(CategoryModel)).isRequired,
+  items: arrayOf(CategoryModel).isRequired,
 };
 
 export default connect(

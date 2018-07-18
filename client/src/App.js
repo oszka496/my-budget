@@ -5,6 +5,7 @@ import { Grid } from 'react-bootstrap';
 import Header from './core/components/Header';
 import CategoryLayout from './categories/components/CategoryLayout';
 import Home from './core/components/Home';
+import TransactionLayout from './transactions/components/TransactionLayout';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Grid className="App">
           <Route exact path="/" component={Home} />
           <Route path="/categories" component={CategoryLayout} />
+          <Route path="/transactions" component={TransactionLayout} />
         </Grid>
       </Fragment>
     </BrowserRouter>

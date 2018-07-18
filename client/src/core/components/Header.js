@@ -23,6 +23,11 @@ function Header() {
               Categories
             </NavItem>
           </LinkContainer>
+          <LinkContainer to={{ pathname: `/transactions` }}>
+            <NavItem eventKey={2} href="#">
+              Transactions
+            </NavItem>
+          </LinkContainer>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
