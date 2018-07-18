@@ -5,6 +5,7 @@ class Adapter {
     return {
       ids: [],
       entities: {},
+      isLoaded: false,
     };
   }
 
@@ -21,6 +22,7 @@ class Adapter {
       ...state,
       ids: Object.keys(entities),
       entities,
+      isLoaded: true,
     };
   }
 

@@ -3,17 +3,14 @@ import PropTypes from 'prop-types';
 
 export const withDataFrom = url => ComponentToWrap => {
   class WithDataFromHOC extends Component {
-    state = {
-      isLoading: true,
-    };
-
     componentDidMount() {
-      const { onDataFetched } = this.props;
+      const { onDataFetched, isLoaded } = this.props;
 
-      fetch(url)
-        .then(response => response.json())
-        .then(onDataFetched)
-        .then(() => this.setState({ isLoading: false }));
+      if (!isLoaded) {
+        fetch(url)
+          .then(response => response.json())
+          .then(onDataFetched);
+      }
     }
 
     render() {
@@ -22,6 +19,7 @@ export const withDataFrom = url => ComponentToWrap => {
   }
   WithDataFromHOC.propTypes = {
     onDataFetched: PropTypes.func.isRequired,
+    isLoaded: PropTypes.bool.isRequired,
   };
   return WithDataFromHOC;
 };

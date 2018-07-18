@@ -11,6 +11,7 @@ import api from '../../api';
 function mapStateToProps(state) {
   return {
     items: selectCategoriesAll(state),
+    isLoaded: state.categories.isLoaded,
   };
 }
 

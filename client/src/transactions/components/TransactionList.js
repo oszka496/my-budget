@@ -8,7 +8,10 @@ import { transactionsFetched } from '../transaction.actions';
 import api from '../../api';
 import TransactionModel from '../transaction.model';
 
-const mapStateToProps = state => ({ items: selectTransactionsAll(state) });
+const mapStateToProps = state => ({
+  items: selectTransactionsAll(state),
+  isLoaded: state.transactions.isLoaded,
+});
 
 const mapDispatchToProps = dispatch => ({
   onDataFetched: transactions => dispatch(transactionsFetched(transactions)),
