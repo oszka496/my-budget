@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { formatApiResponse } from '../utils/stringUtils';
 
 export const withDataFrom = url => ComponentToWrap => {
   class WithDataFromHOC extends Component {
@@ -9,6 +10,7 @@ export const withDataFrom = url => ComponentToWrap => {
       if (!isLoaded) {
         fetch(url)
           .then(response => response.json())
+          .then(formatApiResponse)
           .then(onDataFetched);
       }
     }
