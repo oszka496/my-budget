@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export function withLoadingSpinner(ComponentToWrap) {
-  const WithLoadingHOC = ({ isLoading, ...props }) =>
-    isLoading ? <div>Loading...</div> : <ComponentToWrap {...props} />;
+  const WithLoadingHOC = ({ isLoaded, ...props }) =>
+    isLoaded ? <ComponentToWrap {...props} /> : <div>Loading...</div>;
   WithLoadingHOC.propTypes = {
-    isLoading: PropTypes.bool.isRequired,
+    isLoaded: PropTypes.bool.isRequired,
   };
   return WithLoadingHOC;
 }

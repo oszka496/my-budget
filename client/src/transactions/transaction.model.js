@@ -6,7 +6,7 @@ const TransactionModel = PropTypes.shape({
   category: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired,
   amount: PropTypes.string.isRequired,
-  is_income: PropTypes.bool.isRequired, // TODO: Map to camel case
+  isIncome: PropTypes.bool.isRequired,
 });
 
 export default TransactionModel;

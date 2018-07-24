@@ -7,7 +7,7 @@ const initialCategoriesState = adapter.getInitialState();
 export const categoryReducer = (state = initialCategoriesState, action) => {
   switch (action.type) {
     case actions.CATEGORIES_FETCHED: {
-      return adapter.addMany(state, action.categories);
+      return { ...adapter.addMany(state, action.categories), isLoaded: true };
     }
     default:
       return state;
