@@ -22,7 +22,6 @@ class Adapter {
       ...state,
       ids: Object.keys(entities),
       entities,
-      isLoaded: true,
     };
   }
 

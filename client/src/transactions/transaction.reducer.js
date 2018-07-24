@@ -10,7 +10,7 @@ export const transactionReducer = (
 ) => {
   switch (action.type) {
     case actions.TRANSACTIONS_FETCHED: {
-      return adapter.addMany(state, action.transactions);
+      return { ...adapter.addMany(state, action.transactions), isLoaded: true };
     }
     default:
       return state;
