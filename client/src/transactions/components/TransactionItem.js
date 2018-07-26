@@ -1,24 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Col, Grid, ListGroupItem, Row } from 'react-bootstrap';
+import { ListGroupItem } from 'react-bootstrap';
 
 const TransactionItem = ({ title, category, amount, isIncome }) => (
-  <ListGroupItem>
-    <Grid>
-      <Row>
-        <Col md={8}>{title}</Col>
-        <Col md={4}>{`${isIncome ? '+' : '-'}${amount}`}</Col>
-      </Row>
-      <Row>
-        <Col md={12}>category: {category}</Col>
-      </Row>
-    </Grid>
+  <ListGroupItem className="transaction-item">
+    <div>{title}</div>
+    <div style={{ justifySelf: 'end' }}>{`${isIncome ? '+' : '-'}${amount}`}</div>
+    <div>{category == null || `category: ${category}`}</div>
   </ListGroupItem>
 );
 
 TransactionItem.propTypes = {
   title: PropTypes.string.isRequired,
-  category: PropTypes.number.isRequired,
+  category: PropTypes.number,
   amount: PropTypes.string.isRequired,
   isIncome: PropTypes.bool.isRequired,
 };
