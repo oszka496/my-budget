@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch) {
 
 const API = api.category.list();
 const CategoryList = withDataFrom(API)(
-  withLoadingSpinner(listOf(ListGroup, CategoryItem))
+  withLoadingSpinner(listOf(ListGroup, CategoryItem)),
 );
 
 CategoryList.propTypes = {
@@ -33,5 +33,5 @@ CategoryList.propTypes = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(CategoryList);

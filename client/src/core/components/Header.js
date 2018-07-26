@@ -18,12 +18,12 @@ function Header() {
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav>
-          <LinkContainer to={{ pathname: `/categories` }}>
+          <LinkContainer to={{ pathname: '/categories' }}>
             <NavItem eventKey={1} href="#">
               Categories
             </NavItem>
           </LinkContainer>
-          <LinkContainer to={{ pathname: `/transactions` }}>
+          <LinkContainer to={{ pathname: '/transactions' }}>
             <NavItem eventKey={2} href="#">
               Transactions
             </NavItem>

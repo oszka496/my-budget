@@ -10,7 +10,7 @@ export function listOf(Container, Item) {
     items: arrayOf(
       shape({
         id: oneOfType([string, number]),
-      })
+      }),
     ).isRequired,
   };
 

@@ -7,13 +7,13 @@ export const objectToCamelCase = obj =>
       ...newObj,
       [valueToCamelCase(key)]: obj[key],
     }),
-    {}
+    {},
   );
 
 export const objectListToCamelCase = objects =>
   objects.map(obj => objectToCamelCase(obj));
 
 export const formatApiResponse = response =>
-  Array.isArray(response)
+  (Array.isArray(response)
     ? objectListToCamelCase(response)
-    : objectToCamelCase(response);
+    : objectToCamelCase(response));

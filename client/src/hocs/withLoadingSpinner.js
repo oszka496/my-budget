@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export function withLoadingSpinner(ComponentToWrap) {
   const WithLoadingHOC = ({ isLoaded, ...props }) =>
-    isLoaded ? <ComponentToWrap {...props} /> : <div>Loading...</div>;
+    (isLoaded ? <ComponentToWrap {...props} /> : <div>Loading...</div>);
   WithLoadingHOC.propTypes = {
     isLoaded: PropTypes.bool.isRequired,
   };

@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
 
 const TRANSACTIONS_API = api.transaction.list();
 const TransactionList = withDataFrom(TRANSACTIONS_API)(
-  withLoadingSpinner(listOf(ListGroup, TransactionItem))
+  withLoadingSpinner(listOf(ListGroup, TransactionItem)),
 );
 
 TransactionList.propTypes = {
@@ -29,5 +29,5 @@ TransactionList.propTypes = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TransactionList);

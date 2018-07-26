@@ -15,7 +15,7 @@ class Adapter {
         ...obj,
         [entry.id]: entry,
       }),
-      {}
+      {},
     );
 
     return {
@@ -31,7 +31,7 @@ class Adapter {
     const selectEntities = createSelector(selectItems, items => items.entities);
     const selectItemsList = createSelector(
       [selectIds, selectEntities],
-      (ids, entities) => ids.map(id => entities[id])
+      (ids, entities) => ids.map(id => entities[id]),
     );
     return {
       selectItemsList,
