@@ -45,12 +45,13 @@ class TransactionForm extends Component {
     })
       .then(response => {
         if (response.status < 200 || response.status > 299) {
-          throw new Error('Something went wrong'); // TODO: Actually handle it
+          throw new Error('Something went wrong');
         }
         return response.json();
       })
       .then(formatApiResponse)
-      .then(onItemCreated);
+      .then(onItemCreated)
+      .catch(() => {}); // TODO: Actually handle it
 
     event.preventDefault();
   }
@@ -69,9 +70,17 @@ class TransactionForm extends Component {
     const { amount, isIncome, title, date } = this.state;
     return (
       <Form onSubmit={this.handleSubmit}>
-        <LabeledInput label="Title" value={title} type="text" onChange={this.handleChange} />
-        <LabeledInput label="Amount" value={amount} type="number" onChange={this.handleChange} step=".01" />
-        <LabeledInput label="Date" value={date} type="date" onChange={this.handleChange} />
+        <LabeledInput label="Title" value={title} type="text" onChange={this.handleChange} required />
+        <LabeledInput
+          label="Amount"
+          value={amount}
+          type="number"
+          onChange={this.handleChange}
+          step=".01"
+          min={0.01}
+          required
+        />
+        <LabeledInput label="Date" value={date} type="date" onChange={this.handleChange} required />
         <FormGroup>
           <Radio name="isIncome" value="income" checked={isIncome} onChange={this.handleIsIncomeChange} inline>
             Income
