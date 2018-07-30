@@ -26,7 +26,7 @@ class Adapter {
 
     return {
       ...state,
-      ids: Object.keys(entities),
+      ids: items.map(item => item.id),
       entities,
     };
   }
