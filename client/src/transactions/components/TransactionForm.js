@@ -24,6 +24,7 @@ class TransactionForm extends Component {
       amount: 0,
       title: '',
       isIncome: false,
+      date: new Date().toJSON().split('T')[0],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -67,7 +68,7 @@ class TransactionForm extends Component {
   }
 
   render() {
-    const { amount, isIncome, title } = this.state;
+    const { amount, isIncome, title, date } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <FormGroup>
@@ -90,6 +91,15 @@ class TransactionForm extends Component {
           />
         </FormGroup>
         <FormGroup>
+          <ControlLabel>Date</ControlLabel>
+          <FormControl
+            name="date"
+            type="date"
+            value={date}
+            onChange={this.handleChange}
+          />
+        </FormGroup>
+        <FormGroup>
           <Radio name="isIncome" checked={isIncome} onChange={this.handleIsInputChange} inline>
             Income
           </Radio>
@@ -108,6 +118,6 @@ TransactionForm.propTypes = {
 };
 
 export default connect(
-  () => {},
+  () => ({}),
   mapDispatchToProps,
 )(TransactionForm);
