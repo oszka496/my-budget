@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  ControlLabel,
-  FormControl,
-  FormGroup,
-  Radio,
-} from 'react-bootstrap';
+import { Button, Form, FormGroup, Radio } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../../api';
 import { transactionsNew } from '../transaction.actions';
 import { formatApiResponse } from '../../utils/stringUtils';
+import LabeledInput from '../../shared/LabeledInput';
 
 const mapDispatchToProps = dispatch => ({
   onItemCreated: transaction => dispatch(transactionsNew(transaction)),
 });
+
 
 class TransactionForm extends Component {
   constructor(props) {
@@ -28,13 +24,18 @@ class TransactionForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleIsInputChange = this.handleIsInputChange.bind(this);
+    this.handleIsIncomeChange = this.handleIsIncomeChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidCatch(error) {
+    console.log(error);
   }
 
   handleSubmit(event) {
     const TRANSACTIONS_API = api.transaction.list();
     const { isIncome } = this.state;
+    const { onItemCreated } = this.props;
     fetch(TRANSACTIONS_API, {
       method: 'POST',
       headers: {
@@ -43,15 +44,13 @@ class TransactionForm extends Component {
       body: JSON.stringify({ ...this.state, is_income: isIncome }), // TODO: Kill this hack
     })
       .then(response => {
-        if (response.status !== 201) {
-          console.log('Something went wrong'); // TODO: Actually handle it
-        } else {
-          const { onItemCreated } = this.props;
-          response.json()
-            .then(formatApiResponse)
-            .then(onItemCreated);
+        if (response.status < 200 || response.status > 299) {
+          throw new Error('Something went wrong'); // TODO: Actually handle it
         }
-      });
+        return response.json();
+      })
+      .then(formatApiResponse)
+      .then(onItemCreated);
 
     event.preventDefault();
   }
@@ -62,53 +61,27 @@ class TransactionForm extends Component {
     this.setState({ [name]: value });
   }
 
-  handleIsInputChange(event) {
-    const isIncome = event.target.name === 'isIncome';
-    this.setState({ isIncome });
+  handleIsIncomeChange(event) {
+    this.setState({ isIncome: event.target.value === 'income' });
   }
 
   render() {
     const { amount, isIncome, title, date } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit}>
+        <LabeledInput label="Title" value={title} type="text" onChange={this.handleChange} />
+        <LabeledInput label="Amount" value={amount} type="number" onChange={this.handleChange} step=".01" />
+        <LabeledInput label="Date" value={date} type="date" onChange={this.handleChange} />
         <FormGroup>
-          <ControlLabel>Title</ControlLabel>
-          <FormControl
-            name="title"
-            type="text"
-            value={title}
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Amount</ControlLabel>
-          <FormControl
-            name="amount"
-            type="number"
-            step=".01"
-            value={amount}
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Date</ControlLabel>
-          <FormControl
-            name="date"
-            type="date"
-            value={date}
-            onChange={this.handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Radio name="isIncome" checked={isIncome} onChange={this.handleIsInputChange} inline>
+          <Radio name="isIncome" value="income" checked={isIncome} onChange={this.handleIsIncomeChange} inline>
             Income
           </Radio>
-          <Radio name="isExpense" checked={!isIncome} onChange={this.handleIsInputChange} inline>
+          <Radio name="isIncome" value="expense" checked={!isIncome} onChange={this.handleIsIncomeChange} inline>
             Expense
           </Radio>
         </FormGroup>
         <Button type="submit">Submit</Button>
-      </form>
+      </Form>
     );
   }
 }
@@ -118,6 +91,6 @@ TransactionForm.propTypes = {
 };
 
 export default connect(
-  () => ({}),
+  null,
   mapDispatchToProps,
 )(TransactionForm);
