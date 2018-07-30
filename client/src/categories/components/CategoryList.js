@@ -15,11 +15,9 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onDataFetched: categories => dispatch(categoriesFetched(categories)),
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  onDataFetched: categories => dispatch(categoriesFetched(categories)),
+});
 
 const API = api.category.list();
 const CategoryList = withDataFrom(API)(

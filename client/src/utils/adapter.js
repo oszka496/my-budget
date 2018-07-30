@@ -40,6 +40,8 @@ class Adapter {
       (ids, entities) => ids.map(id => entities[id]),
     );
     return {
+      selectIds,
+      selectEntities,
       selectItemsList,
     };
   }
