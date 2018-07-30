@@ -13,7 +13,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class TransactionViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionSerializer
-    queryset = Transaction.objects.all()
+    queryset = Transaction.objects.order_by('-date')
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
