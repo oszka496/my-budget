@@ -9,6 +9,12 @@ class Adapter {
     };
   }
 
+  addOne(state, entity) {
+    const { ids, entities } = state;
+    const { id } = entity;
+    return { ...state, ids: [...ids, id], entities: { ...entities, [id]: entity } };
+  }
+
   addMany(state, items) {
     const entities = items.reduce(
       (obj, entry) => ({

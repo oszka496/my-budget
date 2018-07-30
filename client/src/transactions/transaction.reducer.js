@@ -10,9 +10,7 @@ export const transactionReducer = (state = initialTransactionsState, action) => 
       return { ...adapter.addMany(state, action.transactions), isLoaded: true };
     }
     case actions.TRANSACTIONS_NEW: {
-      const { ids, entities } = state;
-      const { transaction } = action;
-      return { ...state, ids: [...ids, transaction.id], entities: { ...entities, [transaction.id]: transaction } };
+      return adapter.addOne(state, action.transaction);
     }
     default:
       return state;
