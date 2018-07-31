@@ -9,7 +9,7 @@ import api from '../../api';
 import TransactionModel from '../transaction.model';
 
 const mapStateToProps = state => ({
-  items: selectTransactionsWithCategories(state),
+  items: selectTransactionsWithCategories(state).sort((x, y) => new Date(y.date) - new Date(x.date)),
   isLoaded: state.transactions.isLoaded,
 });
 
