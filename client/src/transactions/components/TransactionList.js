@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TransactionItem from './TransactionItem';
 import { selectTransactionsWithCategories } from '../transaction.selectors';
 import { listOf, withDataFrom, withLoadingSpinner } from '../../hocs';
-import { transactionsFetched } from '../transaction.actions';
+import { transactionsDelete, transactionsFetched } from '../transaction.actions';
 import api from '../../api';
 import TransactionModel from '../transaction.model';
 
@@ -15,6 +15,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onDataFetched: transactions => dispatch(transactionsFetched(transactions)),
+  onItemDelete: id => dispatch(transactionsDelete(id)),
 });
 
 const TRANSACTIONS_API = api.transaction.list();

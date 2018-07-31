@@ -31,6 +31,14 @@ class Adapter {
     };
   }
 
+  deleteOne(state, id) {
+    const { ids, entities } = state;
+    return this.addMany(
+      state,
+      ids.filter(elem => elem !== id).map(elem => entities[elem]),
+    );
+  }
+
   getSelectors(key) {
     const selectItems = state => state[key];
     const selectIds = createSelector(selectItems, items => items.ids);
