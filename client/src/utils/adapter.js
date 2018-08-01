@@ -32,11 +32,9 @@ class Adapter {
   }
 
   deleteOne(state, id) {
-    const { ids, entities } = state;
-    return this.addMany(
-      state,
-      ids.filter(elem => elem !== id).map(elem => entities[elem]),
-    );
+    const ids = state.ids.filter(elem => elem !== id);
+    const entities = ids.reduce((obj, i) => ({ ...obj, [i]: state.entities[i] }), {});
+    return { ...state, ids, entities };
   }
 
   getSelectors(key) {
