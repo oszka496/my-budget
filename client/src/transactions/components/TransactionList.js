@@ -15,8 +15,19 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onDataFetched: transactions => dispatch(transactionsFetched(transactions)),
-  onItemDelete: id => dispatch(transactionsDelete(id)),
+  deleteTransaction: id => deleteTransaction(id, dispatch),
 });
+
+const deleteTransaction = (id, dispatch) => {
+  fetch(api.transaction.item(id), { method: 'DELETE' })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Something went wrong');
+      }
+    })
+    .then(() => dispatch(transactionsDelete(id)))
+    .catch(() => {}); // TODO: Handle
+};
 
 const TRANSACTIONS_API = api.transaction.list();
 const TransactionList = withDataFrom(TRANSACTIONS_API)(
