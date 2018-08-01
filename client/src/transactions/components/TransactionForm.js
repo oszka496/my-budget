@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Radio } from 'react-bootstrap';
+import { Button, ControlLabel, Form, FormControl, FormGroup, Radio } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../../api';
 import { transactionsNew } from '../transaction.actions';
 import { formatApiResponse } from '../../utils/stringUtils';
 import LabeledInput from '../../shared/LabeledInput';
+import { selectCategoriesAll } from '../../categories/category.selectors';
+import CategoryModel from '../../categories/category.model';
+
+const mapStateToProps = state => ({
+  categories: selectCategoriesAll(state),
+});
 
 const mapDispatchToProps = dispatch => ({
   onItemCreated: transaction => dispatch(transactionsNew(transaction)),
@@ -56,18 +62,17 @@ class TransactionForm extends Component {
     event.preventDefault();
   }
 
-  handleChange(event) {
-    const { target } = event;
-    const { name, value } = target;
+  handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
   }
 
-  handleIsIncomeChange(event) {
-    this.setState({ isIncome: event.target.value === 'income' });
+  handleIsIncomeChange({ target: { value } }) {
+    this.setState({ isIncome: value === 'income' });
   }
 
   render() {
     const { amount, isIncome, title, date } = this.state;
+    const { categories } = this.props;
     return (
       <Form onSubmit={this.handleSubmit}>
         <LabeledInput label="Title" value={title} type="text" onChange={this.handleChange} required />
@@ -81,6 +86,13 @@ class TransactionForm extends Component {
           required
         />
         <LabeledInput label="Date" value={date} type="date" onChange={this.handleChange} required />
+        <FormGroup controlId="formControlsSelect">
+          <ControlLabel>Category</ControlLabel>
+          <FormControl name="category" componentClass="select" placeholder="select" onChange={this.handleChange}>
+            <option value="">---</option>
+            {categories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)}
+          </FormControl>
+        </FormGroup>
         <FormGroup>
           <Radio name="isIncome" value="income" checked={isIncome} onChange={this.handleIsIncomeChange} inline>
             Income
@@ -97,9 +109,10 @@ class TransactionForm extends Component {
 
 TransactionForm.propTypes = {
   onItemCreated: PropTypes.func.isRequired,
+  categories: PropTypes.arrayOf(CategoryModel).isRequired,
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(TransactionForm);

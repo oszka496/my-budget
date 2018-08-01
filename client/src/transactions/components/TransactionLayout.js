@@ -1,10 +1,24 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { Col, Panel, Row } from 'react-bootstrap';
+import connect from 'react-redux/es/connect/connect';
 import TransactionList from './TransactionList';
 import TransactionForm from './TransactionForm';
+import { withDataFrom, withLoadingSpinner } from '../../hocs';
+import api from '../../api';
+import { categoriesFetched } from '../../categories/category.actions';
 
-function TransactionLayout() {
+function mapStateToProps(state) {
+  return {
+    isLoaded: state.categories.isLoaded,
+  };
+}
+
+const mapDispatchToProps = dispatch => ({
+  onDataFetched: categories => dispatch(categoriesFetched(categories)),
+});
+
+function Layout() {
   return (
     <Row>
       <Col md={6}>
@@ -26,4 +40,10 @@ function TransactionLayout() {
   );
 }
 
-export default TransactionLayout;
+const CATEGORY_API = api.category.list();
+const TransactionLayout = withDataFrom(CATEGORY_API)(withLoadingSpinner(Layout));
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(TransactionLayout);

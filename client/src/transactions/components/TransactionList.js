@@ -2,14 +2,14 @@ import { connect } from 'react-redux';
 import { ListGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import TransactionItem from './TransactionItem';
-import { selectTransactionsAll } from '../transaction.selectors';
+import { selectTransactionsWithCategories } from '../transaction.selectors';
 import { listOf, withDataFrom, withLoadingSpinner } from '../../hocs';
 import { transactionsFetched } from '../transaction.actions';
 import api from '../../api';
 import TransactionModel from '../transaction.model';
 
 const mapStateToProps = state => ({
-  items: selectTransactionsAll(state),
+  items: selectTransactionsWithCategories(state),
   isLoaded: state.transactions.isLoaded,
 });
 
