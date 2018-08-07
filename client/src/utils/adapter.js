@@ -31,6 +31,12 @@ class Adapter {
     };
   }
 
+  deleteOne(state, id) {
+    const ids = state.ids.filter(elem => elem !== id);
+    const entities = ids.reduce((obj, i) => ({ ...obj, [i]: state.entities[i] }), {});
+    return { ...state, ids, entities };
+  }
+
   getSelectors(key) {
     const selectItems = state => state[key];
     const selectIds = createSelector(selectItems, items => items.ids);

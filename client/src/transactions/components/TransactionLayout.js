@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { Col, Panel, Row } from 'react-bootstrap';
-import connect from 'react-redux/es/connect/connect';
+import { connect } from 'react-redux';
 import TransactionList from './TransactionList';
 import TransactionForm from './TransactionForm';
 import { withDataFrom, withLoadingSpinner } from '../../hocs';
