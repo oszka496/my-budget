@@ -1,5 +1,3 @@
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from rest_auth.registration.views import SocialLoginView
 from rest_framework import viewsets
 
 from apps.api.serializers import CategorySerializer, TransactionSerializer, UserSerializer
@@ -19,7 +17,3 @@ class TransactionViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
-
-
-class GoogleLoginView(SocialLoginView):
-    adapter_class = GoogleOAuth2Adapter

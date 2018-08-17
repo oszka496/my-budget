@@ -1,5 +1,35 @@
+import { ensureJSON, ensureSuccessOr } from './utils/requests';
+
 const BASE_URL = 'http://localhost:8000/';
+
+const getDefaultHeaders = () => {
+  const headers = new Headers();
+  headers.set('Content-Type', 'application/json');
+  const token = localStorage.getItem('token');
+  if (token) {
+    headers.set('Authorization', `Token ${token}`);
+  }
+  return headers;
+};
+
 const api = {
+  requests: {
+    get: (url, errorMsg = 'Failed to fetch data from API') =>
+      fetch(url, { method: 'GET', headers: getDefaultHeaders() })
+        .then(ensureSuccessOr(errorMsg))
+        .then(ensureJSON),
+    post: (url, body, errorMsg = 'Failed to ') =>
+      fetch(url, { method: 'POST', headers: getDefaultHeaders(), body })
+        .then(ensureSuccessOr(errorMsg))
+        .then(ensureJSON),
+    remove: (url, errorMsg = 'Failed to ') =>
+      fetch(url, { method: 'DELETE', headers: getDefaultHeaders() })
+        .then(ensureSuccessOr(errorMsg))
+        .then(ensureJSON),
+  },
+  auth: {
+    login: () => `${BASE_URL}api/token/`,
+  },
   category: {
     list: () => `${BASE_URL}api/categories/`,
     item: id => `${BASE_URL}api/categories/${id}`,
