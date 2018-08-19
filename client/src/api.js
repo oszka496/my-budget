@@ -1,4 +1,5 @@
 import { ensureJSON, ensureSuccessOr } from './utils/requests';
+import { formatApiResponse } from './utils/stringUtils';
 
 const BASE_URL = 'http://localhost:8000/';
 
@@ -17,7 +18,8 @@ const api = {
     get: (url, errorMsg = 'Failed to fetch data from API') =>
       fetch(url, { method: 'GET', headers: getDefaultHeaders() })
         .then(ensureSuccessOr(errorMsg))
-        .then(ensureJSON),
+        .then(ensureJSON)
+        .then(formatApiResponse),
     post: (url, body, errorMsg = 'Failed to ') =>
       fetch(url, { method: 'POST', headers: getDefaultHeaders(), body })
         .then(ensureSuccessOr(errorMsg))

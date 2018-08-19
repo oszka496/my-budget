@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { formatApiResponse } from '../utils/stringUtils';
+import api from '../api';
 
 export const withDataFrom = url => ComponentToWrap => {
   class WithDataFromHOC extends Component {
     componentDidMount() {
-      const { onDataFetched, isLoaded } = this.props;
-
+      const { onDataFetched, onFetchFailed, isLoaded } = this.props;
       if (!isLoaded) {
-        fetch(url)
-          .then(response => response.json())
-          .then(formatApiResponse)
-          .then(onDataFetched);
+        api.requests.get(url)
+          .then(onDataFetched)
+          .catch(onFetchFailed);
       }
     }
 
@@ -21,6 +19,7 @@ export const withDataFrom = url => ComponentToWrap => {
   }
   WithDataFromHOC.propTypes = {
     onDataFetched: PropTypes.func.isRequired,
+    onFetchFailed: PropTypes.func.isRequired,
     isLoaded: PropTypes.bool.isRequired,
   };
   return WithDataFromHOC;

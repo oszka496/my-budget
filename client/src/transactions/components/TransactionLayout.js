@@ -7,6 +7,7 @@ import TransactionForm from './TransactionForm';
 import { withDataFrom, withLoadingSpinner } from '../../hocs';
 import api from '../../api';
 import { categoriesFetched } from '../../categories/category.actions';
+import { raiseError } from '../../core/message.actions';
 
 function mapStateToProps(state) {
   return {
@@ -16,6 +17,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = dispatch => ({
   onDataFetched: categories => dispatch(categoriesFetched(categories)),
+  onFetchFailed: error => dispatch(raiseError(error.toString())),
 });
 
 function Layout() {
