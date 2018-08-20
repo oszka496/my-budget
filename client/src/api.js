@@ -15,19 +15,19 @@ const getDefaultHeaders = () => {
 
 const api = {
   requests: {
-    get: (url, errorMsg = 'Failed to fetch data from API') =>
+    get: (url, errorMsg = 'Failed to fetch data from the API') =>
       fetch(url, { method: 'GET', headers: getDefaultHeaders() })
         .then(ensureSuccessOr(errorMsg))
         .then(ensureJSON)
         .then(formatApiResponse),
-    post: (url, body, errorMsg = 'Failed to ') =>
+    post: (url, body, errorMsg = 'Failed to post data to the API') =>
       fetch(url, { method: 'POST', headers: getDefaultHeaders(), body })
         .then(ensureSuccessOr(errorMsg))
-        .then(ensureJSON),
-    remove: (url, errorMsg = 'Failed to ') =>
+        .then(ensureJSON)
+        .then(formatApiResponse),
+    remove: (url, errorMsg = 'Failed to delete') =>
       fetch(url, { method: 'DELETE', headers: getDefaultHeaders() })
-        .then(ensureSuccessOr(errorMsg))
-        .then(ensureJSON),
+        .then(ensureSuccessOr(errorMsg)),
   },
   auth: {
     login: () => `${BASE_URL}api/token/`,

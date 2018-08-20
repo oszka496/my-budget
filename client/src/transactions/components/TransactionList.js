@@ -21,14 +21,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const deleteTransaction = (id, dispatch) => {
-  fetch(api.transaction.item(id), { method: 'DELETE' })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Something went wrong');
-      }
-    })
+  api.requests.remove(api.transaction.item(id))
     .then(() => dispatch(transactionsDelete(id)))
-    .catch(() => {}); // TODO: Handle
+    .catch(error => dispatch(raiseError(error.toString()))); // TODO: Clean up
 };
 
 const TRANSACTIONS_API = api.transaction.list();

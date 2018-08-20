@@ -8,6 +8,7 @@ import { formatApiResponse } from '../../utils/stringUtils';
 import LabeledInput from '../../shared/LabeledInput';
 import { selectCategoriesAll } from '../../categories/category.selectors';
 import CategoryModel from '../../categories/category.model';
+import { raiseError } from '../../core/message.actions';
 
 const mapStateToProps = state => ({
   categories: selectCategoriesAll(state),
@@ -15,60 +16,39 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onItemCreated: transaction => dispatch(transactionsNew(transaction)),
+  onPostFailed: error => dispatch(raiseError(error.toString())),
 });
 
 
 class TransactionForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: 1,
-      amount: 0,
-      title: '',
-      isIncome: false,
-      date: new Date().toJSON().split('T')[0],
-    };
+  state = {
+    user: 1,
+    amount: 0,
+    title: '',
+    isIncome: false,
+    date: new Date().toJSON().split('T')[0],
+  };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleIsIncomeChange = this.handleIsIncomeChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidCatch(error) {
-    console.log(error);
-  }
-
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     const TRANSACTIONS_API = api.transaction.list();
     const { isIncome } = this.state;
-    const { onItemCreated } = this.props;
-    fetch(TRANSACTIONS_API, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...this.state, is_income: isIncome }), // TODO: Kill this hack
-    })
-      .then(response => {
-        if (response.status < 200 || response.status > 299) {
-          throw new Error('Something went wrong');
-        }
-        return response.json();
-      })
-      .then(formatApiResponse)
+    const { onItemCreated, onPostFailed } = this.props;
+    const body = JSON.stringify({ ...this.state, is_income: isIncome }); // TODO: Kill this hack
+    api.requests
+      .post(TRANSACTIONS_API, body)
       .then(onItemCreated)
-      .catch(() => {}); // TODO: Actually handle it
+      .catch(onPostFailed);
 
     event.preventDefault();
-  }
+  };
 
-  handleChange({ target: { name, value } }) {
+  handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
-  }
+  };
 
-  handleIsIncomeChange({ target: { value } }) {
+  handleIsIncomeChange = ({ target: { value } }) => {
     this.setState({ isIncome: value === 'income' });
-  }
+  };
 
   render() {
     const { amount, isIncome, title, date } = this.state;
@@ -109,6 +89,7 @@ class TransactionForm extends Component {
 
 TransactionForm.propTypes = {
   onItemCreated: PropTypes.func.isRequired,
+  onPostFailed: PropTypes.func.isRequired,
   categories: PropTypes.arrayOf(CategoryModel).isRequired,
 };
 
