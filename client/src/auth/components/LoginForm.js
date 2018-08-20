@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Panel } from 'react-bootstrap';
 import { func } from 'prop-types';
 import LabeledInput from '../../shared/LabeledInput';
 import api from '../../api';
@@ -34,11 +34,15 @@ class LoginForm extends Component {
   render() {
     const { username, password } = this.state;
     return (
-      <Form horizontal>
-        <LabeledInput label="Username" value={username} type="text" onChange={this.handleChange} required />
-        <LabeledInput label="Password" value={password} type="password" onChange={this.handleChange} required />
-        <Button onClick={this.authenticate}>Log in</Button>
-      </Form>
+      <Panel>
+        <Panel.Body>
+          <Form>
+            <LabeledInput label="Username" value={username} type="text" onChange={this.handleChange} required />
+            <LabeledInput label="Password" value={password} type="password" onChange={this.handleChange} required />
+            <Button onClick={this.authenticate}>Log in</Button>
+          </Form>
+        </Panel.Body>
+      </Panel>
     );
   }
 }

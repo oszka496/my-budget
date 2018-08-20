@@ -5,7 +5,6 @@ import { selectMessages } from '../message.selectors';
 import { dismissMessage } from '../message.actions';
 import { MessageItem } from './MessageItem';
 
-
 const mapStateToProps = (state) => ({
   items: selectMessages(state),
 });
@@ -15,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const MessageListBody = listOf(ListGroup, MessageItem);
-export const MessageList = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(MessageListBody);

@@ -6,7 +6,7 @@ import Header from './core/components/Header';
 import CategoryLayout from './categories/components/CategoryLayout';
 import Home from './core/components/Home';
 import TransactionLayout from './transactions/components/TransactionLayout';
-import { MessageList } from './core/components/MessageList';
+import MessageList from './core/components/MessageList';
 
 function App() {
   return (

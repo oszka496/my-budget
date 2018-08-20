@@ -2,9 +2,18 @@ import React from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
+import { bool } from 'prop-types';
+import { connect } from 'react-redux';
 import logo from '../../logo.svg';
+import LogoutButton from '../../auth/components/LogoutButton';
+import { selectUserLoggedIn } from '../../auth/auth.selectors';
 
-function Header() {
+const mapStateToProps = (state) => ({
+  isUserLoggedIn: selectUserLoggedIn(state),
+});
+
+const Header = (props) => {
+  const { isUserLoggedIn } = props;
   return (
     <Navbar staticTop>
       <Navbar.Header>
@@ -29,9 +38,21 @@ function Header() {
             </NavItem>
           </LinkContainer>
         </Nav>
+        <Nav pullRight>
+          <NavItem>
+            {isUserLoggedIn && <LogoutButton />}
+          </NavItem>
+        </Nav>
       </Navbar.Collapse>
     </Navbar>
   );
-}
+};
 
-export default Header;
+Header.propTypes = {
+  isUserLoggedIn: bool.isRequired,
+};
+
+export default connect(
+  mapStateToProps,
+  null,
+)(Header);

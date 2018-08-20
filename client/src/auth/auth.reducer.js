@@ -1,11 +1,12 @@
 import * as actions from './auth.actions';
 
-const initialUserState = {};
-
-export const authReducer = (state = initialUserState, action) => {
+export const authReducer = (state = {}, action) => {
   switch (action.type) {
     case actions.USER_LOGGED_IN: {
       return { ...state, username: action.username, token: action.token };
+    }
+    case actions.USER_LOGGED_OUT: {
+      return {};
     }
     default:
       return state;
