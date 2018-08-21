@@ -8,7 +8,7 @@ const msgColor = {
   success: 'success',
 };
 
-export const MessageItem = ({ type, message, id, onDismiss }) => (
+const MessageItem = ({ type, message, id, onDismiss }) => (
   <ListGroupItem bsStyle={msgColor[type]} onClick={() => onDismiss(id)}>{message}</ListGroupItem>
 );
 
@@ -18,3 +18,5 @@ MessageItem.propTypes = {
   type: string.isRequired,
   message: string.isRequired,
 };
+
+export default MessageItem;

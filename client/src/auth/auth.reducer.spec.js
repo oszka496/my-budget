@@ -7,18 +7,14 @@ describe('Authentication reducer', () => {
       id: 2,
       token: 12345,
     };
-    const stateAfter = authReducer(stateBefore, { type: actions.USER_LOGGED_OUT });
+    const stateAfter = authReducer(stateBefore, actions.userLoggedOut());
     expect(stateAfter).toEqual({});
   });
   it('should handle USER_LOGGED_IN', () => {
     const stateBefore = {
       id: 1,
     };
-    const action = {
-      type: actions.USER_LOGGED_IN,
-      username: 'username',
-      token: 12345,
-    };
+    const action = actions.userLoggedIn('username', 12345);
     const stateAfter = authReducer(stateBefore, action);
     expect(stateAfter).toEqual({
       id: 1,

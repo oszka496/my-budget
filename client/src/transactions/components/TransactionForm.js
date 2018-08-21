@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import api from '../../api';
 import { transactionsNew } from '../transaction.actions';
-import { formatApiResponse } from '../../utils/stringUtils';
 import LabeledInput from '../../shared/LabeledInput';
 import { selectCategoriesAll } from '../../categories/category.selectors';
 import CategoryModel from '../../categories/category.model';

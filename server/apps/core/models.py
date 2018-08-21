@@ -16,11 +16,13 @@ from server.settings import APPS_CORE_DIR
 class User(AbstractUser):
     @staticmethod
     def create_categories_for_user(sender, instance, created, **kwargs):
-        if created:
-            Token.objects.create(user=instance)
-            categories = Category.get_default_categories()
-            for category in categories:
-                Category.objects.create(user_id=instance.id, **category)
+        if not created:
+            return
+
+        Token.objects.create(user=instance)
+        categories = Category.get_default_categories()
+        for category in categories:
+            Category.objects.create(user_id=instance.id, **category)
 
 
 class Category(models.Model):

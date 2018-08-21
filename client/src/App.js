@@ -2,11 +2,9 @@ import React, { Fragment } from 'react';
 import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
-import Header from './core/components/Header';
-import CategoryLayout from './categories/components/CategoryLayout';
-import Home from './core/components/Home';
-import TransactionLayout from './transactions/components/TransactionLayout';
-import MessageList from './core/components/MessageList';
+import { TransactionLayout } from './transactions/components';
+import { CategoryLayout } from './categories/components';
+import { Header, Home, MessageList } from './core/components';
 
 function App() {
   return (

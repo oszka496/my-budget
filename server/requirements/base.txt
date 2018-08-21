@@ -6,4 +6,4 @@ djangorestframework==3.8.2
 oauthlib==2.1.0
 python-dotenv==0.9.1
 social-auth-app-django==2.1.0
-social-auth-core==2.1.0
+social-auth-core==1.7.0
