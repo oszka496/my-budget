@@ -9,12 +9,10 @@ import CategoryModel from '../category.model';
 import api from '../../api';
 import { raiseError } from '../../core/message.actions';
 
-function mapStateToProps(state) {
-  return {
-    items: selectCategoriesAll(state),
-    isLoaded: state.categories.isLoaded,
-  };
-}
+const mapStateToProps = (state) => ({
+  items: selectCategoriesAll(state),
+  isLoaded: state.categories.isLoaded,
+});
 
 const mapDispatchToProps = dispatch => ({
   onDataFetched: categories => dispatch(categoriesFetched(categories)),

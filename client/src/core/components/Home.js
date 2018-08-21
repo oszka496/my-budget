@@ -10,7 +10,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onUserLoggedIn: (username, token) => dispatch(userLoggedIn(username, token)),
+  onUserLoggedIn: (username, token) => {
+    localStorage.setItem('token', token);
+    dispatch(userLoggedIn(username, token));
+  },
 });
 
 const Home = ({ onUserLoggedIn, isUserLoggedIn }) =>

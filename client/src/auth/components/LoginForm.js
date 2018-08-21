@@ -19,7 +19,6 @@ class LoginForm extends Component {
     api.requests
       .post(url, body)
       .then(({ token }) => {
-        localStorage.setItem('token', token);
         onUserLoggedIn(username, token);
       });
   };
