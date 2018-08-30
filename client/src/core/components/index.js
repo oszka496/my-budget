@@ -5,3 +5,4 @@ export { default as MessageList } from './MessageList';
 export { default as NavLink } from './NavLink';
 export { default as PageLogo } from './PageLogo';
 export { default as PageNavBar } from './PageNavBar';
+export { default as Routes } from './Routes';
