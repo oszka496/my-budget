@@ -1,25 +1,27 @@
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from rest_auth.registration.views import SocialLoginView
-from rest_framework import viewsets
+from rest_framework import permissions, viewsets
+from rest_framework.decorators import permission_classes
 
 from apps.api.serializers import CategorySerializer, TransactionSerializer, UserSerializer
 from apps.core.models import Category, Transaction, User
 
 
+@permission_classes((permissions.IsAuthenticated, permissions.IsAdminUser))
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
 
+@permission_classes((permissions.IsAuthenticated,))
 class TransactionViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionSerializer
-    queryset = Transaction.objects.order_by('-date')
+
+    def get_queryset(self):
+        return Transaction.objects.filter(user=self.request.user)
 
 
+@permission_classes((permissions.IsAuthenticated,))
 class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
-    queryset = Category.objects.all()
 
-
-class GoogleLoginView(SocialLoginView):
-    adapter_class = GoogleOAuth2Adapter
+    def get_queryset(self):
+        return Category.objects.filter(user=self.request.user)

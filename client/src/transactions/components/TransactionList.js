@@ -7,6 +7,7 @@ import { listOf, withDataFrom, withLoadingSpinner } from '../../hocs';
 import { transactionsDelete, transactionsFetched } from '../transaction.actions';
 import api from '../../api';
 import TransactionModel from '../transaction.model';
+import { raiseError } from '../../core/message.actions';
 
 const mapStateToProps = state => ({
   items: selectTransactionsWithCategories(state).sort((x, y) => new Date(y.date) - new Date(x.date)),
@@ -15,18 +16,14 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onDataFetched: transactions => dispatch(transactionsFetched(transactions)),
+  onFetchFailed: error => dispatch(raiseError(error.toString())),
   deleteTransaction: id => deleteTransaction(id, dispatch),
 });
 
 const deleteTransaction = (id, dispatch) => {
-  fetch(api.transaction.item(id), { method: 'DELETE' })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Something went wrong');
-      }
-    })
+  api.requests.remove(api.transaction.item(id))
     .then(() => dispatch(transactionsDelete(id)))
-    .catch(() => {}); // TODO: Handle
+    .catch(error => dispatch(raiseError(error.toString()))); // TODO: Clean up
 };
 
 const TRANSACTIONS_API = api.transaction.list();

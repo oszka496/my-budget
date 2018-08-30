@@ -43,14 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_auth',
-    'rest_auth.registration',
     'apps.api',
     'apps.core',
 ]
@@ -139,7 +133,6 @@ STATIC_URL = '/static/'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 REST_SESSION_LOGIN = True

@@ -8,6 +8,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.functional import cached_property
+from rest_framework.authtoken.models import Token
 
 from server.settings import APPS_CORE_DIR
 
@@ -15,10 +16,13 @@ from server.settings import APPS_CORE_DIR
 class User(AbstractUser):
     @staticmethod
     def create_categories_for_user(sender, instance, created, **kwargs):
-        if created:
-            categories = Category.get_default_categories()
-            for category in categories:
-                Category.objects.create(user_id=instance.id, **category)
+        if not created:
+            return
+
+        Token.objects.create(user=instance)
+        categories = Category.get_default_categories()
+        for category in categories:
+            Category.objects.create(user_id=instance.id, **category)
 
 
 class Category(models.Model):

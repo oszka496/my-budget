@@ -4,8 +4,12 @@ body {
   font-family: sans-serif;
 }
 
+.navbar {
+  margin-bottom: 0;
+}
+
 .transaction-item {
-  display: grid !important;
+  display: grid;
   grid-template-columns: 30px 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 }

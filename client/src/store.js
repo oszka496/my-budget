@@ -1,4 +1,9 @@
 import { createStore } from 'redux';
-import { rootReducer } from './core/root.reducer';
+import { metaReducer } from './core/root.reducer';
 
-export default createStore(rootReducer);
+const initialState = {
+  auth: {
+    token: localStorage.getItem('token'),
+  },
+};
+export default createStore(metaReducer, initialState);
