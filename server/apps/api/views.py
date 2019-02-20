@@ -18,6 +18,10 @@ class TransactionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Transaction.objects.filter(user=self.request.user)
 
+    def create(self, request, *args, **kwargs):
+        request.data['user'] = request.user.id
+        return super().create(request, *args, **kwargs)
+
 
 @permission_classes((permissions.IsAuthenticated,))
 class CategoryViewSet(viewsets.ModelViewSet):
