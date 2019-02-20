@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Form, Panel } from 'react-bootstrap';
 import { func } from 'prop-types';
-import LabeledInput from '../../shared/LabeledInput';
-import api from '../../api';
+import LabeledInput from 'shared/LabeledInput';
+import api from 'api';
+
 
 class LoginForm extends Component {
   state = {

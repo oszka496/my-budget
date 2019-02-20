@@ -1,4 +1,4 @@
-import Adapter from '../utils/adapter';
+import Adapter from 'utils/adapter';
 
 const adapter = new Adapter();
 

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, ControlLabel, Form, FormControl, FormGroup, Radio } from 'react-bootstrap';
 
-import LabeledInput from '../../shared/LabeledInput';
-import CategoryModel from '../../categories/category.model';
+import LabeledInput from 'shared/LabeledInput';
+import CategoryModel from 'categories/category.model';
 
 
 class TransactionFormBody extends Component {

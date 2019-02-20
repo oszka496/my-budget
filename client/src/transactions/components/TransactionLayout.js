@@ -2,12 +2,13 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { Col, Panel, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import TransactionList from './TransactionList';
-import TransactionForm from './TransactionForm';
-import { withDataFrom, withLoadingSpinner } from '../../hocs';
-import api from '../../api';
-import { categoriesFetched } from '../../categories/category.actions';
-import { raiseError } from '../../core/message.actions';
+
+import { withDataFrom, withLoadingSpinner } from 'hocs';
+import api from 'api';
+import { TransactionList, TransactionForm } from 'transactions/components';
+import { categoriesFetched } from 'categories/category.actions';
+import { raiseError } from 'core/message.actions';
+
 
 const mapStateToProps = (state) => ({
   isLoaded: state.categories.isLoaded,
