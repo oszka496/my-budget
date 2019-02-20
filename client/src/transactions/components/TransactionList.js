@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
 import { ListGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import TransactionItem from './TransactionItem';
-import { selectTransactionsWithCategories } from '../transaction.selectors';
-import { listOf, withDataFrom, withLoadingSpinner } from '../../hocs';
-import { transactionsDelete, transactionsFetched } from '../transaction.actions';
-import api from '../../api';
-import TransactionModel from '../transaction.model';
-import { raiseError } from '../../core/message.actions';
+
+import api from 'api';
+import { listOf, withDataFrom, withLoadingSpinner } from 'hocs';
+import { raiseError } from 'core/message.actions';
+import { TransactionItem } from 'transactions/components';
+import { selectTransactionsWithCategories } from 'transactions/transaction.selectors';
+import { transactionsDelete, transactionsFetched } from 'transactions/transaction.actions';
+import TransactionModel from 'transactions/transaction.model';
+
 
 const mapStateToProps = state => ({
   items: selectTransactionsWithCategories(state).sort((x, y) => new Date(y.date) - new Date(x.date)),

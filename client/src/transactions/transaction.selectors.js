@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-import Adapter from '../utils/adapter';
-import { selectCategories } from '../categories/category.selectors';
+import Adapter from 'utils/adapter';
+import { selectCategories } from 'categories/category.selectors';
 
 const adapter = new Adapter();
 

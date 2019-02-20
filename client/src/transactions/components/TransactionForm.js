@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import api from '../../api';
-import { transactionsNew } from '../transaction.actions';
-import { selectCategoriesAll } from '../../categories/category.selectors';
-import CategoryModel from '../../categories/category.model';
-import { raiseError } from '../../core/message.actions';
-import TransactionFormBody from './TransactionFormBody';
+import api from 'api';
+import { TransactionFormBody } from 'transactions/components';
+import { transactionsNew } from 'transactions/transaction.actions';
+import { selectCategoriesAll } from 'categories/category.selectors';
+import CategoryModel from 'categories/category.model';
+import { raiseError } from 'core/message.actions';
 
 
 const mapStateToProps = state => ({

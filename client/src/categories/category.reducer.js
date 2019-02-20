@@ -1,5 +1,6 @@
+import Adapter from 'utils/adapter';
 import * as actions from './category.actions';
-import Adapter from '../utils/adapter';
+
 
 const adapter = new Adapter();
 const initialCategoriesState = adapter.getInitialState();

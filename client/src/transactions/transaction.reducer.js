@@ -1,5 +1,5 @@
-import * as actions from './transaction.actions';
-import Adapter from '../utils/adapter';
+import * as actions from 'transactions/transaction.actions';
+import Adapter from 'utils/adapter';
 
 const adapter = new Adapter();
 const initialTransactionsState = adapter.getInitialState();

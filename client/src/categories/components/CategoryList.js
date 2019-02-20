@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
 import { ListGroup } from 'react-bootstrap';
-import { categoriesFetched } from '../category.actions';
-import { selectCategoriesAll } from '../category.selectors';
-import CategoryItem from './CategoryItem';
-import { listOf, withDataFrom, withLoadingSpinner } from '../../hocs/index';
-import CategoryModel from '../category.model';
-import api from '../../api';
-import { raiseError } from '../../core/message.actions';
+
+import api from 'api';
+import { listOf, withDataFrom, withLoadingSpinner } from 'hocs';
+import { raiseError } from 'core/message.actions';
+import { categoriesFetched } from 'categories/category.actions';
+import { selectCategoriesAll } from 'categories/category.selectors';
+import { CategoryItem } from 'categories/components';
+import CategoryModel from 'categories/category.model';
+
 
 const mapStateToProps = (state) => ({
   items: selectCategoriesAll(state),
