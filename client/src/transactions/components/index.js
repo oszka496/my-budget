@@ -1,3 +1,4 @@
+export { CustomModal } from './CustomModal';
 export { default as TransactionFormBody } from './TransactionFormBody';
 export { default as TransactionForm } from './TransactionForm';
 export { default as TransactionItem } from './TransactionItem';
