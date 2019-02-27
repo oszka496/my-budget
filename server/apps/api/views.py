@@ -1,8 +1,15 @@
 from rest_framework import permissions, viewsets
 from rest_framework.decorators import permission_classes
 
-from apps.api.serializers import CategorySerializer, TransactionSerializer, UserSerializer
-from apps.core.models import Category, Transaction, User
+from apps.api.permissions import IsAdminUserOrReadOnly
+from apps.api.serializers import CategorySerializer, TransactionSerializer, UserSerializer, CurrencySerializer
+from apps.core.models import Category, Transaction, User, Currency
+
+
+@permission_classes((permissions.IsAuthenticated, IsAdminUserOrReadOnly))
+class CurrencyViewSet(viewsets.ModelViewSet):
+    serializer_class = CurrencySerializer
+    queryset = Currency.objects.all()
 
 
 @permission_classes((permissions.IsAuthenticated, permissions.IsAdminUser))

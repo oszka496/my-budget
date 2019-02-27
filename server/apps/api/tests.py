@@ -75,4 +75,3 @@ class UserViewSetTest(BaseViewSet):
         ]
 
         self.assertEqual(response.data, expected)
-

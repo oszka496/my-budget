@@ -14,6 +14,9 @@ from server.settings import APPS_CORE_DIR
 
 
 class Currency(models.Model):
+    class Meta:
+        verbose_name_plural = "currencies"
+
     abbrev = models.CharField(max_length=3, primary_key=True)
 
 
@@ -31,6 +34,7 @@ class User(AbstractUser):
 
 class Category(models.Model):
     class Meta:
+        verbose_name_plural = "categories"
         unique_together = (('name', 'user'),)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
