@@ -1,6 +1,12 @@
 from rest_framework import serializers
 
-from apps.core.models import Category, Transaction, User
+from apps.core.models import Category, Transaction, User, Currency
+
+
+class CurrencySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Currency
+        fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):

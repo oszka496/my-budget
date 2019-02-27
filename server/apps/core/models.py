@@ -13,6 +13,13 @@ from rest_framework.authtoken.models import Token
 from server.settings import APPS_CORE_DIR
 
 
+class Currency(models.Model):
+    class Meta:
+        verbose_name_plural = "currencies"
+
+    code = models.CharField(max_length=3, primary_key=True)
+
+
 class User(AbstractUser):
     @staticmethod
     def create_categories_for_user(sender, instance, created, **kwargs):
@@ -27,6 +34,7 @@ class User(AbstractUser):
 
 class Category(models.Model):
     class Meta:
+        verbose_name_plural = "categories"
         unique_together = (('name', 'user'),)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -38,7 +46,7 @@ class Category(models.Model):
 
     @staticmethod
     def get_default_categories():
-        with open(APPS_CORE_DIR + '/initial_data/initial_categories.json') as f:
+        with open(APPS_CORE_DIR + '/initial_data/default_categories.json') as f:
             categories = json.loads(f.read())
         return categories
 
