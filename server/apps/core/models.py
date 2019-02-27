@@ -13,6 +13,10 @@ from rest_framework.authtoken.models import Token
 from server.settings import APPS_CORE_DIR
 
 
+class Currency(models.Model):
+    abbrev = models.CharField(max_length=3, primary_key=True)
+
+
 class User(AbstractUser):
     @staticmethod
     def create_categories_for_user(sender, instance, created, **kwargs):
@@ -38,7 +42,7 @@ class Category(models.Model):
 
     @staticmethod
     def get_default_categories():
-        with open(APPS_CORE_DIR + '/initial_data/initial_categories.json') as f:
+        with open(APPS_CORE_DIR + '/initial_data/default_categories.json') as f:
             categories = json.loads(f.read())
         return categories
 
