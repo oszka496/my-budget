@@ -11,16 +11,20 @@ class LoginForm extends Component {
     password: '',
   };
 
-  authenticate = () => {
+  authenticate = (event) => {
+    event.preventDefault();
     const url = api.auth.login();
     const body = JSON.stringify(this.state);
     const { username } = this.state;
-    const { onUserLoggedIn } = this.props;
+    const { onUserLoggedIn, onLoginFailed } = this.props;
 
     api.requests
       .post(url, body)
       .then(({ token }) => {
         onUserLoggedIn(username, token);
+      })
+      .catch(() => {
+        onLoginFailed('Incorrect username or password');
       });
   };
 
@@ -36,7 +40,7 @@ class LoginForm extends Component {
           <Form>
             <LabeledInput label="Username" value={username} type="text" onChange={this.handleChange} required />
             <LabeledInput label="Password" value={password} type="password" onChange={this.handleChange} required />
-            <Button onClick={this.authenticate}>Log in</Button>
+            <Button onClick={this.authenticate} type="submit">Log in</Button>
           </Form>
         </Panel.Body>
       </Panel>
@@ -46,6 +50,7 @@ class LoginForm extends Component {
 
 LoginForm.propTypes = {
   onUserLoggedIn: func.isRequired,
+  onLoginFailed: func.isRequired,
 };
 
 export default LoginForm;
