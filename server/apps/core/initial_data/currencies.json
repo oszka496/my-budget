@@ -1,5 +1,5 @@
 [
-  { "abbrev": "EUR" },
-  { "abbrev": "USD" },
-  { "abbrev": "PLN" }
+  { "code": "EUR" },
+  { "code": "USD" },
+  { "code": "PLN" }
 ]

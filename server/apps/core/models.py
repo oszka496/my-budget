@@ -17,7 +17,7 @@ class Currency(models.Model):
     class Meta:
         verbose_name_plural = "currencies"
 
-    abbrev = models.CharField(max_length=3, primary_key=True)
+    code = models.CharField(max_length=3, primary_key=True)
 
 
 class User(AbstractUser):

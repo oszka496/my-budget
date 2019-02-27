@@ -8,10 +8,10 @@ from server.settings import APPS_CORE_DIR
 def create_initial_currencies(apps, schema_editor):
     Currency = apps.get_model('core', 'Currency')
     with open(APPS_CORE_DIR + '/initial_data/currencies.json') as f:
-        currencies = [curr['abbrev'] for curr in json.loads(f.read())]
+        currencies = [curr['code'] for curr in json.loads(f.read())]
 
-    for currency_abbrev in currencies:
-        Currency.objects.create(abbrev=currency_abbrev)
+    for currency_code in currencies:
+        Currency.objects.create(code=currency_code)
 
 
 def reverse(apps, schema_editor):
@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Currency',
             fields=[
-                ('abbrev', models.CharField(max_length=3, primary_key=True, serialize=False)),
+                ('code', models.CharField(max_length=3, primary_key=True, serialize=False)),
             ],
         ),
         migrations.RunPython(create_initial_currencies, reverse),
