@@ -21,6 +21,8 @@ class Currency(models.Model):
 
 
 class User(AbstractUser):
+    currency = models.ForeignKey(Currency, on_delete=models.CASCADE, default='EUR')
+
     @staticmethod
     def create_categories_for_user(sender, instance, created, **kwargs):
         if not created:
