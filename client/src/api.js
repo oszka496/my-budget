@@ -36,6 +36,10 @@ const api = {
     list: () => `${BASE_URL}api/categories/`,
     item: id => `${BASE_URL}api/categories/${id}`,
   },
+  currency: {
+    list: () => `${BASE_URL}api/currencies/`,
+    item: id => `${BASE_URL}api/currencies/${id}`,
+  },
   transaction: {
     list: () => `${BASE_URL}api/transactions/`,
     item: id => `${BASE_URL}api/transactions/${id}`,

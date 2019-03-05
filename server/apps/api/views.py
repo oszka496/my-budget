@@ -12,6 +12,7 @@ class CurrencyViewSet(viewsets.ModelViewSet):
     queryset = Currency.objects.all()
 
 
+# TODO: Update permissions: user needs access to their data
 @permission_classes((permissions.IsAuthenticated, permissions.IsAdminUser))
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
