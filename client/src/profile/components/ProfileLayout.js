@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
 const ProfileLayout = ({ profile }) => (
   <div>
     <h3>Profile</h3>
-    <CurrencySettings defaultCurrency={profile.currency} />
+    <CurrencySettings currency={profile.currency} />
   </div>
 );
 

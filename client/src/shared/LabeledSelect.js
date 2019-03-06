@@ -1,20 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ControlLabel, FormControl, FormGroup } from 'react-bootstrap';
+import { ControlLabel, FormGroup } from 'react-bootstrap';
+import { Select } from './EditableInput';
 
 
 const LabeledSelect = ({ label, value, options, onChange, ...other }) => (
   <FormGroup>
     <ControlLabel>{label}</ControlLabel>
-    <FormControl
-      componentClass="select"
+    <Select
       name={label.toLowerCase()}
       value={value}
       onChange={onChange}
+      options={options}
       {...other}
-    >
-      {options.map(op => <option key={op.id} value={op.id}>{op.name}</option>)}
-    </FormControl>
+    />
   </FormGroup>
 );
 
