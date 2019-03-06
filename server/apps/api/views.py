@@ -1,4 +1,4 @@
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, generics
 from rest_framework.decorators import permission_classes
 
 from apps.api.permissions import IsAdminUserOrReadOnly
@@ -12,7 +12,16 @@ class CurrencyViewSet(viewsets.ModelViewSet):
     queryset = Currency.objects.all()
 
 
-# TODO: Update permissions: user needs access to their data
+@permission_classes((permissions.IsAuthenticated,))
+class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    def get_object(self):
+        self.kwargs['pk'] = self.request.user.pk
+        return super().get_object()
+
+
 @permission_classes((permissions.IsAuthenticated, permissions.IsAdminUser))
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
