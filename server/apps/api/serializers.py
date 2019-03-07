@@ -16,6 +16,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
+    currency = serializers.CharField()
+
     class Meta:
         model = Transaction
         fields = '__all__'

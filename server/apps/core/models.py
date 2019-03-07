@@ -80,5 +80,9 @@ class Transaction(models.Model):
             self.is_income = self.category.is_income if isinstance(self.category, Category) else False
         super().save(*args, **kwargs)
 
+    @property
+    def currency(self):
+        return self.user.currency.code
+
 
 post_save.connect(User.create_categories_for_user, sender=User)
