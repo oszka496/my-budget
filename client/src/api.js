@@ -25,6 +25,11 @@ const api = {
         .then(ensureSuccessOr(errorMsg))
         .then(ensureJSON)
         .then(formatApiResponse),
+    patch: (url, body, errorMsg = 'Failed to put data to the API') =>
+      fetch(url, { method: 'PATCH', headers: getDefaultHeaders(), body })
+        .then(ensureSuccessOr(errorMsg))
+        .then(ensureJSON)
+        .then(formatApiResponse),
     remove: (url, errorMsg = 'Failed to delete') =>
       fetch(url, { method: 'DELETE', headers: getDefaultHeaders() })
         .then(ensureSuccessOr(errorMsg)),

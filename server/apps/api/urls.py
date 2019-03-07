@@ -11,6 +11,6 @@ router.register(r'transactions', TransactionViewSet, 'transaction')
 router.register(r'users', UserViewSet, 'user')
 
 urlpatterns = router.urls + [
-    path('profile/', ProfileDetail.as_view()),
+    path('profile/', ProfileDetail.as_view(), name='profile'),
     path('token/', views.obtain_auth_token)
 ]

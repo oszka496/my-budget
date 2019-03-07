@@ -9,11 +9,13 @@ import { withDataFrom, withLoadingSpinner } from 'hocs';
 import { raiseError } from 'core/message.actions';
 import { selectCurrenciesAll, selectCurrenciesAreLoaded } from 'currencies/currency.selectors';
 import { currenciesFetched } from 'currencies/currency.actions';
+import { profileUpdated } from '../profile.actions';
 
 
 const mapDispatchToProps = dispatch => ({
   onDataFetched: currencies => dispatch(currenciesFetched(currencies)),
   onFetchFailed: error => dispatch(raiseError(error.toString())),
+  editCurrency: code => editCurrencyThunk(code, dispatch),
 });
 
 const mapStateToProps = state => ({
@@ -21,13 +23,22 @@ const mapStateToProps = state => ({
   options: selectCurrenciesAll(state),
 });
 
-const CurrencySettings = ({ currency, options }) => (
+const PROFILE_API = api.profile();
+const editCurrencyThunk = (code, dispatch) => {
+  const body = JSON.stringify({ currency: code });
+  api.requests.patch(PROFILE_API, body)
+    .then(response => dispatch(profileUpdated(response)))
+    .catch(error => dispatch(raiseError(error.toString())));
+};
+
+const CurrencySettings = ({ currency, options, editCurrency }) => (
   <Form horizontal>
     <EditableInput
       label="Currency"
       component={Select}
       options={options}
       value={currency}
+      onSubmit={editCurrency}
     />
   </Form>
 );
@@ -43,6 +54,7 @@ CurrencySettings.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   })).isRequired,
+  editCurrency: PropTypes.func.isRequired,
 };
 
 export default connect(

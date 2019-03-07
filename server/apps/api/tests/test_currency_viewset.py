@@ -7,7 +7,7 @@ from apps.core.models import Currency
 class CurrencyViewSetTest(BaseViewSet):
 
     def setUp(self):
-        super(CurrencyViewSetTest, self).setUp()
+        super().setUp()
         self.url = reverse('currency-list')
         self.default_currencies = list(Currency.objects.values_list('code', flat=True))  # data from migration
 

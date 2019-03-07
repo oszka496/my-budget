@@ -22,7 +22,7 @@ EditableInputButtons.propTypes = {
 };
 
 
-export const EditableInput = ({ label, value: initialValue, component: Component, ...other }) => {
+export const EditableInput = ({ label, value: initialValue, component: Component, onSubmit, ...other }) => {
   const [value, setValue] = useState(initialValue);
   const [isEdited, setMode] = useState(false);
 
@@ -34,9 +34,8 @@ export const EditableInput = ({ label, value: initialValue, component: Component
     setMode(true);
   };
 
-  // TODO: Actually handle submit
   const handleSubmit = () => {
-    console.log('Submit', value);
+    onSubmit(value);
     setMode(false);
   };
 
@@ -82,6 +81,7 @@ EditableInput.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string.isRequired,
   })).isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 // TODO: Move and rename
