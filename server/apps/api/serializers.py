@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
-    currency = serializers.CharField()
+    currency = serializers.CharField(read_only=True)
 
     class Meta:
         model = Transaction

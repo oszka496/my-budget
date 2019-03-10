@@ -22,3 +22,49 @@ body {
 .right {
   justify-self: end;
 }
+
+@media (max-width: 767px) {
+  .xs-hide {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .sm-hide {
+    display: none !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .md-hide {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .lg-hide {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar-nav {
+    margin: 0 -15px;
+  }
+
+  .navbar-nav:first-child {
+    margin-top: 10px;
+  }
+
+  .navbar-nav:last-child {
+    margin-bottom: 10px;
+  }
+}
+
+.navbar-nav .btn {
+  padding: 0;
+}
+
+#settings-icon {
+  padding-right: 0;
+}
