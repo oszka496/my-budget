@@ -15,10 +15,14 @@ class ProfileDetailTest(BaseViewSet):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
-        expectedResult = model_to_dict(self.user, fields=['id', 'username', 'email', 'currency'])
-        self.assertEqual(response.data, expectedResult)
+        expected_result = model_to_dict(self.user, fields=['id', 'username', 'email', 'currency'])
+        self.assertEqual(response.data, expected_result)
 
     def test_authenticated_user_can_update_their_profile(self):
         self.login(self.user)
         response = self.client.patch(self.url, {'currency': 'USD'})
         self.assertEqual(response.status_code, 200)
+
+    def test_unauthenticated_user_can_not_see_profile(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 401)
