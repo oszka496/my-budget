@@ -7,11 +7,11 @@ const formatDate = dateString => {
   return `${day} ${month}`;
 };
 
-const TransactionItem = ({ id, title, amount, date, isIncome, categoryName, deleteTransaction }) => (
+const TransactionItem = ({ id, title, amount, currency, date, isIncome, categoryName, deleteTransaction }) => (
   <ListGroupItem className="transaction-item">
     <div className="left-panel">{formatDate(date)}</div>
     <div>{title}</div>
-    <div className="right">{`${isIncome ? '+' : '-'}${amount}`}</div>
+    <div className="right">{`${isIncome ? '+' : '-'}${amount} ${currency}`}</div>
     <div><Label bsStyle="info">{categoryName}</Label></div>
     <div className="right">
       <Button bsStyle="link" bsSize="xsmall" onClick={() => { deleteTransaction(id); }}>
@@ -26,6 +26,7 @@ TransactionItem.propTypes = {
   title: PropTypes.string.isRequired,
   categoryName: PropTypes.string,
   amount: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   isIncome: PropTypes.bool.isRequired,
   deleteTransaction: PropTypes.func.isRequired,

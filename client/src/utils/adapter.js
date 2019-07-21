@@ -46,6 +46,7 @@ class Adapter {
       (ids, entities) => ids.map(id => entities[id]),
     );
     return {
+      selectItems,
       selectIds,
       selectEntities,
       selectItemsList,
@@ -54,3 +55,5 @@ class Adapter {
 }
 
 export default Adapter;
+
+export const adapter = new Adapter();

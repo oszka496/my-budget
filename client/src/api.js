@@ -25,7 +25,12 @@ const api = {
         .then(ensureSuccessOr(errorMsg))
         .then(ensureJSON)
         .then(formatApiResponse),
-    remove: (url, errorMsg = 'Failed to delete') =>
+    patch: (url, body, errorMsg = 'Failed to update the data') =>
+      fetch(url, { method: 'PATCH', headers: getDefaultHeaders(), body })
+        .then(ensureSuccessOr(errorMsg))
+        .then(ensureJSON)
+        .then(formatApiResponse),
+    remove: (url, errorMsg = 'Failed to delete the asset') =>
       fetch(url, { method: 'DELETE', headers: getDefaultHeaders() })
         .then(ensureSuccessOr(errorMsg)),
   },
@@ -36,6 +41,11 @@ const api = {
     list: () => `${BASE_URL}api/categories/`,
     item: id => `${BASE_URL}api/categories/${id}`,
   },
+  currency: {
+    list: () => `${BASE_URL}api/currencies/`,
+    item: id => `${BASE_URL}api/currencies/${id}`,
+  },
+  profile: () => `${BASE_URL}api/profile/`,
   transaction: {
     list: () => `${BASE_URL}api/transactions/`,
     item: id => `${BASE_URL}api/transactions/${id}`,

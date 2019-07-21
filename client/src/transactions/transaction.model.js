@@ -6,6 +6,7 @@ const TransactionModel = PropTypes.shape({
   category: PropTypes.number,
   date: PropTypes.string.isRequired,
   amount: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
   isIncome: PropTypes.bool.isRequired,
 });
 

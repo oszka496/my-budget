@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, ControlLabel, Form, FormControl, FormGroup, Radio } from 'react-bootstrap';
-
-import LabeledInput from 'shared/LabeledInput';
+import { Button, Form, FormGroup, Radio } from 'react-bootstrap';
+import { LabeledSelect, LabeledInput } from 'shared';
 import CategoryModel from 'categories/category.model';
 
 
@@ -40,19 +39,12 @@ class TransactionFormBody extends Component {
           required
         />
         <LabeledInput label="Date" value={date} type="date" onChange={this.handleChange} required />
-        <FormGroup controlId="formControlsSelect">
-          <ControlLabel>Category</ControlLabel>
-          <FormControl
-            name="category"
-            componentClass="select"
-            placeholder="select"
-            onChange={this.handleChange}
-            value={category}
-          >
-            <option value="">---</option>
-            {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-          </FormControl>
-        </FormGroup>
+        <LabeledSelect
+          label="Category"
+          value={category}
+          options={[{ id: '', name: '---' }, ...categories]}
+          onChange={this.handleChange}
+        />
         <FormGroup>
           <Radio name="isIncome" value="income" checked={isIncome} onChange={this.handleChange} inline>
             Income
