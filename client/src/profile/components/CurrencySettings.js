@@ -1,21 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { EditableInput, Select } from 'shared/EditableInput';
 import api from 'api';
-import { withDataFrom, withLoadingSpinner } from 'hocs';
 import { raiseError } from 'core/message.actions';
 import { selectCurrenciesAll, selectCurrenciesAreLoaded } from 'currencies/currency.selectors';
-import { currenciesFetched } from 'currencies/currency.actions';
-import { profileUpdated } from '../profile.actions';
+import { currencySlice } from 'currencies/currency.reducer';
+import { profileUpdated } from 'profile/profile.actions';
 
+const { actions } = currencySlice;
 
 const mapDispatchToProps = dispatch => ({
-  onDataFetched: currencies => dispatch(currenciesFetched(currencies)),
-  onFetchFailed: error => dispatch(raiseError(error.toString())),
   editCurrency: code => editCurrencyThunk(code, dispatch),
+  fetchCurrencies: () => dispatch(actions.fetchCurrencies()),
 });
 
 const mapStateToProps = state => ({
@@ -31,22 +30,24 @@ const editCurrencyThunk = (code, dispatch) => {
     .catch(error => dispatch(raiseError(error.toString())));
 };
 
-const CurrencySettings = ({ currency, options, editCurrency }) => (
-  <Form horizontal>
-    <EditableInput
-      label="Currency"
-      component={Select}
-      options={options}
-      value={currency}
-      onSubmit={editCurrency}
-    />
-  </Form>
-);
+const CurrencySettings = ({ currency, options, editCurrency, fetchCurrencies }) => {
+  useEffect(() => { fetchCurrencies(); }, [fetchCurrencies]);
 
-const CURRENCY_API = api.currency.list();
-const CurrencySettingsWithData = withDataFrom(CURRENCY_API)(
-  withLoadingSpinner(CurrencySettings),
-);
+  return (
+    <Form horizontal>
+      <EditableInput
+        label="Currency"
+        component={Select}
+        options={options}
+        value={currency}
+        onSubmit={editCurrency}
+      />
+    </Form>
+  );
+};
+
+const CurrencySettingsWithData = CurrencySettings;
+
 
 CurrencySettings.propTypes = {
   currency: PropTypes.string.isRequired,
@@ -55,6 +56,7 @@ CurrencySettings.propTypes = {
     name: PropTypes.string.isRequired,
   })).isRequired,
   editCurrency: PropTypes.func.isRequired,
+  fetchCurrencies: PropTypes.func.isRequired,
 };
 
 export default connect(

@@ -5,14 +5,14 @@ import { transactionReducer } from 'transactions/transaction.reducer';
 import { messageReducer } from 'core/message.reducer';
 import { authReducer } from 'auth/auth.reducer';
 import { USER_LOGGED_OUT } from 'auth/auth.actions';
-import { currencyReducer } from 'currencies/currency.reducer';
+import { currencySlice } from 'currencies/currency.reducer';
 
 
 export const rootReducer = combineReducers({
   auth: authReducer,
   messages: messageReducer,
   categories: categoryReducer,
-  currencies: currencyReducer,
+  currencies: currencySlice.reducer,
   profile: profileReducer,
   transactions: transactionReducer,
 });

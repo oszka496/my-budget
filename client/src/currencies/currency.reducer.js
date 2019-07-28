@@ -1,17 +1,17 @@
-import * as actions from 'currencies/currency.actions';
+import { createSlice } from 'redux-starter-kit';
 import { adapter } from 'utils/adapter';
 
 const initialState = adapter.getInitialState();
 
-export const currencyReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actions.CURRENCIES_FETCHED: {
-      return {
-        ...adapter.addMany(state, action.currencies.map(({ code }) => ({ id: code, name: code }))),
-        isLoaded: true,
-      };
-    }
-    default:
-      return state;
-  }
-};
+export const currencySlice = createSlice({
+  reducers: {
+    currenciesFetched: (state, action) => ({
+      isLoaded: true,
+      ...adapter.addMany(state, action.payload.map(({ code }) => ({ id: code, name: code }))),
+    }),
+    fetchCurrencies: (state) => ({ ...state, isLoaded: false }),
+    fetchCurrenciesError: (state) => ({ ...state, isLoaded: true }),
+  },
+  initialState,
+  slice: 'currencies',
+});
