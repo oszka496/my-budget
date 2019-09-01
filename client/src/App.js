@@ -11,6 +11,7 @@ import { selectUserLoggedIn } from 'auth/auth.selectors';
 import { userLoggedIn, userLoggedOut } from 'auth/auth.actions';
 import { LoginForm } from 'auth/components';
 import './App.css';
+import { useCoreStyles } from './core/core.styles';
 
 
 const mapStateToProps = (state) => ({
@@ -30,20 +31,24 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 
-const App = ({ onUserLoggedIn, isUserLoggedIn, onLoginFailed, onUserLoggedOut }) => (
-  <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <Header
-        isUserLoggedIn={isUserLoggedIn}
-        onUserLoggedOut={onUserLoggedOut}
-      />
-      <MessageList />
-      <div style={{ margin: '0 20%' }}> {/* TODO: Style properly */}
-        { isUserLoggedIn ? <Routes /> : <LoginForm onUserLoggedIn={onUserLoggedIn} onLoginFailed={onLoginFailed} />}
-      </div>
-    </ThemeProvider>
-  </BrowserRouter>
-);
+const App = ({ onUserLoggedIn, isUserLoggedIn, onLoginFailed, onUserLoggedOut }) => {
+  const classes = useCoreStyles();
+
+  return (
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Header
+          isUserLoggedIn={isUserLoggedIn}
+          onUserLoggedOut={onUserLoggedOut}
+        />
+        <MessageList />
+        <div className={classes.container}> {/* TODO: Style properly */}
+          { isUserLoggedIn ? <Routes /> : <LoginForm onUserLoggedIn={onUserLoggedIn} onLoginFailed={onLoginFailed} />}
+        </div>
+      </ThemeProvider>
+    </BrowserRouter>
+  );
+};
 
 App.propTypes = {
   onUserLoggedIn: func.isRequired,

@@ -1,22 +1,18 @@
 import React, { useState } from 'react';
-import { Button, Paper, TextField, makeStyles } from '@material-ui/core';
+import { Paper as MuiPaper, TextField, withStyles } from '@material-ui/core';
 import { func } from 'prop-types';
 import api from 'api';
+import { Form } from '../../components/form';
+import SubmitButton from '../../components/form/SubmitButton';
 
-const useStyles = makeStyles({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxWidth: '600px',
-    padding: '16px',
+const paperStyles = {
+  root: {
+    width: '600px',
+    margin: '60px auto',
   },
-  button: {
-    alignSelf: 'flex-end',
-  },
-  input: {
-    marginBottom: '8px',
-  },
-});
+};
+
+const Paper = withStyles(paperStyles)(MuiPaper);
 
 const LoginForm = ({ onUserLoggedIn, onLoginFailed }) => {
   const [state, setState] = useState({
@@ -43,29 +39,29 @@ const LoginForm = ({ onUserLoggedIn, onLoginFailed }) => {
     setState({ ...state, [name]: value });
   };
   const { username, password } = state;
-  const classes = useStyles();
 
   return (
-    <Paper className={classes.container}>
-      <TextField
-        label="Username"
-        name="username"
-        value={username}
-        type="text"
-        onChange={handleChange}
-        required
-        className={classes.input}
-      />
-      <TextField
-        label="Password"
-        name="password"
-        value={password}
-        type="password"
-        onChange={handleChange}
-        required
-        className={classes.input}
-      />
-      <Button onClick={authenticate} className={classes.button}>Log in</Button>
+    <Paper>
+      <Form onSubmit={authenticate}>
+        <TextField
+          autoFocus
+          label="Username"
+          name="username"
+          value={username}
+          type="text"
+          onChange={handleChange}
+          required
+        />
+        <TextField
+          label="Password"
+          name="password"
+          value={password}
+          type="password"
+          onChange={handleChange}
+          required
+        />
+        <SubmitButton onClick={authenticate} color="primary">Log in</SubmitButton>
+      </Form>
     </Paper>
   );
 };

@@ -4,10 +4,13 @@ import { func } from 'prop-types';
 
 const useStyles = makeStyles({
   form: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxWidth: '600px',
-    padding: '16px',
+    'display': 'flex',
+    'flexDirection': 'column',
+    'maxWidth': '600px',
+    'padding': '16px',
+    '&>div': {
+      marginTop: '8px',
+    },
   },
 });
 

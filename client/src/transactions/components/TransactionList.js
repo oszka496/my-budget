@@ -25,7 +25,7 @@ export const NewTransactionList = () => {
 
   return (
     <List>
-      { Array.from(dates).map(date => (
+      { Array.from(dates).reverse().map(date => (
         <List key={date} subheader={date}>
           { itemsByDate[date].map(item => <TransactionItem key={item.id} {...item} />) }
         </List>

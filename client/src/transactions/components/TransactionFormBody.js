@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { TextField, Button } from '@material-ui/core';
-import { Form, RadioOptions, LabeledSelect } from 'components/form';
+import { TextField } from '@material-ui/core';
+import { Form, RadioOptions, LabeledSelect, SubmitButton } from 'components/form';
 import CategoryModel from 'categories/category.model';
 
 
@@ -60,7 +60,7 @@ const TransactionFormBody = ({ item, categories, onSubmit }) => {
           { label: 'Expense', value: 'OUT' },
         ]}
       />
-      <Button color="primary" type="submit">Submit</Button>
+      <SubmitButton color="primary" type="submit">Submit</SubmitButton>
     </Form>
   );
 };
