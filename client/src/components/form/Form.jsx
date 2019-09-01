@@ -6,6 +6,7 @@ const useStyles = makeStyles({
   form: {
     'display': 'flex',
     'flexDirection': 'column',
+    'minWidth': '400px',
     'maxWidth': '600px',
     'padding': '16px',
     '&>div': {

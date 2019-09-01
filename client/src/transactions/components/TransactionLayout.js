@@ -8,6 +8,7 @@ import api from 'api';
 import { TransactionForm, TransactionList } from 'transactions/components';
 import { categoriesFetched } from 'categories/category.actions';
 import { raiseError } from 'core/message.actions';
+import AddTransaction from './AddTransaction';
 
 
 const mapStateToProps = (state) => ({
@@ -21,11 +22,11 @@ const mapDispatchToProps = dispatch => ({
 
 const Layout = () => (
   <Grid container spacing={2}>
-    <Grid item md={6}>
-      <Route path="/" component={TransactionList} />
+    <Grid item md={3}>
+      <AddTransaction />
     </Grid>
-    <Grid item md={6}>
-      <Route path="/" component={TransactionForm} />
+    <Grid item md={9}>
+      <Route path="/" component={TransactionList} />
     </Grid>
   </Grid>
 );
