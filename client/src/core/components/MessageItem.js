@@ -1,21 +1,24 @@
 import React from 'react';
+import { makeStyles, Typography } from '@material-ui/core';
 import { func, number, string } from 'prop-types';
-import { ListGroupItem } from 'react-bootstrap';
 
-const msgColor = {
-  error: 'danger',
-  info: 'info',
-  success: 'success',
+const useStyles = makeStyles({
+  root: {
+    padding: '8px',
+    background: '#e57373', // TODO: use palette
+  },
+});
+
+const MessageItem = ({ message, id, onDismiss }) => {
+  const classes = useStyles();
+  return (
+    <Typography className={classes.root} onClick={() => onDismiss(id)}>{message}</Typography>
+  );
 };
-
-const MessageItem = ({ type, message, id, onDismiss }) => (
-  <ListGroupItem bsStyle={msgColor[type]} onClick={() => onDismiss(id)}>{message}</ListGroupItem>
-);
 
 MessageItem.propTypes = {
   onDismiss: func.isRequired,
   id: number.isRequired,
-  type: string.isRequired,
   message: string.isRequired,
 };
 

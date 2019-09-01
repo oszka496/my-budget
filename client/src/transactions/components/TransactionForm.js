@@ -40,7 +40,7 @@ class TransactionForm extends Component {
           user: 1,
           amount: '0',
           title: '',
-          isIncome: false,
+          isIncome: 'OUT',
           date: new Date().toJSON().split('T')[0],
         }}
       />

@@ -1,20 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ControlLabel, FormGroup } from 'react-bootstrap';
-import { Select } from './EditableInput';
+import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 
 const LabeledSelect = ({ label, value, options, onChange, ...other }) => (
-  <FormGroup>
-    <ControlLabel>{label}</ControlLabel>
+  <FormControl>
+    <InputLabel htmlFor={label.toLowerCase()}>{ label }</InputLabel>
     <Select
-      name={label.toLowerCase()}
-      value={value}
+      value={value || options[0].id}
       onChange={onChange}
-      options={options}
+      inputProps={{
+        name: label.toLowerCase(),
+        id: label.toLowerCase(),
+      }}
       {...other}
-    />
-  </FormGroup>
+    >
+      { options.map(({ id, name }) => (
+        <MenuItem value={id} key={id}>{ name }</MenuItem>
+      )) }
+    </Select>
+  </FormControl>
 );
 
 LabeledSelect.propTypes = {

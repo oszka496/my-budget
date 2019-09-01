@@ -1,44 +1,37 @@
-import { connect } from 'react-redux';
-import { ListGroup } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { List } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTransactions } from '../transaction.actions';
+import { selectTransactionsWithCategories } from '../transaction.selectors';
+import TransactionItem from './TransactionItem';
 
-import api from 'api';
-import { listOf, withDataFrom, withLoadingSpinner } from 'hocs';
-import { raiseError } from 'core/message.actions';
-import { TransactionItem } from 'transactions/components';
-import { selectTransactionsWithCategories } from 'transactions/transaction.selectors';
-import { transactionsDelete, transactionsFetched } from 'transactions/transaction.actions';
-import TransactionModel from 'transactions/transaction.model';
-
-
-const mapStateToProps = state => ({
-  items: selectTransactionsWithCategories(state).sort((x, y) => new Date(y.date) - new Date(x.date)),
-  isLoaded: state.transactions.isLoaded,
-});
-
-const mapDispatchToProps = dispatch => ({
-  onDataFetched: transactions => dispatch(transactionsFetched(transactions)),
-  onFetchFailed: error => dispatch(raiseError(error.toString())),
-  deleteTransaction: id => deleteTransaction(id, dispatch),
-});
-
-const deleteTransaction = (id, dispatch) => {
-  api.requests.remove(api.transaction.item(id))
-    .then(() => dispatch(transactionsDelete(id)))
-    .catch(error => dispatch(raiseError(error.toString()))); // TODO: Clean up
+const groupByDate = (items) => {
+  const dates = new Set(items.map(({ date }) => date));
+  const itemsByDate = items.reduce((prev, curr) => {
+    const { date } = curr;
+    const arr = prev[date] || [];
+    return { ...prev, [date]: [...arr, curr] };
+  },
+  {});
+  return { dates, itemsByDate };
 };
 
-const TRANSACTIONS_API = api.transaction.list();
-const TransactionList = withDataFrom(TRANSACTIONS_API)(
-  withLoadingSpinner(listOf(ListGroup, TransactionItem)),
-);
+export const NewTransactionList = () => {
+  const dispatch = useDispatch();
+  useEffect(() => { dispatch(fetchTransactions); }, [dispatch]);
 
-TransactionList.propTypes = {
-  onDataFetched: PropTypes.func.isRequired,
-  items: PropTypes.arrayOf(TransactionModel).isRequired,
+  const items = useSelector(state => selectTransactionsWithCategories(state));
+  const { dates, itemsByDate } = groupByDate(items);
+
+  return (
+    <List>
+      { Array.from(dates).map(date => (
+        <List key={date} subheader={date}>
+          { itemsByDate[date].map(item => <TransactionItem key={item.id} {...item} />) }
+        </List>
+      )) };
+    </List>
+  );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TransactionList);
+export default NewTransactionList;

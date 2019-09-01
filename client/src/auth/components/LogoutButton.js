@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button } from '@material-ui/core';
 import { func } from 'prop-types';
 
 const LogoutButton = ({ onUserLoggedOut }) => (
-  <Button onClick={onUserLoggedOut} className="btn-xs">Log out</Button>
+  <Button onClick={onUserLoggedOut}>Log out</Button>
 );
 
 LogoutButton.propTypes = {

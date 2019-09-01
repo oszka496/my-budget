@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Grid } from 'react-bootstrap';
 import { bool, func } from 'prop-types';
 
 import { Header, MessageList, Routes } from 'core/components';
@@ -37,9 +36,9 @@ const App = ({ onUserLoggedIn, isUserLoggedIn, onLoginFailed, onUserLoggedOut })
         onUserLoggedOut={onUserLoggedOut}
       />
       <MessageList />
-      <Grid className="App">
+      <div style={{ margin: '0 20%' }}> {/* TODO: Style properly */}
         { isUserLoggedIn ? <Routes /> : <LoginForm onUserLoggedIn={onUserLoggedIn} onLoginFailed={onLoginFailed} />}
-      </Grid>
+      </div>
     </Fragment>
   </BrowserRouter>
 );

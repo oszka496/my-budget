@@ -1,2 +1,2 @@
-export { default as LabeledInput } from './LabeledInput';
 export { default as LabeledSelect } from './LabeledSelect';
+export { default as RadioOptions } from './RadioOptions';

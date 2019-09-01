@@ -1,22 +1,33 @@
-import React, { Component } from 'react';
-import { Button, Form, Panel } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Paper, TextField, makeStyles } from '@material-ui/core';
 import { func } from 'prop-types';
-import LabeledInput from 'shared/LabeledInput';
 import api from 'api';
 
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: '600px',
+    padding: '16px',
+  },
+  button: {
+    alignSelf: 'flex-end',
+  },
+  input: {
+    marginBottom: '8px',
+  },
+});
 
-class LoginForm extends Component {
-  state = {
+const LoginForm = ({ onUserLoggedIn, onLoginFailed }) => {
+  const [state, setState] = useState({
     username: '',
     password: '',
-  };
+  });
 
-  authenticate = (event) => {
-    event.preventDefault();
+  const authenticate = () => {
     const url = api.auth.login();
-    const body = JSON.stringify(this.state);
-    const { username } = this.state;
-    const { onUserLoggedIn, onLoginFailed } = this.props;
+    const body = JSON.stringify(state);
+    const { username } = state;
 
     api.requests
       .post(url, body)
@@ -28,25 +39,36 @@ class LoginForm extends Component {
       });
   };
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
+  const handleChange = ({ target: { name, value } }) => {
+    setState({ ...state, [name]: value });
   };
+  const { username, password } = state;
+  const classes = useStyles();
 
-  render() {
-    const { username, password } = this.state;
-    return (
-      <Panel>
-        <Panel.Body>
-          <Form>
-            <LabeledInput label="Username" value={username} type="text" onChange={this.handleChange} required />
-            <LabeledInput label="Password" value={password} type="password" onChange={this.handleChange} required />
-            <Button onClick={this.authenticate} type="submit">Log in</Button>
-          </Form>
-        </Panel.Body>
-      </Panel>
-    );
-  }
-}
+  return (
+    <Paper className={classes.container}>
+      <TextField
+        label="Username"
+        name="username"
+        value={username}
+        type="text"
+        onChange={handleChange}
+        required
+        className={classes.input}
+      />
+      <TextField
+        label="Password"
+        name="password"
+        value={password}
+        type="password"
+        onChange={handleChange}
+        required
+        className={classes.input}
+      />
+      <Button onClick={authenticate} className={classes.button}>Log in</Button>
+    </Paper>
+  );
+};
 
 LoginForm.propTypes = {
   onUserLoggedIn: func.isRequired,

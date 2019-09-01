@@ -1,15 +1,19 @@
+import { Toolbar, Typography } from '@material-ui/core';
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
 import { bool, func } from 'prop-types';
+import AppBar from '@material-ui/core/AppBar';
 import PageNavBar from './PageNavBar';
 import PageLogo from './PageLogo';
 
 
 const Header = ({ isUserLoggedIn, onUserLoggedOut }) => (
-  <Navbar staticTop>
-    <PageLogo />
-    {isUserLoggedIn && <PageNavBar onUserLoggedOut={onUserLoggedOut} />}
-  </Navbar>
+  <AppBar position="static">
+    <Toolbar>
+      <PageLogo />
+      <Typography variant="h5">My Budget</Typography>
+      {isUserLoggedIn && <PageNavBar onUserLoggedOut={onUserLoggedOut} />}
+    </Toolbar>
+  </AppBar>
 );
 
 Header.propTypes = {

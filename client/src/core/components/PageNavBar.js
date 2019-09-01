@@ -1,24 +1,17 @@
-import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import React from 'react';
+import { func } from 'prop-types';
+import { Button } from '@material-ui/core';
+import { RoutedSettingsButton } from './SettingsButton';
 
-import { NavLink, SettingsNavLink } from 'core/components';
-import { routes } from 'core/components/Routes';
-import { LogoutButton } from 'auth/components';
-
-
-const PageNavBar = (props) => (
-  <Navbar.Collapse>
-    <Nav>
-      <NavLink title={routes.categories.label} path={routes.categories.href} />
-      <NavLink title={routes.transactions.label} path={routes.transactions.href} />
-    </Nav>
-    <Nav pullRight>
-      <SettingsNavLink className="xs-hide" />
-      <NavItem href="#">
-        <LogoutButton {...props} />
-      </NavItem>
-    </Nav>
-  </Navbar.Collapse>
+const PageNavBar = ({ onUserLoggedOut }) => (
+  <>
+    <RoutedSettingsButton />
+    <Button color="inherit" onClick={onUserLoggedOut}>Log out</Button>
+  </>
 );
+
+PageNavBar.propTypes = {
+  onUserLoggedOut: func.isRequired,
+};
 
 export default PageNavBar;

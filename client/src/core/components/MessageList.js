@@ -1,4 +1,4 @@
-import { ListGroup } from 'react-bootstrap';
+import { List } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { listOf } from '../../hocs';
 import { selectMessages } from '../message.selectors';
@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
   onDismiss: id => dispatch(dismissMessage(id)),
 });
 
-const MessageListBody = listOf(ListGroup, MessageItem);
+const MessageListBody = listOf(List, MessageItem);
 export default connect(
   mapStateToProps,
   mapDispatchToProps,

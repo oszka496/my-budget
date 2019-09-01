@@ -1,18 +1,22 @@
-import { Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import React from 'react';
+import { makeStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import logo from '../../logo.svg';
 
-const PageLogo = () => (
-  <Navbar.Header>
-    <Navbar.Brand>
-      <Link to="/">
-        <img src={logo} className="App-logo" alt="logo" />
-        <span>&nbsp;My budget</span>
-      </Link>
-    </Navbar.Brand>
-    <Navbar.Toggle />
-  </Navbar.Header>
-);
+const useStyles = makeStyles({
+  logo: {
+    height: '30px',
+    marginRight: '8px',
+  },
+});
+
+const PageLogo = () => {
+  const classes = useStyles();
+  return (
+    <Link to="/">
+      <img src={logo} alt="logo" className={classes.logo} />
+    </Link>
+  );
+};
 
 export default PageLogo;

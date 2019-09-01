@@ -1,15 +1,16 @@
 import React from 'react';
+import { IconButton } from '@material-ui/core';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { withRouter } from 'react-router-dom';
-import { Button, Glyphicon } from 'react-bootstrap';
 import { object } from 'prop-types';
 
 import { createRedirect, routes } from './Routes';
 
 
 export const SettingsButton = ({ history }) => (
-  <Button className="btn-xs" onClick={createRedirect(history, routes.profile.href)}>
-    <Glyphicon glyph="cog" id="settings-icon" />
-  </Button>
+  <IconButton onClick={createRedirect(history, routes.profile.href)}>
+    <SettingsIcon />
+  </IconButton>
 );
 
 SettingsButton.propTypes = {

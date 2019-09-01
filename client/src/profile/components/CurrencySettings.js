@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { EditableInput, Select } from 'shared/EditableInput';
+import { EditableInput } from 'shared/EditableInput';
 import api from 'api';
 import { raiseError } from 'core/message.actions';
 import { selectCurrenciesAll, selectCurrenciesAreLoaded } from 'currencies/currency.selectors';
 import { currencySlice } from 'currencies/currency.reducer';
 import { profileUpdated } from 'profile/profile.actions';
+import { LabeledSelect } from '../../shared';
 
 const { actions } = currencySlice;
 
@@ -34,15 +34,13 @@ const CurrencySettings = ({ currency, options, editCurrency, fetchCurrencies }) 
   useEffect(() => { fetchCurrencies(); }, [fetchCurrencies]);
 
   return (
-    <Form horizontal>
-      <EditableInput
-        label="Currency"
-        component={Select}
-        options={options}
-        value={currency}
-        onSubmit={editCurrency}
-      />
-    </Form>
+    <EditableInput
+      label="Currency"
+      component={LabeledSelect}
+      options={options}
+      value={currency}
+      onSubmit={editCurrency}
+    />
   );
 };
 
