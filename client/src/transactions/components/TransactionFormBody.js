@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { TextField, Button, makeStyles } from '@material-ui/core';
-import { RadioOptions, LabeledSelect } from 'shared';
+import { TextField, Button } from '@material-ui/core';
+import { Form, RadioOptions, LabeledSelect } from 'components/form';
 import CategoryModel from 'categories/category.model';
 
-const useStyles = makeStyles({
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-});
 
 const TransactionFormBody = ({ item, categories, onSubmit }) => {
   const [fields, setFields] = useState({ ...item });
@@ -18,16 +12,16 @@ const TransactionFormBody = ({ item, categories, onSubmit }) => {
     setFields({ ...fields, [name]: value });
   };
 
-  const handleSubmit = () => {
-    const body = JSON.stringify({ ...fields, is_income: fields.isIncome });
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    const body = JSON.stringify({ ...fields, is_income: fields.isIncome === 'IN' });
     onSubmit(body);
   };
 
-  const classes = useStyles();
   const { amount, title, date, isIncome, category } = fields;
 
   return (
-    <form onSubmit={handleSubmit} className={classes.form}>
+    <Form onSubmit={handleSubmit}>
       <TextField
         required
         name="title"
@@ -67,7 +61,7 @@ const TransactionFormBody = ({ item, categories, onSubmit }) => {
         ]}
       />
       <Button color="primary" type="submit">Submit</Button>
-    </form>
+    </Form>
   );
 };
 

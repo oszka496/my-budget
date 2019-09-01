@@ -29,7 +29,7 @@ export const NewTransactionList = () => {
         <List key={date} subheader={date}>
           { itemsByDate[date].map(item => <TransactionItem key={item.id} {...item} />) }
         </List>
-      )) };
+      )) }
     </List>
   );
 };

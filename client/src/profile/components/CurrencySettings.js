@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { EditableInput } from 'shared/EditableInput';
+import { EditableInput } from 'components/form/EditableInput';
 import api from 'api';
 import { raiseError } from 'core/message.actions';
 import { selectCurrenciesAll, selectCurrenciesAreLoaded } from 'currencies/currency.selectors';
 import { currencySlice } from 'currencies/currency.reducer';
 import { profileUpdated } from 'profile/profile.actions';
-import { LabeledSelect } from '../../shared';
+import { LabeledSelect } from '../../components/form';
 
 const { actions } = currencySlice;
 
