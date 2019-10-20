@@ -60,7 +60,7 @@ const TransactionFormBody = ({ item, categories, onSubmit }) => {
           { label: 'Expense', value: 'OUT' },
         ]}
       />
-      <SubmitButton color="primary" type="submit">Submit</SubmitButton>
+      <SubmitButton color="primary" type="submit">Save</SubmitButton>
     </Form>
   );
 };

@@ -1,11 +1,13 @@
 import React from 'react';
-import { string, bool } from 'prop-types';
+import { string, bool, number } from 'prop-types';
 import { ListItem, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
+import { TransactionActions } from './TransactionActions';
 
 const displayAmount = ({ amount, isIncome, currency }) => `${isIncome ? '+' : '-'}${amount} ${currency}`;
 
-const TransactionItem = ({ title, categoryName, amount, isIncome, currency }) => (
+const TransactionItem = ({ id, title, categoryName, amount, isIncome, currency }) => (
   <ListItem>
+    <TransactionActions id={id} />
     <ListItemText primary={title} secondary={categoryName} />
     <ListItemSecondaryAction>
       <ListItemText primary={displayAmount({ amount, isIncome, currency })} />
@@ -14,6 +16,7 @@ const TransactionItem = ({ title, categoryName, amount, isIncome, currency }) =>
 );
 
 TransactionItem.propTypes = {
+  id: number.isRequired,
   title: string.isRequired,
   categoryName: string,
   amount: string.isRequired,

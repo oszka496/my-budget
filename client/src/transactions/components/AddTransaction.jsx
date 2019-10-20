@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog, Button, DialogContent, DialogTitle } from '@material-ui/core';
+import { Dialog, Button, DialogContent } from '@material-ui/core';
 import TransactionForm from './TransactionForm';
 
 const AddTransaction = () => {

@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 
 import { withDataFrom, withLoadingSpinner } from 'hocs';
 import api from 'api';
-import { TransactionForm, TransactionList } from 'transactions/components';
+import { TransactionList } from 'transactions/components';
 import { categoriesFetched } from 'categories/category.actions';
 import { raiseError } from 'core/message.actions';
 import AddTransaction from './AddTransaction';

@@ -37,7 +37,7 @@ class TransactionForm extends Component {
         onSubmit={this.onSubmit}
         categories={categories}
         item={{
-          user: 1,
+          user: 1, // TODO: Take from store
           amount: '0',
           title: '',
           isIncome: 'OUT',

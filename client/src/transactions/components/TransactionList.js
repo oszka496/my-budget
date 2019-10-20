@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchTransactions } from '../transaction.actions';
 import { selectTransactionsWithCategories } from '../transaction.selectors';
 import TransactionItem from './TransactionItem';
+import { TransactionListSubheader } from './TransactionListSubheader';
 
 const groupByDate = (items) => {
   const dates = new Set(items.map(({ date }) => date));
@@ -26,7 +27,11 @@ export const NewTransactionList = () => {
   return (
     <List>
       { Array.from(dates).sort().reverse().map(date => (
-        <List key={date} subheader={date}>
+        <List
+          key={date}
+          dense
+          subheader={<TransactionListSubheader title={date} />}
+        >
           { itemsByDate[date].map(item => <TransactionItem key={item.id} {...item} />) }
         </List>
       )) }

@@ -1,6 +1,7 @@
 export const TRANSACTIONS_FETCHED = 'TRANSACTIONS:FETCHED';
 export const TRANSACTIONS_NEW = 'TRANSACTIONS:NEW';
 export const TRANSACTIONS_DELETE = 'TRANSACTIONS:DELETE';
+export const TRANSACTIONS_DELETED = 'TRANSACTIONS:DELETED';
 
 export const FETCH_TRANSACTIONS = 'TRANSACTIONS:FETCH_START';
 
@@ -20,5 +21,10 @@ export const transactionsNew = transaction => ({
 
 export const transactionsDelete = id => ({
   type: TRANSACTIONS_DELETE,
+  id,
+});
+
+export const transationDeleted = id => ({
+  type: TRANSACTIONS_DELETED,
   id,
 });
