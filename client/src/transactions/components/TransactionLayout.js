@@ -7,6 +7,7 @@ import { withDataFrom, withLoadingSpinner } from 'hocs';
 import api from 'api';
 import { TransactionList } from 'transactions/components';
 import { categoriesFetched } from 'categories/category.actions';
+import { CategoryList } from 'categories/components';
 import { raiseError } from 'core/message.actions';
 import AddTransaction from './AddTransaction';
 
@@ -24,6 +25,7 @@ const Layout = () => (
   <Grid container spacing={2}>
     <Grid item md={3}>
       <AddTransaction />
+      <CategoryList />
     </Grid>
     <Grid item md={9}>
       <Route path="/" component={TransactionList} />
