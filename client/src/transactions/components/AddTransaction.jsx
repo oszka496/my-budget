@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Dialog, Button, DialogContent } from '@material-ui/core';
+import { Dialog, DialogContent } from '@material-ui/core';
+import AddNoteIcon from '@material-ui/icons/NoteAdd';
+import { MenuButton } from 'components/menu';
 import TransactionForm from './TransactionForm';
 
 const AddTransaction = () => {
@@ -9,7 +11,7 @@ const AddTransaction = () => {
 
   return (
     <>
-      <Button color="primary" variant="contained" onClick={openModal}>Add transaction</Button>
+      <MenuButton text="Add transaction" onClick={openModal} icon={AddNoteIcon} />
       <Dialog onClose={closeModal} open={isOpen}>
         <DialogContent>
           <TransactionForm />

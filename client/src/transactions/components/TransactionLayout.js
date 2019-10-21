@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Divider from '@material-ui/core/Divider';
 
 import { withDataFrom, withLoadingSpinner } from 'hocs';
 import api from 'api';
@@ -26,6 +27,7 @@ const Layout = () => (
     leftMenu={() => (
       <>
         <AddTransaction />
+        <Divider style={{ marginTop: '8px' }} />
         <CategoryList />
       </>
     )}

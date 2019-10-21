@@ -1,5 +1,5 @@
 import React from 'react';
-import { node } from 'prop-types';
+import { elementType } from 'prop-types';
 import { Grid } from '@material-ui/core';
 
 export const AppLayout = ({ leftMenu: Menu, content: Content }) => (
@@ -13,6 +13,6 @@ export const AppLayout = ({ leftMenu: Menu, content: Content }) => (
   </Grid>
 );
 AppLayout.propTypes = {
-  leftMenu: node,
-  content: node.isRequired,
+  leftMenu: elementType,
+  content: elementType.isRequired,
 };
