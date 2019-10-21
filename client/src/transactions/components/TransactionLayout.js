@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Grid } from '@material-ui/core';
 
 import { withDataFrom, withLoadingSpinner } from 'hocs';
 import api from 'api';
@@ -9,6 +8,7 @@ import { TransactionList } from 'transactions/components';
 import { categoriesFetched } from 'categories/category.actions';
 import { CategoryList } from 'categories/components';
 import { raiseError } from 'core/message.actions';
+import { AppLayout } from 'components/AppLayout';
 import AddTransaction from './AddTransaction';
 
 
@@ -22,15 +22,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const Layout = () => (
-  <Grid container spacing={2}>
-    <Grid item md={3}>
-      <AddTransaction />
-      <CategoryList />
-    </Grid>
-    <Grid item md={9}>
-      <Route path="/" component={TransactionList} />
-    </Grid>
-  </Grid>
+  <AppLayout
+    leftMenu={() => (
+      <>
+        <AddTransaction />
+        <CategoryList />
+      </>
+    )}
+    content={() => <Route path="/" component={TransactionList} />}
+  />
 );
 
 const CATEGORY_API = api.category.list();

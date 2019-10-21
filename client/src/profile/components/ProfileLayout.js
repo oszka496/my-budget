@@ -6,6 +6,7 @@ import { CurrencySettings } from 'profile/components';
 import api from 'api';
 import { raiseError } from 'core/message.actions';
 import { withDataFrom, withLoadingSpinner } from 'hocs';
+import { AppLayout } from 'components/AppLayout';
 import { profileFetched } from '../profile.actions';
 import { selectProfileDetails, selectProfileIsLoaded } from '../profile.selectors';
 
@@ -22,10 +23,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const ProfileLayout = ({ profile }) => (
-  <div>
-    <h3>Profile</h3>
-    <CurrencySettings currency={profile.currency} />
-  </div>
+  <AppLayout
+    leftMenu={() => null}
+    content={() => (
+      <>
+        <h3>Profile</h3>
+        <CurrencySettings currency={profile.currency} />
+      </>
+    )}
+  />
 );
 
 ProfileLayout.propTypes = {
