@@ -1,4 +1,5 @@
 import json
+import uuid
 from datetime import date
 from decimal import Decimal
 
@@ -21,6 +22,7 @@ class Currency(models.Model):
 
 
 class User(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE, default='EUR')
 
     @staticmethod
@@ -39,6 +41,7 @@ class Category(models.Model):
         verbose_name_plural = "categories"
         unique_together = (('name', 'user'),)
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     is_income = models.BooleanField(default=False)
@@ -68,6 +71,7 @@ class PositiveDecimalField(models.DecimalField):
 
 
 class Transaction(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
