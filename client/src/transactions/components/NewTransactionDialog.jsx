@@ -31,7 +31,7 @@ export const TransactionDialog = ({ isOpen, closeModal, saveTransaction, categor
   };
 
   const save = () => {
-    saveTransaction({ ...fields, is_income: fields.isIncome === 'IN' });
+    saveTransaction({ ...fields, isIncome: fields.isIncome === 'IN' });
     closeAndClear();
   };
 

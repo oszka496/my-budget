@@ -8,6 +8,7 @@ const useStyles = makeStyles({
     'flexDirection': 'column',
     'minWidth': '400px',
     'maxWidth': '600px',
+    'padding': '0 16px 16px',
     '&>div:not(:first-child)': {
       marginTop: '8px',
     },
