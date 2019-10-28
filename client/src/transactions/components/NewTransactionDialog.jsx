@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { bool, func, arrayOf } from 'prop-types';
-import { Button, Dialog, DialogActions, DialogContent } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
 
@@ -19,24 +19,30 @@ const createEmptyTransaction = () => ({
 });
 
 export const TransactionDialog = ({ isOpen, closeModal, saveTransaction, categories }) => {
-  const [fields, setFields] = useState({ ...createEmptyTransaction() });
+  const [fields, setFields] = useState(createEmptyTransaction());
 
   const handleChange = ({ target: { name, value } }) => {
     setFields({ ...fields, [name]: value });
   };
 
+  const closeAndClear = () => {
+    closeModal();
+    setFields(createEmptyTransaction());
+  };
+
   const save = () => {
     saveTransaction({ ...fields, is_income: fields.isIncome === 'IN' });
-    closeModal();
+    closeAndClear();
   };
 
   return (
     <Dialog onClose={closeModal} open={isOpen}>
+      <DialogTitle>Add new transaction</DialogTitle>
       <DialogContent>
         <Form onSubmit={save}>
           <TransactionFormFields item={fields} categories={categories} handleChange={handleChange} />
           <DialogActions>
-            <Button color="primary" onClick={closeModal}>Cancel</Button>
+            <Button color="primary" onClick={closeAndClear}>Cancel</Button>
             <Button variant="outlined" color="primary" type="submit">Save</Button>
           </DialogActions>
         </Form>
