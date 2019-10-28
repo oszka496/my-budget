@@ -28,7 +28,8 @@
     "redux-observable": "1.1.0",
     "redux-starter-kit": "0.6.2",
     "reselect": "4.0.0",
-    "rxjs": "6.5.2"
+    "rxjs": "6.5.2",
+    "uuid": "3.3.3"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json}": [

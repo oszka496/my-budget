@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
-import { func, number, string } from 'prop-types';
+import { func, string } from 'prop-types';
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +18,7 @@ const MessageItem = ({ message, id, onDismiss }) => {
 
 MessageItem.propTypes = {
   onDismiss: func.isRequired,
-  id: number.isRequired,
+  id: string.isRequired,
   message: string.isRequired,
 };
 

@@ -1,56 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
-import api from 'api';
+import uuid from 'uuid';
 import { TransactionFormBody } from 'transactions/components';
-import { transactionsNew } from 'transactions/transaction.actions';
+import { addTransaction } from 'transactions/transaction.actions';
 import { selectCategoriesAll } from 'categories/category.selectors';
 import CategoryModel from 'categories/category.model';
-import { raiseError } from 'core/message.actions';
 
+const createEmptyTransaction = () => ({
+  id: uuid.v4(),
+  amount: '0',
+  title: '',
+  isIncome: 'OUT',
+  date: new Date().toJSON().split('T')[0],
+});
 
 const mapStateToProps = state => ({
   categories: selectCategoriesAll(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  onItemCreated: transaction => dispatch(transactionsNew(transaction)),
-  onPostFailed: error => dispatch(raiseError(error.toString())),
-});
+const mapDispatchToProps = {
+  onSubmit: addTransaction,
+};
 
-
-class TransactionForm extends Component {
-  onSubmit = body => {
-    const TRANSACTIONS_API = api.transaction.list();
-    const { onItemCreated, onPostFailed } = this.props;
-    api.requests
-      .post(TRANSACTIONS_API, body)
-      .then(onItemCreated)
-      .catch(onPostFailed);
-  };
-
-  render() {
-    const { categories } = this.props;
-    return (
-      <TransactionFormBody
-        onSubmit={this.onSubmit}
-        categories={categories}
-        item={{
-          user: 1, // TODO: Take from store
-          amount: '0',
-          title: '',
-          isIncome: 'OUT',
-          date: new Date().toJSON().split('T')[0],
-        }}
-      />
-    );
-  }
-}
+const TransactionForm = ({ categories, onSubmit }) => (
+  <TransactionFormBody
+    onSubmit={onSubmit}
+    categories={categories}
+    item={createEmptyTransaction()}
+  />
+);
 
 TransactionForm.propTypes = {
-  onItemCreated: PropTypes.func.isRequired,
-  onPostFailed: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   categories: PropTypes.arrayOf(CategoryModel).isRequired,
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { func, number, oneOfType, object } from 'prop-types';
+import { func, string, oneOfType, object } from 'prop-types';
 import { ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -38,7 +38,7 @@ export const TransactionActionsMenu = ({ id, anchorEl, handleClose }) => {
   );
 };
 TransactionActionsMenu.propTypes = {
-  id: number.isRequired,
+  id: string.isRequired,
   handleClose: func.isRequired,
   anchorEl: oneOfType([func, object]),
 };

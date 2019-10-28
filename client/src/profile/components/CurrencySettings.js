@@ -24,8 +24,7 @@ const mapStateToProps = state => ({
 
 const PROFILE_API = api.profile();
 const editCurrencyThunk = (code, dispatch) => {
-  const body = JSON.stringify({ currency: code });
-  api.requests.patch(PROFILE_API, body)
+  api.requests.patch(PROFILE_API, { currency: code })
     .then(response => dispatch(profileUpdated(response)))
     .catch(error => dispatch(raiseError(error.toString())));
 };

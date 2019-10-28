@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, bool, number } from 'prop-types';
+import { string, bool } from 'prop-types';
 import { ListItem, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
 import { TransactionActions } from './TransactionActions';
 
@@ -16,7 +16,7 @@ const TransactionItem = ({ id, title, categoryName, amount, isIncome, currency }
 );
 
 TransactionItem.propTypes = {
-  id: number.isRequired,
+  id: string.isRequired,
   title: string.isRequired,
   categoryName: string,
   amount: string.isRequired,

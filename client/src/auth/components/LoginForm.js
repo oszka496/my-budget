@@ -22,11 +22,10 @@ const LoginForm = ({ onUserLoggedIn, onLoginFailed }) => {
 
   const authenticate = () => {
     const url = api.auth.login();
-    const body = JSON.stringify(state);
     const { username } = state;
 
     api.requests
-      .post(url, body)
+      .post(url, state)
       .then(({ token }) => {
         onUserLoggedIn(username, token);
       })

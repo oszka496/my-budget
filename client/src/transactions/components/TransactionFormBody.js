@@ -14,8 +14,7 @@ const TransactionFormBody = ({ item, categories, onSubmit }) => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    const body = JSON.stringify({ ...fields, is_income: fields.isIncome === 'IN' });
-    onSubmit(body);
+    onSubmit({ ...fields, is_income: fields.isIncome === 'IN' });
   };
 
   const { amount, title, date, isIncome, category } = fields;
