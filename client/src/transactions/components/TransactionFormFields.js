@@ -1,26 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField } from '@material-ui/core';
-import { Form, RadioOptions, LabeledSelect, SubmitButton } from 'components/form';
+import { RadioOptions, LabeledSelect } from 'components/form';
 import CategoryModel from 'categories/category.model';
 
 
-const TransactionFormBody = ({ item, categories, onSubmit }) => {
-  const [fields, setFields] = useState({ ...item });
-
-  const handleChange = ({ target: { name, value } }) => {
-    setFields({ ...fields, [name]: value });
-  };
-
-  const handleSubmit = (ev) => {
-    ev.preventDefault();
-    onSubmit({ ...fields, is_income: fields.isIncome === 'IN' });
-  };
-
-  const { amount, title, date, isIncome, category } = fields;
+const TransactionFormFields = ({ item, categories, handleChange }) => {
+  const { amount, title, date, isIncome, category } = item;
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <>
       <TextField
         required
         name="title"
@@ -59,12 +48,11 @@ const TransactionFormBody = ({ item, categories, onSubmit }) => {
           { label: 'Expense', value: 'OUT' },
         ]}
       />
-      <SubmitButton color="primary" type="submit">Save</SubmitButton>
-    </Form>
+    </>
   );
 };
 
-TransactionFormBody.propTypes = {
+TransactionFormFields.propTypes = {
   item: PropTypes.shape({
     title: PropTypes.string.isRequired,
     category: PropTypes.string,
@@ -72,8 +60,8 @@ TransactionFormBody.propTypes = {
     date: PropTypes.string.isRequired,
     isIncome: PropTypes.oneOf(['IN', 'OUT']).isRequired,
   }).isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
   categories: PropTypes.arrayOf(CategoryModel).isRequired,
 };
 
-export default TransactionFormBody;
+export default TransactionFormFields;

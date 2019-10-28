@@ -1,5 +1,3 @@
-export { default as TransactionFormBody } from './TransactionFormBody';
-export { default as TransactionForm } from './TransactionForm';
-export { default as TransactionItem } from './TransactionItem';
+export { default as TransactionFormFields } from './TransactionFormFields';
 export { default as TransactionLayout } from './TransactionLayout';
 export { default as TransactionList } from './TransactionList';
