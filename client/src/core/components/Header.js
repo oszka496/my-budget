@@ -5,7 +5,7 @@ import { useCoreStyles } from '../core.styles';
 import PageNavBar from './PageNavBar';
 import PageLogo from './PageLogo';
 
-const Header = ({ isUserLoggedIn, onUserLoggedOut }) => {
+const Header = ({ isUserLoggedIn, signOff }) => {
   const classes = useCoreStyles();
 
   return (
@@ -15,7 +15,7 @@ const Header = ({ isUserLoggedIn, onUserLoggedOut }) => {
           <PageLogo />
           <Typography variant="h5" color="primary">My Budget</Typography>
         </Box>
-        {isUserLoggedIn && <PageNavBar onUserLoggedOut={onUserLoggedOut} />}
+        {isUserLoggedIn && <PageNavBar signOff={signOff} />}
       </Toolbar>
     </AppBar>
   );
@@ -23,7 +23,7 @@ const Header = ({ isUserLoggedIn, onUserLoggedOut }) => {
 
 Header.propTypes = {
   isUserLoggedIn: bool.isRequired,
-  onUserLoggedOut: func.isRequired,
+  signOff: func.isRequired,
 };
 
 export default Header;

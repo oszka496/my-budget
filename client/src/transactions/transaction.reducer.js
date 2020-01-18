@@ -3,7 +3,7 @@ import Adapter from 'utils/adapter';
 import { ACTION_STATUS } from 'utils/actions.utils';
 
 const adapter = new Adapter();
-const initialTransactionsState = {
+export const initialTransactionsState = {
   ids: [],
   entities: {},
   isLoaded: false,

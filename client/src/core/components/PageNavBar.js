@@ -3,15 +3,15 @@ import { func } from 'prop-types';
 import { Button } from '@material-ui/core';
 import { RoutedSettingsButton } from './SettingsButton';
 
-const PageNavBar = ({ onUserLoggedOut }) => (
+const PageNavBar = ({ signOff }) => (
   <>
     <RoutedSettingsButton />
-    <Button color="inherit" onClick={onUserLoggedOut}>Log out</Button>
+    <Button color="inherit" onClick={signOff}>Log out</Button>
   </>
 );
 
 PageNavBar.propTypes = {
-  onUserLoggedOut: func.isRequired,
+  signOff: func.isRequired,
 };
 
 export default PageNavBar;

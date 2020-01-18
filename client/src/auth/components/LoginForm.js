@@ -14,25 +14,13 @@ const paperStyles = {
 
 const Paper = withStyles(paperStyles)(MuiPaper);
 
-const LoginForm = ({ onUserLoggedIn, onLoginFailed }) => {
+const LoginForm = ({ authenticate }) => {
   const [state, setState] = useState({
     username: '',
     password: '',
   });
 
-  const authenticate = () => {
-    const url = api.auth.login();
-    const { username } = state;
-
-    api.requests
-      .post(url, state)
-      .then(({ token }) => {
-        onUserLoggedIn(username, token);
-      })
-      .catch(() => {
-        onLoginFailed('Incorrect username or password');
-      });
-  };
+  const login = () => authenticate(state);
 
   const handleChange = ({ target: { name, value } }) => {
     setState({ ...state, [name]: value });
@@ -41,7 +29,7 @@ const LoginForm = ({ onUserLoggedIn, onLoginFailed }) => {
 
   return (
     <Paper>
-      <Form onSubmit={authenticate}>
+      <Form onSubmit={login}>
         <TextField
           autoFocus
           label="Username"
@@ -59,15 +47,14 @@ const LoginForm = ({ onUserLoggedIn, onLoginFailed }) => {
           onChange={handleChange}
           required
         />
-        <SubmitButton onClick={authenticate} color="primary">Log in</SubmitButton>
+        <SubmitButton>Log in</SubmitButton>
       </Form>
     </Paper>
   );
 };
 
 LoginForm.propTypes = {
-  onUserLoggedIn: func.isRequired,
-  onLoginFailed: func.isRequired,
+  authenticate: func.isRequired,
 };
 
 export default LoginForm;

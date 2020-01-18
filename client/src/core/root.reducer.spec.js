@@ -1,3 +1,4 @@
+import { initialTransactionsState } from 'transactions/transaction.reducer';
 import { metaReducer } from './root.reducer';
 import * as actions from '../auth/auth.actions';
 import Adapter from '../utils/adapter';
@@ -16,10 +17,10 @@ describe('Root reducer', () => {
         isLoaded: true,
       },
     };
-    const stateAfter = metaReducer(stateBefore, actions.userLoggedOut());
+    const stateAfter = metaReducer(stateBefore, { type: actions.LOGOUT });
     const initialState = adapter.getInitialState();
     expect(stateAfter.auth).toEqual({});
     expect(stateAfter.categories).toEqual(initialState);
-    expect(stateAfter.transactions).toEqual(initialState);
+    expect(stateAfter.transactions).toEqual(initialTransactionsState);
   });
 });

@@ -1,10 +1,8 @@
-export const USER_LOGGED_IN = 'AUTH:LOGIN';
-export const USER_LOGGED_OUT = 'AUTH:LOGOUT';
+import { createActionTypes } from '../utils/actions.utils';
 
-export const userLoggedIn = (username, token) => ({
-  type: USER_LOGGED_IN,
-  username,
-  token,
-});
+export const LOGIN = createActionTypes('AUTH:LOGIN');
+export const authenticate = ({ username, password }) => ({ username, password, type: LOGIN.START });
+export const authenticateSuccess = ({ username, token }) => ({ type: LOGIN.SUCCESS, username, token });
 
-export const userLoggedOut = () => ({ type: USER_LOGGED_OUT });
+export const LOGOUT = 'AUTH:LOGOUT';
+export const signOff = () => ({ type: LOGOUT });
