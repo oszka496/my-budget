@@ -1,7 +1,8 @@
 import { ensureJSON, ensureSuccessOr } from './utils/requests';
 import { formatApiResponse } from './utils/stringUtils';
 
-const BASE_URL = 'http://localhost:8000/';
+// const BASE_URL = 'http://localhost:8000/';
+const BASE_URL = process.env.REACT_APP_API_HOST || '/';
 
 const getDefaultHeaders = () => {
   const headers = new Headers();

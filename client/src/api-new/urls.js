@@ -1,5 +1,5 @@
-const BASE_URL = 'http://localhost:8000/';
-
+// const BASE_URL = 'http://localhost:8000/';
+const BASE_URL = process.env.REACT_APP_API_HOST || '/';
 export const auth = {
   login: () => `${BASE_URL}api/token/`,
 };
