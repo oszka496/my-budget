@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Paper as MuiPaper, TextField, withStyles } from '@material-ui/core';
 import { func } from 'prop-types';
-import api from 'api';
 import { Form } from '../../components/form';
 import SubmitButton from '../../components/form/SubmitButton';
 
