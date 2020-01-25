@@ -25,7 +25,6 @@ export const transactionReducer = (state = initialTransactionsState, action) => 
     }
     case actions.ADD_TRANSACTION.START: {
       const { transaction } = action;
-      console.log('reducer', transaction);
       const createStatus = { ...state.createStatus, [transaction.id]: IN_PROGRESS };
       return { ...adapter.addOne(state, transaction), createStatus };
     }

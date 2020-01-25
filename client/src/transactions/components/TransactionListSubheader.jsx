@@ -5,6 +5,7 @@ import { ListSubheader, makeStyles } from '@material-ui/core';
 const useSubheaderStyles = makeStyles({
   subheader: {
     marginLeft: '16px',
+    lineHeight: '36px',
   },
 });
 

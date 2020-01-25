@@ -9,7 +9,6 @@ import { Header, MessageList, Routes } from 'core/components';
 import { theme } from 'core/theme.styles';
 import { selectUserLoggedIn } from 'auth/auth.selectors';
 import { LoginForm } from 'auth/components';
-import './App.css';
 import * as authActions from 'auth/auth.actions';
 
 

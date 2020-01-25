@@ -1,17 +1,34 @@
 import React from 'react';
 import { elementType } from 'prop-types';
-import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
-export const AppLayout = ({ leftMenu: Menu, content: Content }) => (
-  <Grid container spacing={2}>
-    <Grid item md={3}>
-      <Menu />
-    </Grid>
-    <Grid item md={9}>
-      <Content />
-    </Grid>
-  </Grid>
-);
+const styles = ({ spacing }) => ({
+  container: {
+    display: 'flex',
+    marginTop: spacing(2),
+  },
+  aside: {
+    width: '25%',
+  },
+  content: {
+    flexGrow: 1,
+  },
+});
+const useStyles = makeStyles(styles);
+
+export const AppLayout = ({ leftMenu: Menu, content: Content }) => {
+  const classes = useStyles();
+  return (
+    <div className={classes.container}>
+      <aside className={classes.aside}>
+        <Menu />
+      </aside>
+      <div className={classes.content}>
+        <Content />
+      </div>
+    </div>
+  );
+};
 AppLayout.propTypes = {
   leftMenu: elementType,
   content: elementType.isRequired,

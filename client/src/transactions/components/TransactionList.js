@@ -25,7 +25,7 @@ export const NewTransactionList = () => {
   const { dates, itemsByDate } = groupByDate(items);
 
   return (
-    <List>
+    <List disablePadding>
       { Array.from(dates).sort().reverse().map(date => (
         <List
           key={date}
