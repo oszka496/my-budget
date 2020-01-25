@@ -1,22 +1,22 @@
 import React from 'react';
 import { bool, func } from 'prop-types';
-import { Toolbar, Typography, AppBar, Box } from '@material-ui/core';
-import { useCoreStyles } from '../core.styles';
+import { Typography, AppBar, Box, Container } from '@material-ui/core';
+import { useHeaderStyles } from './Header.styles';
 import PageNavBar from './PageNavBar';
 import PageLogo from './PageLogo';
 
 const Header = ({ isUserLoggedIn, signOff }) => {
-  const classes = useCoreStyles();
+  const classes = useHeaderStyles();
 
   return (
     <AppBar position="sticky" color="inherit" elevation={1}>
-      <Toolbar className={classes.container}>
+      <Container className={classes.container}>
         <Box display="flex" flexGrow={1}>
           <PageLogo />
           <Typography variant="h5" color="primary">My Budget</Typography>
         </Box>
         {isUserLoggedIn && <PageNavBar signOff={signOff} />}
-      </Toolbar>
+      </Container>
     </AppBar>
   );
 };
