@@ -2,16 +2,15 @@ import { combineEpics, ofType } from 'redux-observable';
 import { from, of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { raiseError } from '../message/message.actions';
-import { fetchCategoriesError, fetchCategoriesSuccess } from './category.actions';
-import * as ACTION_TYPES from './category.types';
+import { categoryActions } from './category.slice';
 import * as api from './category.api';
 
 export const fetchCategoriesEpic = actions$ => actions$.pipe(
-  ofType(ACTION_TYPES.FETCH_CATEGORIES.START),
+  ofType(categoryActions.fetchStart.type),
   switchMap(() => from(api.fetchCategories())),
-  map(fetchCategoriesSuccess),
+  map(categoryActions.fetchSuccess),
   catchError(() => of(
-    fetchCategoriesError(),
+    categoryActions.fetchError(),
     raiseError('Failed to get categories'),
   )),
 );

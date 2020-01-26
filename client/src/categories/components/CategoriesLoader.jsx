@@ -1,26 +1,32 @@
-import { useEffect } from 'react';
-import { bool, func, node } from 'prop-types';
+import React, { useEffect } from 'react';
+import { func, node, oneOf } from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCategories as fetchCategoriesAction } from '../category.actions';
+import { CircularProgress } from '@material-ui/core';
+import { ACTION_STATUS } from 'utils/actions.utils';
+import { categoryActions } from '../category.slice';
+import { getCategoriesFetchStatus } from '../category.selectors';
 
-const mapStateToProps = (state) => ({
-  loaded: state.categories.isLoaded,
+const mapStateToProps = state => ({
+  status: getCategoriesFetchStatus(state),
 });
 
 const mapDispatchToProps = {
-  fetchCategories: fetchCategoriesAction,
+  fetchCategories: categoryActions.fetchStart,
 };
 
-export const Loader = ({ fetchCategories, loaded, children }) => {
+export const Loader = ({ fetchCategories, status, children }) => {
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
-  return loaded ? children : null; // TODO: Add spinner and error handling
+
+  if (status === ACTION_STATUS.ERROR) return null;
+  if (status === ACTION_STATUS.SUCCESS) return children;
+  return <div><CircularProgress /></div>;
 };
 
 Loader.propTypes = {
   fetchCategories: func.isRequired,
-  loaded: bool.isRequired,
+  status: oneOf(Object.values(ACTION_STATUS)).isRequired,
   children: node,
 };
 
