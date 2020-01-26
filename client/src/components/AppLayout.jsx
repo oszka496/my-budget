@@ -6,6 +6,7 @@ const styles = ({ spacing }) => ({
   container: {
     display: 'flex',
     marginTop: spacing(2),
+    height: '100%',
   },
   aside: {
     width: '25%',

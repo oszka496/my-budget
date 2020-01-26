@@ -29,7 +29,7 @@ const App = ({ isUserLoggedIn, signOff }) => (
         signOff={signOff}
       />
       <MessageList />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ flexGrow: 1 }}>
         <Router {...(isUserLoggedIn ? coreRoutesData : authRoutesData)} />
       </Container>
     </ThemeProvider>

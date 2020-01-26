@@ -12,14 +12,17 @@ const mapStateToProps = state => ({
 });
 
 const ProfileLayout = ({ profile }) => (
-  <AppLayout
-    content={(
-      <ProfileLoader>
-        <h3>Profile</h3>
-        <CurrencySettings currency={profile.currency} />
-      </ProfileLoader>
+  <ProfileLoader>
+    <AppLayout
+      content={(
+        <>
+          <h3>Profile</h3>
+          <CurrencySettings currency={profile.currency} />
+        </>
     )}
-  />
+    />
+  </ProfileLoader>
+
 );
 
 ProfileLayout.propTypes = {
