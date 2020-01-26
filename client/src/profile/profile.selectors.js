@@ -1,13 +1,9 @@
 import { createSelector } from 'reselect';
 
-export const selectProfile = state => state.profile;
-export const selectProfileIsLoaded = createSelector(
-  selectProfile, profile => profile.isLoaded,
+export const getProfileState = state => state.profile;
+export const getProfileData = createSelector(
+  getProfileState,
+  ({ data }) => data,
 );
-export const selectProfileDetails = createSelector(
-  selectProfile,
-  profile => {
-    const { isLoaded, ...profileDetails } = profile;
-    return profileDetails;
-  },
-);
+
+export const getProfileFetchStatus = createSelector(getProfileState, ({ fetchStatus }) => fetchStatus);

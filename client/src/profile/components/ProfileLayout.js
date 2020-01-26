@@ -3,33 +3,21 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { CurrencySettings } from 'profile/components';
-import api from 'api';
-import { raiseError } from 'core/message.actions';
-import { withDataFrom, withLoadingSpinner } from 'hocs';
 import { AppLayout } from 'components/AppLayout';
-import { profileFetched } from '../profile.actions';
-import { selectProfileDetails, selectProfileIsLoaded } from '../profile.selectors';
-
-const PROFILE_API = api.profile();
+import { getProfileData } from '../profile.selectors';
+import { ProfileLoader } from './ProfileLoader';
 
 const mapStateToProps = state => ({
-  isLoaded: selectProfileIsLoaded(state),
-  profile: selectProfileDetails(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  onDataFetched: profile => dispatch(profileFetched(profile)),
-  onFetchFailed: error => dispatch(raiseError(error.toString())),
+  profile: getProfileData(state),
 });
 
 const ProfileLayout = ({ profile }) => (
   <AppLayout
-    leftMenu={() => null}
-    content={() => (
-      <>
+    content={(
+      <ProfileLoader>
         <h3>Profile</h3>
         <CurrencySettings currency={profile.currency} />
-      </>
+      </ProfileLoader>
     )}
   />
 );
@@ -40,5 +28,4 @@ ProfileLayout.propTypes = {
   }).isRequired,
 };
 
-const LayoutWithWrappers = withDataFrom(PROFILE_API)(withLoadingSpinner(ProfileLayout));
-export default connect(mapStateToProps, mapDispatchToProps)(LayoutWithWrappers);
+export default connect(mapStateToProps)(ProfileLayout);

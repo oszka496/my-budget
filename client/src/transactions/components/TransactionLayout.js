@@ -9,14 +9,14 @@ import AddTransaction from './AddTransaction';
 const TransactionLayout = () => (
   <CategoriesLoader>
     <AppLayout
-      leftMenu={() => (
+      leftMenu={(
         <>
           <AddTransaction />
           <Divider style={{ marginTop: '8px' }} />
           <CategoryList />
         </>
       )}
-      content={() => <Route path="/" component={TransactionList} />}
+      content={<Route path="/" component={TransactionList} />}
     />
   </CategoriesLoader>
 );

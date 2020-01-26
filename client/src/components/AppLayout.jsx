@@ -1,5 +1,5 @@
 import React from 'react';
-import { elementType } from 'prop-types';
+import { node } from 'prop-types';
 import { makeStyles } from '@material-ui/core';
 
 const styles = ({ spacing }) => ({
@@ -16,20 +16,20 @@ const styles = ({ spacing }) => ({
 });
 const useStyles = makeStyles(styles);
 
-export const AppLayout = ({ leftMenu: Menu, content: Content }) => {
+export const AppLayout = ({ leftMenu, content }) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
       <aside className={classes.aside}>
-        <Menu />
+        {leftMenu}
       </aside>
       <div className={classes.content}>
-        <Content />
+        {content}
       </div>
     </div>
   );
 };
 AppLayout.propTypes = {
-  leftMenu: elementType,
-  content: elementType.isRequired,
+  leftMenu: node,
+  content: node.isRequired,
 };
