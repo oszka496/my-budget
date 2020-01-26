@@ -1,11 +1,10 @@
 import { ACTION_STATUS } from 'utils/actions.utils';
-import { PROFILE_UPDATED } from './profile.actions';
-import { FETCH_PROFILE } from './profile.types';
+import { FETCH_PROFILE, UPDATE_PROFILE } from './profile.types';
 
 const initialState = {
   data: {},
   fetchStatus: ACTION_STATUS.NOT_STARTED,
-  isLoaded: false,
+  updateStatus: ACTION_STATUS.NOT_STARTED,
 };
 
 export const profileReducer = (state = initialState, action) => {
@@ -13,12 +12,21 @@ export const profileReducer = (state = initialState, action) => {
     case FETCH_PROFILE.START: {
       return { ...state, fetchStatus: ACTION_STATUS.IN_PROGRESS };
     }
-    case PROFILE_UPDATED:
     case FETCH_PROFILE.SUCCESS: {
       return { ...state, fetchStatus: ACTION_STATUS.SUCCESS, data: action.profile };
     }
     case FETCH_PROFILE.ERROR: {
       return { ...state, fetchStatus: ACTION_STATUS.ERROR };
+    }
+    case UPDATE_PROFILE.START: {
+      return { ...state, updateStatus: ACTION_STATUS.IN_PROGRESS };
+    }
+    case UPDATE_PROFILE.SUCCESS: {
+      const data = { ...state.data, ...action.profile };
+      return { ...state, updateStatus: ACTION_STATUS.SUCCESS, data };
+    }
+    case UPDATE_PROFILE.ERROR: {
+      return { ...state, updateStatus: ACTION_STATUS.ERROR };
     }
     default:
       return state;

@@ -1,4 +1,4 @@
-import { FETCH_PROFILE } from './profile.types';
+import { FETCH_PROFILE, UPDATE_PROFILE } from './profile.types';
 
 export const PROFILE_UPDATED = 'PROFILE:UPDATED';
 
@@ -13,3 +13,10 @@ export const fetchProfileSuccess = profile => ({
   profile,
 });
 export const fetchProfileError = () => ({ type: FETCH_PROFILE.ERROR });
+
+export const updateProfile = profile => ({ type: UPDATE_PROFILE.START, profile });
+export const updateProfileSuccess = profile => ({
+  type: UPDATE_PROFILE.SUCCESS,
+  profile,
+});
+export const updateProfileError = () => ({ type: UPDATE_PROFILE.ERROR });

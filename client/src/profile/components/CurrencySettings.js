@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { EditableInput } from 'components/form/EditableInput';
-import api from 'api';
-import { raiseError } from 'core/message.actions';
 import { selectCurrenciesAll, selectCurrenciesAreLoaded } from 'currencies/currency.selectors';
 import { currencySlice } from 'currencies/currency.reducer';
-import { profileUpdated } from 'profile/profile.actions';
+import { updateProfile } from 'profile/profile.actions';
 import { LabeledSelect } from '../../components/form';
 
 const { actions } = currencySlice;
 
 const mapDispatchToProps = dispatch => ({
-  editCurrency: code => editCurrencyThunk(code, dispatch),
+  editCurrency: code => dispatch(updateProfile({ currency: code })),
   fetchCurrencies: () => dispatch(actions.fetchCurrencies()),
 });
 
@@ -21,13 +19,6 @@ const mapStateToProps = state => ({
   isLoaded: selectCurrenciesAreLoaded(state),
   options: selectCurrenciesAll(state),
 });
-
-const PROFILE_API = api.profile();
-const editCurrencyThunk = (code, dispatch) => {
-  api.requests.patch(PROFILE_API, { currency: code })
-    .then(response => dispatch(profileUpdated(response)))
-    .catch(error => dispatch(raiseError(error.toString())));
-};
 
 const CurrencySettings = ({ currency, options, editCurrency, fetchCurrencies }) => {
   useEffect(() => { fetchCurrencies(); }, [fetchCurrencies]);
@@ -43,9 +34,6 @@ const CurrencySettings = ({ currency, options, editCurrency, fetchCurrencies }) 
   );
 };
 
-const CurrencySettingsWithData = CurrencySettings;
-
-
 CurrencySettings.propTypes = {
   currency: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
@@ -59,4 +47,4 @@ CurrencySettings.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CurrencySettingsWithData);
+)(CurrencySettings);
