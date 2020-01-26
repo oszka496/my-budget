@@ -17,9 +17,6 @@ export const transactionReducer = (state = initialTransactionsState, action) => 
     case actions.TRANSACTIONS_FETCHED: {
       return { ...adapter.addMany(state, action.transactions), isLoaded: true };
     }
-    case actions.TRANSACTIONS_NEW: {
-      return adapter.addOne(state, action.transaction);
-    }
     case actions.TRANSACTIONS_DELETED: {
       return adapter.deleteOne(state, action.id);
     }
