@@ -14,6 +14,7 @@
     "@material-ui/icons": "4.5.1",
     "@material-ui/lab": "4.0.0-alpha.40",
     "@material-ui/styles": "4.9.0",
+    "@reduxjs/toolkit": "1.2.3",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
@@ -23,8 +24,6 @@
     "react-scripts": "3.3.0",
     "redux": "4.0.4",
     "redux-observable": "1.1.0",
-    "redux-starter-kit": "0.6.2",
-    "reselect": "4.0.0",
     "rxjs": "6.5.2",
     "uuid": "3.3.3"
   },

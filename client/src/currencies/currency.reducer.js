@@ -1,10 +1,12 @@
-import { createSlice } from 'redux-starter-kit';
+import { createSlice } from '@reduxjs/toolkit';
 import { adapter } from 'utils/adapter';
 import { ACTION_STATUS } from '../utils/actions.utils';
 
 const initialState = adapter.getInitialState();
 
 export const currencySlice = createSlice({
+  name: 'currencies',
+  initialState,
   reducers: {
     fetchStart: (state) => ({ ...state, fetchStatus: ACTION_STATUS.IN_PROGRESS }),
     fetchSuccess: (state, action) => ({
@@ -13,6 +15,4 @@ export const currencySlice = createSlice({
     }),
     fetchError: (state) => ({ ...state, fetchStatus: ACTION_STATUS.ERROR }),
   },
-  initialState,
-  slice: 'currencies',
 });

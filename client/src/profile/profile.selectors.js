@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 
 export const getProfileState = state => state.profile;
 export const getProfileData = createSelector(

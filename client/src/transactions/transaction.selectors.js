@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 import Adapter from 'utils/adapter';
 import { selectCategories } from 'categories/category.selectors';
 

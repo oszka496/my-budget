@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 import { adapter } from 'utils/adapter';
 import { ACTION_STATUS } from '../utils/actions.utils';
 
