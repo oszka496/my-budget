@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Paper as MuiPaper, TextField, withStyles } from '@material-ui/core';
 import { func } from 'prop-types';
+import { connect } from 'react-redux';
 import { Form } from '../../components/form';
 import SubmitButton from '../../components/form/SubmitButton';
+import * as authActions from '../auth.actions';
 
 const paperStyles = {
   root: {
@@ -56,4 +58,6 @@ LoginForm.propTypes = {
   authenticate: func.isRequired,
 };
 
-export default LoginForm;
+const mapDispatchToProps = { authenticate: authActions.authenticate };
+
+export default connect(null, mapDispatchToProps)(LoginForm);
