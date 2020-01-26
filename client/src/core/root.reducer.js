@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { categoryReducer } from 'categories/category.reducer';
 import { profileReducer } from 'profile/profile.reducer';
 import { transactionReducer } from 'transactions/transaction.reducer';
-import { messageReducer } from 'core/message.reducer';
+import { messageReducer } from 'message/message.reducer';
 import { authReducer } from 'auth/auth.reducer';
 import { LOGOUT } from 'auth/auth.actions';
 import { currencySlice } from 'currencies/currency.reducer';

@@ -1,7 +1,7 @@
 import { of, throwError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import * as requests from 'api/requests';
-import { raiseError } from '../core/message.actions';
+import { raiseError } from '../message/message.actions';
 import * as actions from './transaction.actions';
 import { addTransactionEpic } from './transaction.epic';
 

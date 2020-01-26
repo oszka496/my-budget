@@ -1,7 +1,7 @@
 import { EMPTY, from, of } from 'rxjs';
 import { combineEpics, ofType } from 'redux-observable';
 import { switchMap, map, catchError, tap, mergeMapTo } from 'rxjs/operators';
-import { raiseError } from '../core/message.actions';
+import { raiseError } from '../message/message.actions';
 import { authenticateSuccess, LOGIN, LOGOUT } from './auth.actions';
 import * as api from './auth.api';
 

@@ -5,12 +5,13 @@ import { bool, func } from 'prop-types';
 import { ThemeProvider } from '@material-ui/styles';
 import { Container } from '@material-ui/core';
 
-import { Header, MessageList, Router } from 'core/components';
+import { Header, Router } from 'core/components';
 import { theme } from 'core/theme.styles';
 import coreRoutesData from 'core/core.routes';
 import { selectUserLoggedIn } from 'auth/auth.selectors';
 import * as authActions from 'auth/auth.actions';
 import authRoutesData from 'auth/auth.routes';
+import { MessageList } from 'message/components';
 
 
 const mapStateToProps = (state) => ({

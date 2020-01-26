@@ -1,7 +1,7 @@
 import { combineEpics, ofType } from 'redux-observable';
 import { from, of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
-import { raiseError } from '../core/message.actions';
+import { raiseError } from '../message/message.actions';
 import { fetchProfileError, fetchProfileSuccess, updateProfileError, updateProfileSuccess } from './profile.actions';
 import * as api from './profile.api';
 import * as ACTION_TYPES from './profile.types';
