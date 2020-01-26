@@ -1,8 +1,8 @@
 import { ofType } from 'redux-observable';
 import { from, of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
-import * as requests from 'api-new/requests';
-import { currency } from 'api-new/urls';
+import * as requests from 'api/requests';
+import { currency } from 'api/urls';
 import { raiseError } from '../core/message.actions';
 import { currencySlice } from './currency.reducer';
 

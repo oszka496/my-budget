@@ -1,4 +1,4 @@
-import * as requests from '../api-new/requests';
-import { auth } from '../api-new/urls';
+import * as requests from '../api/requests';
+import { auth } from '../api/urls';
 
 export const signIn = ({ username, password }) => requests.post(auth.login(), { username, password });

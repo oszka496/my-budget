@@ -1,5 +1,5 @@
-import * as requests from 'api-new/requests';
-import { transaction } from 'api-new/urls';
+import * as requests from 'api/requests';
+import { transaction } from 'api/urls';
 
 export const fetchTransactions = () => requests.get(transaction.list());
 export const createTransaction = body => requests.post(transaction.list(), body);
