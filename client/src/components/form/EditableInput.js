@@ -1,14 +1,14 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, makeStyles } from '@material-ui/core';
 
 const EditableInputButtons = ({ isEdited, onEdit, onSubmit, onCancel }) => (
   isEdited
     ? (
-      <Fragment>
+      <>
         <Button onClick={onSubmit}>Save</Button>
         <Button onClick={onCancel}>Cancel</Button>
-      </Fragment>
+      </>
     )
     : <Button onClick={onEdit}>Edit</Button>
 );

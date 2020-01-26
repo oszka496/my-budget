@@ -12,7 +12,7 @@ module.exports = {
   },
   'extends': [
     'airbnb',
-    'react-app'
+    'react-app',
   ],
   'rules': {
     // airbnb
@@ -29,5 +29,7 @@ module.exports = {
 
     // react-app
     'jsx-a11y/href-no-hash': 0,
+    'import/no-extraneous-dependencies': [ 'error', { 'devDependencies': true } ],
+    'react/jsx-props-no-spreading': 0,
   },
-}
+};
