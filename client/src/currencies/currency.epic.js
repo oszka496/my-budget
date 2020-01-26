@@ -11,8 +11,8 @@ const { actions } = currencySlice;
 const fetchCurrencyApi = () => requests.get(currency.list());
 
 export const currencyEpic = (actions$) => actions$.pipe(
-  ofType(actions.fetchCurrencies.toString()),
+  ofType(actions.fetchStart.toString()),
   switchMap(() => from(fetchCurrencyApi())),
-  map(actions.currenciesFetched),
+  map(actions.fetchSuccess),
   catchError(() => of(raiseError('Failed to fetch data'))),
 );

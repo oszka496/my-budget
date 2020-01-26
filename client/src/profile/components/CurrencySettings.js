@@ -12,7 +12,7 @@ const { actions } = currencySlice;
 
 const mapDispatchToProps = dispatch => ({
   editCurrency: code => dispatch(updateProfile({ currency: code })),
-  fetchCurrencies: () => dispatch(actions.fetchCurrencies()),
+  fetchCurrencies: () => dispatch(actions.fetchStart()),
 });
 
 const mapStateToProps = state => ({
