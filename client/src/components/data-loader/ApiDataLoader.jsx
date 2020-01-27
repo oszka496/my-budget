@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { bool, func, node } from 'prop-types';
+import { bool, func, node, string } from 'prop-types';
 import { ACTION_STATUS } from 'utils/actions.utils';
 import { CenteredSpinner } from '../spinner';
 
@@ -13,7 +13,7 @@ export const ApiDataLoader = ({ fetchData, status, noSpinner, children }) => {
 
 ApiDataLoader.propTypes = {
   fetchData: func.isRequired,
-  status: bool.isRequired,
+  status: string.isRequired,
   noSpinner: bool,
   children: node,
 };

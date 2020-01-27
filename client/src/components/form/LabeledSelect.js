@@ -1,26 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { FormControl, InputLabel } from '@material-ui/core';
+import { Select } from './Select';
 
 
-const LabeledSelect = ({ label, value, options, onChange, ...other }) => (
-  <FormControl>
-    <InputLabel htmlFor={label.toLowerCase()}>{ label }</InputLabel>
-    <Select
-      value={value || options[0].id}
-      onChange={onChange}
-      inputProps={{
-        name: label.toLowerCase(),
-        id: label.toLowerCase(),
-      }}
-      {...other}
-    >
-      { options.map(({ id, name }) => (
-        <MenuItem value={id} key={id}>{ name }</MenuItem>
-      )) }
-    </Select>
-  </FormControl>
-);
+const LabeledSelect = (props) => {
+  const { label } = props;
+  return (
+    <FormControl>
+      <InputLabel htmlFor={label.toLowerCase()} shrink>{ label }</InputLabel>
+      <Select {...props} />
+    </FormControl>
+  );
+};
 
 LabeledSelect.propTypes = {
   label: PropTypes.string.isRequired,
