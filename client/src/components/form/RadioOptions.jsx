@@ -8,6 +8,7 @@ const RadioOptions = ({ onChange, name, value, options }) => (
     name={name}
     value={value}
     onChange={onChange}
+    row
   >
     { options.map(op => (
       <FormControlLabel

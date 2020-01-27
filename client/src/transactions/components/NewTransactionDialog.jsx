@@ -23,7 +23,11 @@ export const TransactionDialog = ({ isOpen, closeModal, saveTransaction, currenc
   const [fields, setFields] = useState(createEmptyTransaction());
 
   const handleChange = ({ target: { name, value } }) => {
-    setFields({ ...fields, [name]: value });
+    let { isIncome } = fields;
+    if (name === 'category') { // Change operation type to category's default
+      isIncome = categories.find(({ id }) => id === value).isIncome ? 'IN' : 'OUT';
+    }
+    setFields({ ...fields, isIncome, [name]: value });
   };
 
   const closeAndClear = () => {
