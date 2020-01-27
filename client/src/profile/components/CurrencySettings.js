@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { EditableInput } from 'components/form/EditableInput';
 import { selectCurrenciesAll, selectCurrenciesAreLoaded } from 'currencies/currency.selectors';
-import { currencySlice } from 'currencies/currency.reducer';
 import { updateProfile } from 'profile/profile.actions';
 import { LabeledSelect } from '../../components/form';
 
-const { actions } = currencySlice;
 
 const mapDispatchToProps = dispatch => ({
   editCurrency: code => dispatch(updateProfile({ currency: code })),
-  fetchCurrencies: () => dispatch(actions.fetchStart()),
 });
 
 const mapStateToProps = state => ({
@@ -20,20 +17,15 @@ const mapStateToProps = state => ({
   options: selectCurrenciesAll(state),
 });
 
-const CurrencySettings = ({ currency, options, editCurrency, fetchCurrencies }) => {
-  useEffect(() => { fetchCurrencies(); }, [fetchCurrencies]);
-
-  return (
-    <EditableInput
-      label="Currency"
-      component={LabeledSelect}
-      options={options}
-      value={currency}
-      onSubmit={editCurrency}
-    />
-  );
-};
-
+const CurrencySettings = ({ currency, options, editCurrency }) => (
+  <EditableInput
+    label="Currency"
+    component={LabeledSelect}
+    options={options}
+    value={currency}
+    onSubmit={editCurrency}
+  />
+);
 CurrencySettings.propTypes = {
   currency: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
@@ -41,7 +33,6 @@ CurrencySettings.propTypes = {
     name: PropTypes.string.isRequired,
   })).isRequired,
   editCurrency: PropTypes.func.isRequired,
-  fetchCurrencies: PropTypes.func.isRequired,
 };
 
 export default connect(

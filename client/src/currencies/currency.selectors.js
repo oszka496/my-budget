@@ -5,7 +5,11 @@ import { ACTION_STATUS } from '../utils/actions.utils';
 const selectors = adapter.getSelectors('currencies');
 
 export const selectCurrenciesAll = selectors.selectItemsList;
-export const selectCurrenciesAreLoaded = createSelector(
+export const getCurrenciesFetchStatus = createSelector(
   selectors.selectItems,
-  state => state.fetchStatus === ACTION_STATUS.SUCCESS,
+  state => state.fetchStatus,
+);
+export const selectCurrenciesAreLoaded = createSelector(
+  getCurrenciesFetchStatus,
+  fetchStatus => fetchStatus === ACTION_STATUS.SUCCESS,
 );

@@ -5,24 +5,20 @@ import PropTypes from 'prop-types';
 import { CurrencySettings } from 'profile/components';
 import { AppLayout } from 'components/AppLayout';
 import { getProfileData } from '../profile.selectors';
-import { ProfileLoader } from './ProfileLoader';
 
 const mapStateToProps = state => ({
   profile: getProfileData(state),
 });
 
 const ProfileLayout = ({ profile }) => (
-  <ProfileLoader>
-    <AppLayout
-      content={(
-        <>
-          <h3>Profile</h3>
-          <CurrencySettings currency={profile.currency} />
-        </>
+  <AppLayout
+    content={(
+      <>
+        <h3>Profile</h3>
+        <CurrencySettings currency={profile.currency} />
+      </>
     )}
-    />
-  </ProfileLoader>
-
+  />
 );
 
 ProfileLayout.propTypes = {

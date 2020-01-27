@@ -4,7 +4,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { withRouter } from 'react-router-dom';
 import { object } from 'prop-types';
 import { coreRoutes } from 'core/core.routes';
-import { createRedirect } from './Router';
+import { createRedirect } from 'components/Router';
 
 
 export const SettingsButton = ({ history }) => (

@@ -10,9 +10,12 @@ export const currencySlice = createSlice({
   reducers: {
     fetchStart: (state) => ({ ...state, fetchStatus: ACTION_STATUS.IN_PROGRESS }),
     fetchSuccess: (state, action) => ({
-      fetchStatus: ACTION_STATUS.SUCCESS,
       ...adapter.addMany(state, action.payload.map(({ code }) => ({ id: code, name: code }))),
+      fetchStatus: ACTION_STATUS.SUCCESS,
     }),
     fetchError: (state) => ({ ...state, fetchStatus: ACTION_STATUS.ERROR }),
   },
 });
+
+export const currencyActions = currencySlice.actions;
+export const currencyReducer = currencySlice.reducer;
