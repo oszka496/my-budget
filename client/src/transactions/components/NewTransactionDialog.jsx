@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { bool, func, arrayOf } from 'prop-types';
+import { bool, func, arrayOf, string } from 'prop-types';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
@@ -7,6 +7,7 @@ import uuid from 'uuid';
 import { Form } from 'components/form';
 import CategoryModel from 'categories/category.model';
 import { selectCategoriesAll } from 'categories/category.selectors';
+import { getDefaultCurrency } from 'profile/profile.selectors';
 import { addTransaction } from '../transaction.actions';
 import TransactionFormFields from './TransactionFormFields';
 
@@ -18,7 +19,7 @@ const createEmptyTransaction = () => ({
   date: new Date().toJSON().split('T')[0],
 });
 
-export const TransactionDialog = ({ isOpen, closeModal, saveTransaction, categories }) => {
+export const TransactionDialog = ({ isOpen, closeModal, saveTransaction, currency, categories }) => {
   const [fields, setFields] = useState(createEmptyTransaction());
 
   const handleChange = ({ target: { name, value } }) => {
@@ -31,7 +32,7 @@ export const TransactionDialog = ({ isOpen, closeModal, saveTransaction, categor
   };
 
   const save = () => {
-    saveTransaction({ ...fields, isIncome: fields.isIncome === 'IN' });
+    saveTransaction({ ...fields, isIncome: fields.isIncome === 'IN', currency });
     closeAndClear();
   };
 
@@ -40,7 +41,12 @@ export const TransactionDialog = ({ isOpen, closeModal, saveTransaction, categor
       <DialogTitle>Add new transaction</DialogTitle>
       <DialogContent>
         <Form onSubmit={save}>
-          <TransactionFormFields item={fields} categories={categories} handleChange={handleChange} />
+          <TransactionFormFields
+            currency={currency}
+            item={fields}
+            categories={categories}
+            handleChange={handleChange}
+          />
           <DialogActions>
             <Button color="primary" onClick={closeAndClear}>Cancel</Button>
             <Button variant="outlined" color="primary" type="submit">Save</Button>
@@ -54,10 +60,12 @@ TransactionDialog.propTypes = {
   isOpen: bool.isRequired,
   closeModal: func.isRequired,
   saveTransaction: func.isRequired,
+  currency: string.isRequired,
   categories: arrayOf(CategoryModel).isRequired,
 };
 
 const mapStateToProps = state => ({
+  currency: getDefaultCurrency(state),
   categories: selectCategoriesAll(state),
 });
 

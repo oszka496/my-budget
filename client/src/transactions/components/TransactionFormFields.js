@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextField } from '@material-ui/core';
+import { TextField, InputAdornment } from '@material-ui/core';
 import { RadioOptions, LabeledSelect } from 'components/form';
 import CategoryModel from 'categories/category.model';
 
 
-const TransactionFormFields = ({ item, categories, handleChange }) => {
+const TransactionFormFields = ({ item, currency, categories, handleChange }) => {
   const { amount, title, date, isIncome, category } = item;
 
   return (
@@ -16,6 +16,9 @@ const TransactionFormFields = ({ item, categories, handleChange }) => {
         label="Title"
         value={title}
         onChange={handleChange}
+        InputLabelProps={{
+          shrink: true,
+        }}
       />
       <TextField
         required
@@ -24,6 +27,12 @@ const TransactionFormFields = ({ item, categories, handleChange }) => {
         value={amount}
         onChange={handleChange}
         type="number"
+        InputLabelProps={{
+          shrink: true,
+        }}
+        InputProps={{
+          startAdornment: <InputAdornment position="start">{currency}</InputAdornment>,
+        }}
       />
       <TextField
         required
@@ -61,6 +70,7 @@ TransactionFormFields.propTypes = {
     isIncome: PropTypes.oneOf(['IN', 'OUT']).isRequired,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
+  currency: PropTypes.string.isRequired,
   categories: PropTypes.arrayOf(CategoryModel).isRequired,
 };
 

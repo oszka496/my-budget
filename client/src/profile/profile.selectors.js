@@ -6,4 +6,5 @@ export const getProfileData = createSelector(
   ({ data }) => data,
 );
 
+export const getDefaultCurrency = createSelector(getProfileData, ({ currency }) => currency);
 export const getProfileFetchStatus = createSelector(getProfileState, ({ fetchStatus }) => fetchStatus);
