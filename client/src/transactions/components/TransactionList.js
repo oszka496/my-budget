@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { List } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTransactions } from '../transaction.actions';
+import { transactionActions as actions } from '../transaction.slice';
 import { selectTransactionsWithCategories } from '../transaction.selectors';
 import TransactionItem from './TransactionItem';
 import { TransactionListSubheader } from './TransactionListSubheader';
@@ -19,7 +19,7 @@ const groupByDate = (items) => {
 
 export const NewTransactionList = () => {
   const dispatch = useDispatch();
-  useEffect(() => { dispatch(fetchTransactions); }, [dispatch]);
+  useEffect(() => { dispatch(actions.fetchStart()); }, [dispatch]);
 
   const items = useSelector(state => selectTransactionsWithCategories(state));
   const { dates, itemsByDate } = groupByDate(items);

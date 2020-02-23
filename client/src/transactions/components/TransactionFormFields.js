@@ -15,6 +15,7 @@ const TransactionFormFields = ({ item, currency, categories, handleChange }) => 
         name="title"
         label="Title"
         value={title}
+        autoFocus
         onChange={handleChange}
         InputLabelProps={{
           shrink: true,

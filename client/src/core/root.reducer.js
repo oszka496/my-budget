@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { categoryReducer } from 'categories/category.slice';
 import { profileReducer } from 'profile/profile.reducer';
-import { transactionReducer } from 'transactions/transaction.reducer';
+import { transactionReducer } from 'transactions/transaction.slice';
 import { messageReducer } from 'message/message.reducer';
 import { authReducer } from 'auth/auth.reducer';
 import { LOGOUT } from 'auth/auth.actions';

@@ -8,7 +8,7 @@ import { Form } from 'components/form';
 import CategoryModel from 'categories/category.model';
 import { selectCategoriesAll } from 'categories/category.selectors';
 import { getDefaultCurrency } from 'profile/profile.selectors';
-import { addTransaction } from '../transaction.actions';
+import { transactionActions as actions } from '../transaction.slice';
 import TransactionFormFields from './TransactionFormFields';
 
 const createEmptyTransaction = () => ({
@@ -74,7 +74,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  saveTransaction: addTransaction,
+  saveTransaction: actions.createStart,
 };
 
 export default connect(

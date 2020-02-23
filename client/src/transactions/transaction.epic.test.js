@@ -2,7 +2,7 @@ import { of, throwError } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
 import * as requests from 'api/requests';
 import { raiseError } from '../message/message.actions';
-import * as actions from './transaction.actions';
+import { transactionActions as actions } from './transaction.slice';
 import { addTransactionEpic } from './transaction.epic';
 
 jest.mock('uuid', () => ({ v4: () => 'uuid' }));
@@ -22,9 +22,9 @@ describe('addTransactionEpic', () => {
 
     testScheduler.run(({ hot, expectObservable }) => {
       const transaction = '[transaction]';
-      const actions$ = hot('---a---|', { a: actions.addTransaction(transaction) });
+      const actions$ = hot('---a---|', { a: actions.createStart(transaction) });
       const result$ = addTransactionEpic(actions$);
-      expectObservable(result$).toBe('---a---|', { a: actions.addTransactionSuccess(transaction) });
+      expectObservable(result$).toBe('---a---|', { a: actions.createSuccess(transaction) });
     });
   });
 
@@ -35,11 +35,11 @@ describe('addTransactionEpic', () => {
 
     testScheduler.run(({ hot, expectObservable }) => {
       const transaction = '[transaction]';
-      const actions$ = hot('---a---|', { a: actions.addTransaction(transaction) });
+      const actions$ = hot('---a---|', { a: actions.createStart(transaction) });
       const result$ = addTransactionEpic(actions$);
       expectObservable(result$).toBe(
         '---(ab)|',
-        { a: actions.addTransactionError(transaction), b: raiseError('Failed to add transaction') },
+        { a: actions.createError(transaction), b: raiseError('Failed to add transaction') },
       );
     });
   });

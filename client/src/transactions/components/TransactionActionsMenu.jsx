@@ -4,11 +4,11 @@ import { func, string, oneOfType, object } from 'prop-types';
 import { ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { transactionsDelete } from '../transaction.actions';
+import { transactionActions as actions } from '../transaction.slice';
 
 export const TransactionActionsMenu = ({ id, anchorEl, handleClose }) => {
   const dispatch = useDispatch();
-  const deleteItem = () => dispatch(transactionsDelete(id));
+  const deleteItem = () => dispatch(actions.deleteStart(id));
   const handleDelete = () => {
     deleteItem();
     handleClose();

@@ -1,4 +1,4 @@
-import { initialTransactionsState } from 'transactions/transaction.reducer';
+import { initialState as initialTransactionsState } from 'transactions/transaction.slice';
 import { metaReducer } from './root.reducer';
 import * as actions from '../auth/auth.actions';
 import Adapter from '../utils/adapter';
