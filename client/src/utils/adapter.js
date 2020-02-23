@@ -5,7 +5,6 @@ class Adapter {
     return {
       ids: [],
       entities: {},
-      isLoaded: false,
     };
   }
 

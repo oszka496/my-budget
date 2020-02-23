@@ -2,27 +2,15 @@ import React, { useEffect } from 'react';
 import { List } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { transactionActions as actions } from '../transaction.slice';
-import { selectTransactionsWithCategories } from '../transaction.selectors';
+import { getTransactionsByDate } from '../transaction.selectors';
 import TransactionItem from './TransactionItem';
 import { TransactionListSubheader } from './TransactionListSubheader';
-
-const groupByDate = (items) => {
-  const dates = new Set(items.map(({ date }) => date));
-  const itemsByDate = items.reduce((prev, curr) => {
-    const { date } = curr;
-    const arr = prev[date] || [];
-    return { ...prev, [date]: [...arr, curr] };
-  },
-  {});
-  return { dates, itemsByDate };
-};
 
 export const NewTransactionList = () => {
   const dispatch = useDispatch();
   useEffect(() => { dispatch(actions.fetchStart()); }, [dispatch]);
 
-  const items = useSelector(state => selectTransactionsWithCategories(state));
-  const { dates, itemsByDate } = groupByDate(items);
+  const { dates, itemsByDate } = useSelector(state => getTransactionsByDate(state));
 
   return (
     <List disablePadding>

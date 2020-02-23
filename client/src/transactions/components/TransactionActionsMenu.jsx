@@ -18,7 +18,6 @@ export const TransactionActionsMenu = ({ id, anchorEl, handleClose }) => {
     <Menu
       id="transaction-actions-menu"
       anchorEl={anchorEl}
-      keepMounted
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
