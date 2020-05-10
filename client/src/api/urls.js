@@ -14,5 +14,5 @@ export const currency = {
 export const profile = () => `${BASE_URL}api/profile/`;
 export const transaction = {
   list: () => `${BASE_URL}api/transactions/`,
-  item: id => `${BASE_URL}api/transactions/${id}`,
+  item: id => `${BASE_URL}api/transactions/${id}/`,
 };
