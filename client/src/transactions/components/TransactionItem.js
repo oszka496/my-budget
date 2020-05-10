@@ -1,27 +1,38 @@
 import React from 'react';
-import { string, bool } from 'prop-types';
-import { ListItem, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
+import { ListItem, ListItemSecondaryAction, ListItemText, Typography } from '@material-ui/core';
+import { useModal } from 'utils/hooks';
 import { TransactionActions } from './TransactionActions';
+import NewTransactionDialog from './NewTransactionDialog';
+import TransactionModel from '../transaction.model';
 
 const displayAmount = ({ amount, isIncome, currency }) => `${isIncome ? '+' : '-'}${amount} ${currency}`;
 
-const TransactionItem = ({ id, title, categoryName, amount, isIncome, currency }) => (
-  <ListItem>
-    <TransactionActions id={id} />
-    <ListItemText primary={title} secondary={categoryName} />
-    <ListItemSecondaryAction>
-      <ListItemText primary={displayAmount({ amount, isIncome, currency })} />
-    </ListItemSecondaryAction>
-  </ListItem>
-);
+const TransactionItem = ({ transaction }) => {
+  const { id, title, categoryName, amount, isIncome, currency } = transaction;
+  const { isOpen, openModal, closeModal } = useModal();
+
+  return (
+    <>
+      <ListItem>
+        <ListItemText primary={title} secondary={categoryName} inset />
+        <Typography variant="body2">{displayAmount({ amount, isIncome, currency })}</Typography>
+        <ListItemSecondaryAction>
+          <TransactionActions id={id} openEditModal={openModal} />
+        </ListItemSecondaryAction>
+      </ListItem>
+      {isOpen && (
+        <NewTransactionDialog
+          isOpen={isOpen}
+          closeModal={closeModal}
+          item={transaction}
+        />
+      )}
+    </>
+  );
+};
 
 TransactionItem.propTypes = {
-  id: string.isRequired,
-  title: string.isRequired,
-  categoryName: string,
-  amount: string.isRequired,
-  currency: string.isRequired,
-  isIncome: bool.isRequired,
+  transaction: TransactionModel,
 };
 
 export default TransactionItem;

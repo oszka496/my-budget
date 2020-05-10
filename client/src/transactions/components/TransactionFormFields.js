@@ -8,6 +8,11 @@ import CategoryModel from 'categories/category.model';
 const TransactionFormFields = ({ item, currency, categories, handleChange }) => {
   const { amount, title, date, isIncome, category } = item;
 
+  const handleTransactionTypeChange = ({ target: { name, value } }) => {
+    const boolValue = value === 'IN';
+    handleChange({ target: { name, value: boolValue } });
+  };
+
   return (
     <>
       <TextField
@@ -51,8 +56,8 @@ const TransactionFormFields = ({ item, currency, categories, handleChange }) => 
       />
       <RadioOptions
         name="isIncome"
-        value={isIncome}
-        onChange={handleChange}
+        value={isIncome ? 'IN' : 'OUT'}
+        onChange={handleTransactionTypeChange}
         options={[
           { label: 'Income', value: 'IN' },
           { label: 'Expense', value: 'OUT' },
@@ -68,7 +73,7 @@ TransactionFormFields.propTypes = {
     category: PropTypes.string,
     amount: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
-    isIncome: PropTypes.oneOf(['IN', 'OUT']).isRequired,
+    isIncome: PropTypes.bool.isRequired,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
   currency: PropTypes.string.isRequired,

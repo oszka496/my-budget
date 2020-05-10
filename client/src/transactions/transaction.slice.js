@@ -48,6 +48,8 @@ export const transactionSlice = createSlice({
       const deleteStatus = { ...state.deleteStatus, [id]: ERROR };
       return { ...state, deleteStatus };
     },
+
+    edit: (state) => state,
   },
 });
 

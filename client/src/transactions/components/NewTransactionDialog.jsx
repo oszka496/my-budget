@@ -10,41 +10,44 @@ import { selectCategoriesAll } from 'categories/category.selectors';
 import { getDefaultCurrency } from 'profile/profile.selectors';
 import { transactionActions as actions } from '../transaction.slice';
 import TransactionFormFields from './TransactionFormFields';
+import TransactionModel from '../transaction.model';
 
 const createEmptyTransaction = () => ({
   id: uuid.v4(),
   amount: '0',
   title: '',
-  isIncome: 'OUT',
+  isIncome: false,
   date: new Date().toJSON().split('T')[0],
 });
 
-export const TransactionDialog = ({ isOpen, closeModal, saveTransaction, currency, categories }) => {
-  const [fields, setFields] = useState(createEmptyTransaction());
+export const TransactionDialog = ({
+  isOpen,
+  closeModal,
+  item,
+  save,
+  currency,
+  categories,
+}) => {
+  const [fields, setFields] = useState(item || createEmptyTransaction());
 
   const handleChange = ({ target: { name, value } }) => {
     let { isIncome } = fields;
     if (name === 'category') { // Change operation type to category's default
-      isIncome = categories.find(({ id }) => id === value).isIncome ? 'IN' : 'OUT';
+      isIncome = categories.find(({ id }) => id === value).isIncome;
     }
     setFields({ ...fields, isIncome, [name]: value });
   };
 
-  const closeAndClear = () => {
+  const onSubmit = () => {
+    save({ ...fields, currency });
     closeModal();
-    setFields(createEmptyTransaction());
-  };
-
-  const save = () => {
-    saveTransaction({ ...fields, isIncome: fields.isIncome === 'IN', currency });
-    closeAndClear();
   };
 
   return (
     <Dialog onClose={closeModal} open={isOpen}>
       <DialogTitle>Add new transaction</DialogTitle>
       <DialogContent>
-        <Form onSubmit={save}>
+        <Form onSubmit={onSubmit}>
           <TransactionFormFields
             currency={currency}
             item={fields}
@@ -52,7 +55,7 @@ export const TransactionDialog = ({ isOpen, closeModal, saveTransaction, currenc
             handleChange={handleChange}
           />
           <DialogActions>
-            <Button color="primary" onClick={closeAndClear}>Cancel</Button>
+            <Button color="primary" onClick={closeModal}>Cancel</Button>
             <Button variant="outlined" color="primary" type="submit">Save</Button>
           </DialogActions>
         </Form>
@@ -63,9 +66,10 @@ export const TransactionDialog = ({ isOpen, closeModal, saveTransaction, currenc
 TransactionDialog.propTypes = {
   isOpen: bool.isRequired,
   closeModal: func.isRequired,
-  saveTransaction: func.isRequired,
+  save: func.isRequired,
   currency: string.isRequired,
   categories: arrayOf(CategoryModel).isRequired,
+  item: TransactionModel,
 };
 
 const mapStateToProps = state => ({
@@ -73,9 +77,11 @@ const mapStateToProps = state => ({
   categories: selectCategoriesAll(state),
 });
 
-const mapDispatchToProps = {
-  saveTransaction: actions.createStart,
-};
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  save: transaction => dispatch(
+    ownProps.item ? actions.edit(transaction) : actions.createStart(transaction),
+  ),
+});
 
 export default connect(
   mapStateToProps,

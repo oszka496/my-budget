@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AddNoteIcon from '@material-ui/icons/NoteAdd';
 import { MenuButton } from 'components/menu';
 import NewTransactionDialog from './NewTransactionDialog';
+import { useModal } from '../../utils/hooks';
 
 const AddTransaction = () => {
-  const [isOpen, setModalOpen] = useState(false);
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+  const { isOpen, openModal, closeModal } = useModal();
 
   return (
     <>
       <MenuButton text="Add transaction" onClick={openModal} icon={AddNoteIcon} />
-      <NewTransactionDialog isOpen={isOpen} closeModal={closeModal} />
+      {isOpen && <NewTransactionDialog isOpen={isOpen} closeModal={closeModal} />}
     </>
   );
 };

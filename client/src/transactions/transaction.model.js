@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 
 const TransactionModel = PropTypes.shape({
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  category: PropTypes.number,
+  category: PropTypes.string,
+  categoryName: PropTypes.string,
   date: PropTypes.string.isRequired,
   amount: PropTypes.string.isRequired,
   currency: PropTypes.string.isRequired,

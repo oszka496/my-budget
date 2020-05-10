@@ -10,4 +10,11 @@ export const theme = createMuiTheme({
   status: {
     danger: 'orange',
   },
+  overrides: {
+    MuiListItemText: {
+      inset: {
+        paddingLeft: '32px',
+      },
+    },
+  },
 });

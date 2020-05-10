@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
-import { string } from 'prop-types';
+import PropTypes from 'prop-types';
 import { IconButton } from '@material-ui/core';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { TransactionActionsMenu } from './TransactionActionsMenu';
 
-export const TransactionActions = ({ id }) => {
+export const TransactionActions = ({ id, openEditModal }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleOpen = ({ currentTarget }) => setAnchorEl(currentTarget);
   const handleClose = () => setAnchorEl(null);
 
   return (
     <>
-      <IconButton onClick={handleOpen}>
+      <IconButton edge="end" onClick={handleOpen}>
         <MoreIcon />
       </IconButton>
-      <TransactionActionsMenu id={id} anchorEl={anchorEl} handleClose={handleClose} />
+      <TransactionActionsMenu id={id} anchorEl={anchorEl} handleClose={handleClose} onEditClick={openEditModal} />
     </>
   );
 };
 TransactionActions.propTypes = {
-  id: string.isRequired,
+  id: PropTypes.string.isRequired,
+  openEditModal: PropTypes.func.isRequired,
 };

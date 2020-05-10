@@ -1,17 +1,17 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { func, string, oneOfType, object } from 'prop-types';
+import PropTypes from 'prop-types';
 import { ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { transactionActions as actions } from '../transaction.slice';
 
-export const TransactionActionsMenu = ({ id, anchorEl, handleClose }) => {
+export const TransactionActionsMenu = ({ id, anchorEl, handleClose, onEditClick }) => {
   const dispatch = useDispatch();
   const deleteItem = () => dispatch(actions.deleteStart(id));
-  const handleDelete = () => {
-    deleteItem();
+  const withMenuClosing = f => args => {
     handleClose();
+    f(args);
   };
 
   return (
@@ -21,13 +21,13 @@ export const TransactionActionsMenu = ({ id, anchorEl, handleClose }) => {
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={withMenuClosing(onEditClick)}>
         <ListItemIcon>
           <EditIcon />
         </ListItemIcon>
         <ListItemText primary="Edit" />
       </MenuItem>
-      <MenuItem onClick={handleDelete}>
+      <MenuItem onClick={withMenuClosing(deleteItem)}>
         <ListItemIcon>
           <DeleteIcon />
         </ListItemIcon>
@@ -37,7 +37,8 @@ export const TransactionActionsMenu = ({ id, anchorEl, handleClose }) => {
   );
 };
 TransactionActionsMenu.propTypes = {
-  id: string.isRequired,
-  handleClose: func.isRequired,
-  anchorEl: oneOfType([func, object]),
+  id: PropTypes.string.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  anchorEl: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  onEditClick: PropTypes.func.isRequired,
 };

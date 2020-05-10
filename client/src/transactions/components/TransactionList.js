@@ -20,7 +20,7 @@ export const NewTransactionList = () => {
           dense
           subheader={<TransactionListSubheader title={date} />}
         >
-          { itemsByDate[date].map(item => <TransactionItem key={item.id} {...item} />) }
+          {itemsByDate[date].map(item => <TransactionItem key={item.id} transaction={item} />)}
         </List>
       )) }
     </List>
