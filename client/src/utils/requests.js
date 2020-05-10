@@ -1,8 +1,9 @@
-export const ensureSuccessOr = (errorMsg) => (response) => {
+export const throwErrorOnNotOk = (response) => {
   if (!response.ok) {
-    throw new Error(errorMsg);
+    const { status, statusText } = response;
+    throw new Error(`Error ${status}: ${statusText}`);
   }
   return response;
 };
 
-export const ensureJSON = (response) => (response.json());
+export const parseToJSON = (response) => (response.json());

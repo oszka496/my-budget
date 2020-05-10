@@ -1,34 +1,43 @@
-import { ensureJSON, ensureSuccessOr } from '../utils/requests';
+import { parseToJSON, throwErrorOnNotOk } from '../utils/requests';
 import { formatApiResponse, formatBody } from '../utils/stringUtils';
 import { getDefaultHeaders } from './api.helpers';
-import { DELETE_ERROR, FETCH_ERROR, PATCH_ERROR, POST_ERROR } from './messages';
 
-export const get = (url, errorMsg = FETCH_ERROR) =>
+export const get = (url) =>
   fetch(url, { method: 'GET', headers: getDefaultHeaders() })
-    .then(ensureSuccessOr(errorMsg))
-    .then(ensureJSON)
+    .then(throwErrorOnNotOk)
+    .then(parseToJSON)
     .then(formatApiResponse);
 
-export const post = (url, body, errorMsg = POST_ERROR) =>
+export const post = (url, body) =>
   fetch(url, {
     method: 'POST',
     headers: getDefaultHeaders(),
     body: JSON.stringify(formatBody(body)),
   })
-    .then(ensureSuccessOr(errorMsg))
-    .then(ensureJSON)
+    .then(throwErrorOnNotOk)
+    .then(parseToJSON)
     .then(formatApiResponse);
 
-export const patch = (url, body, errorMsg = PATCH_ERROR) =>
+export const patch = (url, body) =>
   fetch(url, {
     method: 'PATCH',
     headers: getDefaultHeaders(),
     body: JSON.stringify(formatBody(body)),
   })
-    .then(ensureSuccessOr(errorMsg))
-    .then(ensureJSON)
+    .then(throwErrorOnNotOk)
+    .then(parseToJSON)
     .then(formatApiResponse);
 
-export const remove = (url, errorMsg = DELETE_ERROR) =>
+export const put = (url, body) =>
+  fetch(url, {
+    method: 'PUT',
+    headers: getDefaultHeaders(),
+    body: JSON.stringify(formatBody(body)),
+  })
+    .then(throwErrorOnNotOk)
+    .then(parseToJSON)
+    .then(formatApiResponse);
+
+export const remove = (url) =>
   fetch(url, { method: 'DELETE', headers: getDefaultHeaders() })
-    .then(ensureSuccessOr(errorMsg));
+    .then(throwErrorOnNotOk);

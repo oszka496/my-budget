@@ -10,6 +10,7 @@ export const initialState = {
   fetchStatus: NOT_STARTED,
   createStatus: {},
   deleteStatus: {},
+  editStatus: {},
 };
 
 export const transactionSlice = createSlice({
@@ -50,6 +51,19 @@ export const transactionSlice = createSlice({
     },
 
     edit: (state) => state,
+
+    editStart: (state, { payload }) => {
+      const editStatus = { ...state.editStatus, [payload.id]: IN_PROGRESS };
+      return { ...state, editStatus };
+    },
+    editSuccess: (state, { payload }) => {
+      const editStatus = { ...state.editStatus, [payload.id]: SUCCESS };
+      return { ...adapter.replaceOne(state, payload), editStatus };
+    },
+    editError: (state, { payload }) => {
+      const editStatus = { ...state.editStatus, [payload.id]: ERROR };
+      return { ...state, editStatus };
+    },
   },
 });
 

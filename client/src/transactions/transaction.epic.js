@@ -30,6 +30,19 @@ export const addTransactionEpic = (actions$) => {
   );
 };
 
+const updateRequest = ({ payload }) => from(api.editTransaction(payload)).pipe(
+  map(() => actions.editSuccess(payload)),
+  catchError(({ message }) => of(
+    actions.editError({ id: payload.id, error: message }),
+    raiseError('Failed to edit transaction'),
+  )),
+);
+
+export const transactionEditEpic = (actions$) => actions$.pipe(
+  ofType(actions.editStart.type),
+  switchMap(updateRequest),
+);
+
 export const transactionDeleteEpic = (actions$) => actions$.pipe(
   ofType(actions.deleteStart.type),
   mergeMap(({ payload: id }) => from(api.deleteTransaction(id)).pipe(
@@ -42,4 +55,5 @@ export const transactionsEpic = combineEpics(
   addTransactionEpic,
   transactionsFetchEpic,
   transactionDeleteEpic,
+  transactionEditEpic,
 );

@@ -30,6 +30,12 @@ class Adapter {
     };
   }
 
+  replaceOne(state, entity) {
+    const { entities } = state;
+    const { id } = entity;
+    return { ...state, entities: { ...entities, [id]: entity } };
+  }
+
   deleteOne(state, id) {
     const ids = state.ids.filter(elem => elem !== id);
     const entities = ids.reduce((obj, i) => ({ ...obj, [i]: state.entities[i] }), {});

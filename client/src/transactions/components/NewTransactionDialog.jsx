@@ -79,7 +79,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   save: transaction => dispatch(
-    ownProps.item ? actions.edit(transaction) : actions.createStart(transaction),
+    ownProps.item ? actions.editStart(transaction) : actions.createStart(transaction),
   ),
 });
 
