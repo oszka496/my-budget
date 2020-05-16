@@ -3,20 +3,21 @@ import { string } from 'prop-types';
 import { ListSubheader, makeStyles } from '@material-ui/core';
 
 const useSubheaderStyles = makeStyles({
-  subheader: {
-    marginLeft: '16px',
+  root: {
+    paddingLeft: 0,
     lineHeight: '36px',
   },
-});
+},
+{ name: TransactionListSubheader.name });
 
-export const TransactionListSubheader = ({ title }) => {
+export function TransactionListSubheader({ title }) {
   const classes = useSubheaderStyles();
   return (
-    <ListSubheader component="div" className={classes.subheader}>
+    <ListSubheader component="div" className={classes.root}>
       {title}
     </ListSubheader>
   );
-};
+}
 TransactionListSubheader.propTypes = {
   title: string.isRequired,
 };

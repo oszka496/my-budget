@@ -2,13 +2,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { List, ListSubheader } from '@material-ui/core';
 import { selectCategoriesAll } from 'categories/category.selectors';
-import { useURLSearchParams } from 'utils/router.utils';
+import { useCategoryFromUrl } from 'utils/router.utils';
 import { CategoryItem, AllTransactionsItem } from './CategoryItem';
 
 export const CategoryList = () => {
   const categories = useSelector(selectCategoriesAll);
-  const query = useURLSearchParams();
-  const categoryId = query.get('category');
+  const categoryId = useCategoryFromUrl();
 
   return (
     <List

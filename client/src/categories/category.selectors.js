@@ -13,3 +13,5 @@ export const getCategoriesFetchStatus = createSelector(
   getCategoriesState,
   ({ fetchStatus }) => fetchStatus,
 );
+
+export const getCategoryById = selectors.selectById;

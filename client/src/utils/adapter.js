@@ -50,11 +50,16 @@ class Adapter {
       [selectIds, selectEntities],
       (ids, entities) => ids.map(id => entities[id]),
     );
+    const selectById = createSelector(
+      [selectEntities, (_, props) => props.id],
+      (items, id) => items[id],
+    );
     return {
       selectItems,
       selectIds,
       selectEntities,
       selectItemsList,
+      selectById,
     };
   }
 }

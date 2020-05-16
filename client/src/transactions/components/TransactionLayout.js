@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import { TransactionList } from 'transactions/components';
 import { CategoriesLoader, CategoryList } from 'categories/components';
@@ -16,7 +15,7 @@ const TransactionLayout = () => (
           <CategoryList />
         </>
       )}
-      content={<Route path="/" component={TransactionList} />}
+      content={<TransactionList />}
     />
   </CategoriesLoader>
 );
