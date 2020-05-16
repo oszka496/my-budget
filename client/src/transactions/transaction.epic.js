@@ -7,7 +7,9 @@ import * as api from './transaction.api';
 
 export const transactionsFetchEpic = (actions$) => actions$.pipe(
   ofType(actions.fetchStart.type),
-  switchMap(() => from(api.fetchTransactions())),
+  switchMap(
+    ({ payload: categoryId }) => from(api.fetchTransactions({ categoryId })),
+  ),
   map(actions.fetchSuccess),
   catchError(() => of(
     actions.fetchError(),

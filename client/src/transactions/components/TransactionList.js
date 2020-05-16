@@ -5,10 +5,18 @@ import { transactionActions as actions } from '../transaction.slice';
 import { getTransactionsByDate } from '../transaction.selectors';
 import TransactionItem from './TransactionItem';
 import { TransactionListSubheader } from './TransactionListSubheader';
+import { useURLSearchParams } from '../../utils/router.utils';
 
 export const NewTransactionList = () => {
+  const query = useURLSearchParams();
+  const categoryId = query.get('category');
+
   const dispatch = useDispatch();
-  useEffect(() => { dispatch(actions.fetchStart()); }, [dispatch]);
+  useEffect(
+    () => {
+      dispatch(actions.fetchStart(categoryId));
+    }, [dispatch, categoryId],
+  );
 
   const { dates, itemsByDate } = useSelector(state => getTransactionsByDate(state));
 
