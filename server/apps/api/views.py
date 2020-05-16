@@ -31,6 +31,10 @@ class UserViewSet(viewsets.ModelViewSet):
 @permission_classes((permissions.IsAuthenticated,))
 class TransactionViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionSerializer
+    filterset_fields = {
+        'category': ['exact'],
+        'date': ['gte', 'lte', 'exact'],
+    }
 
     def get_queryset(self):
         return Transaction.objects.filter(user=self.request.user)
