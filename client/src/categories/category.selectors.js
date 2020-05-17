@@ -15,3 +15,11 @@ export const getCategoriesFetchStatus = createSelector(
 );
 
 export const getCategoryById = selectors.selectById;
+export const getActiveCategoryId = createSelector(
+  getCategoriesState,
+  ({ activeCategory }) => activeCategory,
+);
+export const getActiveCategory = createSelector(
+  [selectCategories, getActiveCategoryId],
+  (categories, id) => categories[id] || { name: 'All transactions' },
+);

@@ -6,6 +6,9 @@ export const categorySlice = createSlice({
   name: 'categories',
   initialState: adapter.getInitialState(),
   reducers: {
+    categorySelected: (state, action) => (
+      { ...state, activeCategory: action.payload }
+    ),
     fetchStart: state => ({ ...state, fetchStatus: ACTION_STATUS.IN_PROGRESS }),
     fetchSuccess: (state, action) => ({
       ...adapter.addMany(state, action.payload),

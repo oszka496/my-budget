@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { adapter } from 'utils/adapter';
+import { categoryActions } from 'categories/category.slice';
 import { ACTION_STATUS } from '../utils/actions.utils';
 
 const { NOT_STARTED, IN_PROGRESS, ERROR, SUCCESS } = ACTION_STATUS;
@@ -64,6 +65,9 @@ export const transactionSlice = createSlice({
       const editStatus = { ...state.editStatus, [payload.id]: ERROR };
       return { ...state, editStatus };
     },
+  },
+  extraReducers: {
+    [categoryActions.categorySelected]: state => ({ ...state, fetchStatus: IN_PROGRESS }),
   },
 });
 

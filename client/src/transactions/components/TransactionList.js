@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { List, Typography, makeStyles, LinearProgress } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { useCategoryFromUrl } from 'utils/router.utils';
-import { getCategoryById } from 'categories/category.selectors';
+import { getActiveCategory } from 'categories/category.selectors';
 import { transactionActions as actions } from '../transaction.slice';
 import { getTransactionsByDate, getTransactionsLoading } from '../transaction.selectors';
 import TransactionItem from './TransactionItem';
@@ -25,12 +24,12 @@ const useStyles = makeStyles(
   { name: TransactionList.name },
 );
 
-function useTransactionsByCategory(categoryId) {
+function useTransactions() {
   const dispatch = useDispatch();
   useEffect(
     () => {
-      dispatch(actions.fetchStart(categoryId));
-    }, [dispatch, categoryId],
+      dispatch(actions.fetchStart());
+    }, [dispatch],
   );
   const { dates, itemsByDate } = useSelector(state => getTransactionsByDate(state));
   const loading = useSelector(state => getTransactionsLoading(state));
@@ -38,18 +37,15 @@ function useTransactionsByCategory(categoryId) {
 }
 
 export function TransactionList() {
-  const categoryId = useCategoryFromUrl();
-  const category = useSelector(
-    state => getCategoryById(state, { id: categoryId }),
-  ) || {};
+  const category = useSelector(getActiveCategory);
 
   const classes = useStyles();
-  const { dates, itemsByDate, loading } = useTransactionsByCategory(categoryId);
+  const { dates, itemsByDate, loading } = useTransactions();
 
   return (
     <div className={classes.container}>
       <Typography variant="h4" className={classes.title}>
-        {category.name || 'All transactions'}
+        {category.name}
       </Typography>
       { loading
         ? <LinearProgress className={classes.loading} />
@@ -65,7 +61,7 @@ export function TransactionList() {
                   <TransactionItem
                     key={item.id}
                     transaction={item}
-                    showCategory={!category.name}
+                    showCategory={!category.id}
                   />
                 ))}
               </List>

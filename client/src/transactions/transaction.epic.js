@@ -1,21 +1,28 @@
 import { combineEpics, ofType } from 'redux-observable';
 import { from, of } from 'rxjs';
-import { switchMap, mergeMap, map, catchError, mapTo } from 'rxjs/operators';
+import { switchMap, mergeMap, map, catchError, mapTo, withLatestFrom } from 'rxjs/operators';
+import { categoryActions } from 'categories/category.slice';
+import { getActiveCategoryId } from 'categories/category.selectors';
 import { raiseError } from '../message/message.actions';
 import { transactionActions as actions } from './transaction.slice';
 import * as api from './transaction.api';
 
-export const transactionsFetchEpic = (actions$) => actions$.pipe(
-  ofType(actions.fetchStart.type),
-  switchMap(
-    ({ payload: categoryId }) => from(api.fetchTransactions({ categoryId })),
-  ),
-  map(actions.fetchSuccess),
-  catchError(() => of(
-    actions.fetchError(),
-    raiseError('Failed to fetch data'),
-  )),
-);
+export const transactionsFetchEpic = (actions$, state$) => {
+  const activeCategory$ = state$.pipe(map(getActiveCategoryId));
+
+  return actions$.pipe(
+    ofType(actions.fetchStart.type, categoryActions.categorySelected.type),
+    withLatestFrom(activeCategory$),
+    switchMap(
+      ([, categoryId]) => from(api.fetchTransactions({ categoryId })),
+    ),
+    map(actions.fetchSuccess),
+    catchError(() => of(
+      actions.fetchError(),
+      raiseError('Failed to fetch data'),
+    )),
+  );
+};
 
 export const addTransactionEpic = (actions$) => {
   const mapFetchToRequest = ({ payload }) => from(api.createTransaction(payload)).pipe(
