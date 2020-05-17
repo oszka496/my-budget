@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import Adapter from 'utils/adapter';
-import { selectCategories } from 'categories/category.selectors';
+import { selectCategories, getActiveCategoryId } from 'categories/category.selectors';
 import { ACTION_STATUS } from 'utils/actions.utils';
 import { groupByDate } from '../utils/datetime.utils';
 
@@ -17,8 +17,15 @@ export const selectTransactionsWithCategories = createSelector(
     transaction => ({ ...transaction, categoryName: transaction.category && categories[transaction.category].name }),
   ),
 );
-
-export const getTransactionsByDate = createSelector(selectTransactionsWithCategories, groupByDate);
+const getTransactionsWithActiveCategory = createSelector(
+  [selectTransactionsWithCategories, getActiveCategoryId],
+  (transactions, activeCategory) => (
+    activeCategory
+      ? transactions.filter((transaction) => transaction.category === activeCategory)
+      : transactions
+  ),
+);
+export const getTransactionsByDate = createSelector(getTransactionsWithActiveCategory, groupByDate);
 
 export const getTransactionsLoading = createSelector(
   getTransactionsState,
