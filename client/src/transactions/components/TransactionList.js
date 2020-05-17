@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { List, Typography, makeStyles, LinearProgress } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getActiveCategory } from 'categories/category.selectors';
-import { transactionActions as actions } from '../transaction.slice';
 import { getTransactionsByDate, getTransactionsLoading } from '../transaction.selectors';
 import TransactionItem from './TransactionItem';
 import { TransactionListSubheader } from './TransactionListSubheader';
@@ -25,12 +24,6 @@ const useStyles = makeStyles(
 );
 
 function useTransactions() {
-  const dispatch = useDispatch();
-  useEffect(
-    () => {
-      dispatch(actions.fetchStart());
-    }, [dispatch],
-  );
   const { dates, itemsByDate } = useSelector(state => getTransactionsByDate(state));
   const loading = useSelector(state => getTransactionsLoading(state));
   return { dates, itemsByDate, loading };
