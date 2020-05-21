@@ -27,7 +27,17 @@ const getTransactionsWithActiveCategory = createSelector(
 );
 export const getTransactionsByDate = createSelector(getTransactionsWithActiveCategory, groupByDate);
 
-export const getTransactionsLoading = createSelector(
+export const getTransactionFetchStatus = createSelector(
   getTransactionsState,
-  ({ fetchStatus }) => fetchStatus === ACTION_STATUS.IN_PROGRESS,
+  ({ fetchStatus }) => fetchStatus,
+);
+
+export const getTransactionsListData = createSelector(
+  [getTransactionFetchStatus, getTransactionsByDate],
+  (fetchStatus, { dates, itemsByDate }) => ({
+    dates,
+    itemsByDate,
+    loading: fetchStatus === ACTION_STATUS.IN_PROGRESS,
+    error: fetchStatus === ACTION_STATUS.ERROR,
+  }),
 );

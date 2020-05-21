@@ -1,5 +1,5 @@
 import { combineEpics, ofType } from 'redux-observable';
-import { from, of } from 'rxjs';
+import { from, of, merge } from 'rxjs';
 import { switchMap, mergeMap, map, catchError, mapTo, withLatestFrom } from 'rxjs/operators';
 import { categoryActions } from 'categories/category.slice';
 import { getActiveCategoryId } from 'categories/category.selectors';
@@ -17,10 +17,15 @@ export const transactionsFetchEpic = (actions$, state$) => {
       ([, categoryId]) => from(api.fetchTransactions({ categoryId })),
     ),
     map(actions.fetchSuccess),
-    catchError(() => of(
-      actions.fetchError(),
-      raiseError('Failed to fetch data'),
-    )),
+    catchError(
+      (_, caught) => merge(
+        of(
+          actions.fetchError(),
+          raiseError('An error occurred when trying to fetch transactions'),
+        ),
+        caught,
+      ),
+    ),
   );
 };
 
