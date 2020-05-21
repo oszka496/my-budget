@@ -1,10 +1,10 @@
 import React from 'react';
-import { List, Typography, makeStyles, LinearProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+import { LinearProgress, makeStyles, Typography } from '@material-ui/core';
 import { getActiveCategory } from 'categories/category.selectors';
 import { getTransactionsByDate, getTransactionsLoading } from '../transaction.selectors';
-import TransactionItem from './TransactionItem';
-import { TransactionListSubheader } from './TransactionListSubheader';
+import { NoTransactionsMessage } from './NoTransactionsMessage';
+import { TransactionEntries } from './TransactionEntries';
 
 const useStyles = makeStyles(
   theme => ({
@@ -35,6 +35,17 @@ export function TransactionList() {
   const classes = useStyles();
   const { dates, itemsByDate, loading } = useTransactions();
 
+  const sortedDates = Array.from(dates).sort().reverse();
+  const loadedContent = sortedDates.length
+    ? (
+      <TransactionEntries
+        sortedDates={sortedDates}
+        itemsByDate={itemsByDate}
+        showCategory={!category.id}
+      />
+    )
+    : <NoTransactionsMessage />;
+
   return (
     <div className={classes.container}>
       <Typography variant="h4" className={classes.title}>
@@ -42,25 +53,7 @@ export function TransactionList() {
       </Typography>
       { loading
         ? <LinearProgress className={classes.loading} />
-        : (
-          <List disablePadding>
-            { Array.from(dates).sort().reverse().map(date => (
-              <List
-                key={date}
-                dense
-                subheader={<TransactionListSubheader title={date} />}
-              >
-                {itemsByDate[date].map(item => (
-                  <TransactionItem
-                    key={item.id}
-                    transaction={item}
-                    showCategory={!category.id}
-                  />
-                ))}
-              </List>
-            )) }
-          </List>
-        )}
+        : loadedContent}
     </div>
   );
 }
